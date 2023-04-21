@@ -7,13 +7,10 @@ Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
 
-  runApp(MaterialApp(
+  runApp(GetMaterialApp(
     title: 'BookmeUP',
     initialRoute: '/',
-    routes: {
-      '/': (context) => CheckAuthScreen(),
-      '/home': (context) => LoginPage(),
-    },
+    routes: {'/': (context) => CheckAuthScreen()},
   ));
 }
 
@@ -36,19 +33,16 @@ class _CheckAuthScreenState extends State<CheckAuthScreen> {
   void checkUser() async {
     User? user = _auth.currentUser;
     if (user != null) {
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => const BookListWidget(),
-        ),
-      );
+      Get.to(() => ReadingStatsWidget(
+            booksReadInMonth: 3,
+            booksRead: [
+              {'title': 'To Kill a Mockingbird', 'pagesRead': 150},
+              {'title': '1984', 'pagesRead': 200},
+              {'title': 'The Catcher in the Rye', 'pagesRead': 100},
+            ],
+          ));
     } else {
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => const WelcomePage(),
-        ),
-      );
+      Get.to(() => WelcomePage());
     }
   }
 

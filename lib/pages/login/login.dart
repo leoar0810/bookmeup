@@ -21,8 +21,14 @@ class _LoginPageState extends State<LoginPage> {
         password: passwordController.text,
       );
       print('User ${userCredential.user!.uid} logged in');
-      Navigator.push(
-          context, MaterialPageRoute(builder: (context) => BookListWidget()));
+      Get.to(() => ReadingStatsWidget(
+            booksReadInMonth: 3,
+            booksRead: [
+              {'title': 'To Kill a Mockingbird', 'pagesRead': 150},
+              {'title': '1984', 'pagesRead': 200},
+              {'title': 'The Catcher in the Rye', 'pagesRead': 100},
+            ],
+          ));
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
         print('No user found for that email.');
