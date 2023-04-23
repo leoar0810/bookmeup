@@ -88,7 +88,7 @@ class _BookListAddWidgetState extends State<BookListAddWidget> {
                                   authorName: 'F. Scott Fitzgerald',
                                   rating: 5,
                                   description:
-                                      'The Great Gatsby is a novel by F. Scott Fitzgerald ...',
+                                      'The Nightingale is a heart-wrenching and captivating historical fiction novel that tells the story of two sisters, Vianne and Isabelle, during World War II in Nazi-occupied France. ',
                                 ),
                               ),
                             );

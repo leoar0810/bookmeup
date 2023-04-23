@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:bookmeup/widgets/navigationbar.dart';
 import 'package:flutter/cupertino.dart';
 
-class BookmeupScreen extends StatelessWidget {
+class AddTrackerScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

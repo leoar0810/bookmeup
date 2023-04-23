@@ -1,5 +1,6 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:bookmeup/widgets/navigationbar.dart';
+import 'package:flutter/cupertino.dart';
 
 class BookAlarmItem extends StatefulWidget {
   final String alarmTime;
@@ -51,40 +52,59 @@ class BookAlarmsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
-        title: const Text('Book Alarms'),
+        backgroundColor: Colors.white,
+        elevation: 0,
+        title: Text(
+          'Book Alarms',
+          style: TextStyle(
+            fontSize: 30,
+            fontWeight: FontWeight.bold,
+            color: Colors.black,
+          ),
+        ),
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back_ios_new),
+          onPressed: () => Navigator.pop(context),
+          color: Colors.black,
+        ),
       ),
-      body: Column(
-        children: [
-          const SizedBox(height: 16.0),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              const SizedBox(width: 16.0),
-              Text(
-                'Establecer recordatorios',
-                style: const TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 20.0,
+      body: Container(
+        padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            SizedBox(height: 20.0),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  'Establecer recordatorios',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 24.0,
+                  ),
                 ),
-              ),
-              IconButton(
-                icon: const Icon(Icons.add),
-                onPressed: () {},
-              ),
-              const SizedBox(width: 16.0),
-            ],
-          ),
-          Expanded(
-            child: ListView.builder(
-              itemCount: 4,
-              itemBuilder: (BuildContext context, int index) {
-                return BookAlarmItem(alarmTime: '8:00 AM', isAlarmOn: true);
-              },
+                IconButton(
+                  icon: Icon(Icons.add),
+                  onPressed: () {},
+                ),
+              ],
             ),
-          ),
-        ],
+            SizedBox(height: 20.0),
+            Expanded(
+              child: ListView.builder(
+                itemCount: 4,
+                itemBuilder: (BuildContext context, int index) {
+                  return BookAlarmItem(alarmTime: '8:00 AM', isAlarmOn: true);
+                },
+              ),
+            ),
+          ],
+        ),
       ),
+      bottomNavigationBar: NavigationBarWidget(2),
     );
   }
 }
