@@ -18,3 +18,6 @@ export 'package:bookmeup/pages/bookdetails/bookdetails.dart'
     show BookDetailsWidget;
 export 'package:bookmeup/pages/bookalarm/bookalarm.dart' show BookAlarmsScreen;
 export 'package:get/get.dart';
+export 'package:bookmeup/pages/coveradd/coveradd.dart' show AddBookScreen;
+export 'package:bookmeup/pages/trackeradd/trackeradd.dart'
+    show AddTrackerScreen;

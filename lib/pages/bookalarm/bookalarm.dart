@@ -25,9 +25,15 @@ class _BookAlarmItemState extends State<BookAlarmItem> {
   @override
   Widget build(BuildContext context) {
     return Card(
-      margin: EdgeInsets.all(8.0),
+      margin: const EdgeInsets.all(8.0),
       child: ListTile(
-        title: Text(widget.alarmTime),
+        title: Text(
+          widget.alarmTime,
+          style: const TextStyle(
+            fontWeight: FontWeight.bold,
+            fontSize: 18.0,
+          ),
+        ),
         trailing: CupertinoSwitch(
           value: isAlarmOn,
           onChanged: (newValue) {
@@ -46,24 +52,27 @@ class BookAlarmsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Book Alarms'),
+        title: const Text('Book Alarms'),
       ),
       body: Column(
         children: [
-          SizedBox(height: 16.0),
+          const SizedBox(height: 16.0),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              SizedBox(width: 16.0),
+              const SizedBox(width: 16.0),
               Text(
                 'Establecer recordatorios',
-                style: TextStyle(fontSize: 20.0),
+                style: const TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 20.0,
+                ),
               ),
               IconButton(
-                icon: Icon(Icons.add),
+                icon: const Icon(Icons.add),
                 onPressed: () {},
               ),
-              SizedBox(width: 16.0),
+              const SizedBox(width: 16.0),
             ],
           ),
           Expanded(

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:bookmeup/widgets/navigationbar.dart';
+import 'package:bookmeup/index.dart';
 
 class BookWidget extends StatefulWidget {
   const BookWidget({Key? key}) : super(key: key);
@@ -25,81 +26,104 @@ class _BookWidgetState extends State<BookWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-          body: Container(
-            padding: const EdgeInsets.all(16.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                Row(
-                  children: [
-                    IconButton(
-                      icon: const Icon(Icons.arrow_back),
-                      onPressed: () {
-                        // Handle back button pressed
-                      },
+    return Scaffold(
+      backgroundColor: Colors.white,
+      body: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  GestureDetector(
+                    onTap: () => Navigator.pop(context),
+                    child: Icon(Icons.arrow_back_ios_new),
+                  ),
+                  Text(
+                    'Bookmeup',
+                    style: TextStyle(
+                      fontSize: 30,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black,
                     ),
-                    const SizedBox(width: 8.0),
-                    const Text(
-                      'Bookmeup',
-                      style: TextStyle(
-                        fontSize: 18.0,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ],
+                  ),
+                  SizedBox(width: 40),
+                ],
+              ),
+              SizedBox(height: 30),
+              Text(
+                'Add Book',
+                style: TextStyle(
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
                 ),
-                const SizedBox(height: 16.0),
-                const SizedBox(height: 16.0),
-                TextField(
-                  controller: _bookNameController,
-                  decoration: const InputDecoration(
-                    hintText: 'Enter book name',
-                    border: OutlineInputBorder(),
+              ),
+              SizedBox(height: 20),
+              TextField(
+                controller: _bookNameController,
+                decoration: InputDecoration(
+                  hintText: 'Enter book name',
+                  border: OutlineInputBorder(),
+                ),
+              ),
+              SizedBox(height: 20),
+              TextField(
+                controller: _authorNameController,
+                decoration: InputDecoration(
+                  hintText: 'Enter author name',
+                  border: OutlineInputBorder(),
+                ),
+              ),
+              SizedBox(height: 20),
+              TextField(
+                controller: _ratingController,
+                decoration: InputDecoration(
+                  hintText: 'Enter rating',
+                  border: OutlineInputBorder(),
+                ),
+                keyboardType: TextInputType.number,
+              ),
+              SizedBox(height: 20),
+              TextField(
+                controller: _descriptionController,
+                decoration: InputDecoration(
+                  hintText: 'Enter book description',
+                  border: OutlineInputBorder(),
+                ),
+              ),
+              SizedBox(height: 20),
+              ElevatedButton(
+                onPressed: () {
+                  final bookName = _bookNameController.text;
+                  final authorName = _authorNameController.text;
+                  final rating = double.tryParse(_ratingController.text) ?? 0.0;
+                  final description = _descriptionController.text;
+                  Get.to(() => AddBookScreen(bookName: 'The Great Gatsby'));
+                },
+                child: Text(
+                  'Add Book',
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
                   ),
                 ),
-                const SizedBox(height: 16.0),
-                TextField(
-                  controller: _authorNameController,
-                  decoration: const InputDecoration(
-                    hintText: 'Enter author name',
-                    border: OutlineInputBorder(),
+                style: ElevatedButton.styleFrom(
+                  primary: Colors.black,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20),
                   ),
+                  minimumSize: Size(double.infinity, 60),
                 ),
-                const SizedBox(height: 16.0),
-                TextField(
-                  controller: _ratingController,
-                  decoration: const InputDecoration(
-                    hintText: 'Enter rating',
-                    border: OutlineInputBorder(),
-                  ),
-                  keyboardType: TextInputType.number,
-                ),
-                const SizedBox(height: 16.0),
-                TextField(
-                  controller: _descriptionController,
-                  decoration: const InputDecoration(
-                    hintText: 'Enter book description',
-                    border: OutlineInputBorder(),
-                  ),
-                ),
-                const SizedBox(height: 16.0),
-                ElevatedButton.icon(
-                  onPressed: () {
-                    final bookName = _bookNameController.text;
-                    final authorName = _authorNameController.text;
-                    final rating =
-                        double.tryParse(_ratingController.text) ?? 0.0;
-                    final description = _descriptionController.text;
-                  },
-                  icon: const Icon(Icons.add),
-                  label: const Text('Add'),
-                ),
-              ],
-            ),
+              ),
+              Spacer(),
+              SizedBox(height: 20),
+              NavigationBarWidget(2),
+            ],
           ),
-          bottomNavigationBar: NavigationBarWidget(4)),
+        ),
+      ),
     );
   }
 }
