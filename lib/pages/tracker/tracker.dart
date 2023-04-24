@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:bookmeup/index.dart';
 
 class ReadingDashboardWidget extends StatelessWidget {
+  final miController = GeneralController.to;
   final int daysOfReading;
   final List<String> rankedBooks;
   final List<String> booksToRead;

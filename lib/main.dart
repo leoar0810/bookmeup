@@ -2,11 +2,15 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:bookmeup/index.dart';
+import 'package:bookmeup/controllers/generalcontroller.dart';
+
+final db = SqliteService();
 
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-
+  Get.put(GeneralController());
+  db.initializeDB();
   runApp(GetMaterialApp(
     title: 'BookmeUP',
     initialRoute: '/',

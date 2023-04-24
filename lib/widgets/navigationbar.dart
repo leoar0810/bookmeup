@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:bookmeup/index.dart';
 import 'package:bookmeup/helpers/book.dart';
+import 'package:bookmeup/pages/showremote.dart';
 
 class NavigationBarWidget extends StatelessWidget {
   final int _index;
@@ -70,16 +71,7 @@ class NavigationBarWidget extends StatelessWidget {
             )
           }
         else if (index == 3)
-          {
-            Get.to(() => ReadingStatsWidget(
-                  booksReadInMonth: 3,
-                  booksRead: const [
-                    {'title': 'To Kill a Mockingbird', 'pagesRead': 150},
-                    {'title': '1984', 'pagesRead': 200},
-                    {'title': 'The Catcher in the Rye', 'pagesRead': 100},
-                  ],
-                ))
-          }
+          {Get.to(() => ShowRemote())}
         else if (index == 4)
           {Get.to(() => UserProfileWidget())},
       },

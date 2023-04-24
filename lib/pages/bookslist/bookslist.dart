@@ -17,26 +17,42 @@ class BookListAddWidget extends StatefulWidget {
 }
 
 class _BookListAddWidgetState extends State<BookListAddWidget> {
+  int starts = 0;
+  GeneralController generalController = Get.find();
+
+  void getstars() async {
+    final int numberstars = await generalController.booksUser
+        .where((element) => element.bookid == 1)
+        .first
+        .starts;
+    starts = numberstars;
+  }
+
   @override
   Widget build(BuildContext context) {
+    getstars();
+
     return Scaffold(
       body: ListView.builder(
-        itemCount: widget.books.length,
+        itemCount: generalController.books.length,
         itemBuilder: (BuildContext context, int index) {
           return ListTile(
-            title: Text(widget.books[index].title),
-            subtitle: Text(widget.books[index].author),
+            title: Text(generalController.books[index].title),
+            subtitle: Text(generalController.books[index].author),
             trailing: Row(
               mainAxisSize: MainAxisSize.min,
               children: [
                 Checkbox(
-                  value: widget.selectedBooks.contains(widget.books[index]),
+                  value: generalController.books
+                      .contains(generalController.books[index]),
                   onChanged: (bool? value) {
                     setState(() {
                       if (value != null && value) {
-                        widget.selectedBooks.add(widget.books[index]);
+                        generalController.books
+                            .add(generalController.books[index]);
                       } else {
-                        widget.selectedBooks.remove(widget.books[index]);
+                        generalController.books
+                            .remove(generalController.books[index]);
                       }
                     });
                   },
@@ -44,7 +60,8 @@ class _BookListAddWidgetState extends State<BookListAddWidget> {
                 IconButton(
                   onPressed: () {
                     setState(() {
-                      widget.selectedBooks.remove(widget.books[index]);
+                      generalController.books
+                          .remove(generalController.books[index]);
                     });
                   },
                   icon: Icon(Icons.delete),
@@ -55,7 +72,7 @@ class _BookListAddWidgetState extends State<BookListAddWidget> {
               () => BookDetailsWidget(
                 bookName: 'The Great Gatsby',
                 authorName: 'F. Scott Fitzgerald',
-                rating: 5,
+                rating: starts,
                 description:
                     'The Great Gatsby is a novel by F. Scott Fitzgerald ...',
               ),
