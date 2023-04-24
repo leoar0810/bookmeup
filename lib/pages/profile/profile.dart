@@ -1,7 +1,7 @@
-import 'package:bookmeup/index.dart';
 import 'package:flutter/material.dart';
-import 'package:sqflite/sqflite.dart';
 import 'package:bookmeup/widgets/navigationbar.dart';
+import 'package:sqflite/sqflite.dart';
+import 'package:bookmeup/index.dart';
 
 class UserProfileWidget extends StatefulWidget {
   const UserProfileWidget({Key? key}) : super(key: key);
@@ -29,62 +29,156 @@ class _UserProfileWidgetState extends State<UserProfileWidget> {
     setState(() {
       // Set the state of the widget with the loaded data
       _username = "John Doe";
-      _description = "This is my description";
+      _description =
+          "Una persona apasionada por la lectura suele ser alguien que disfruta de sumergirse en historias y conocimientos a través de libros y otros materiales de lectura";
       _photoUrl =
-          "https://w7.pngwing.com/pngs/81/570/png-transparent-profile-logo-computer-icons-user-user-blue-heroes-logo-thumbnail.png";
+          "https://i.pinimg.com/originals/a6/58/32/a65832155622ac173337874f02b218fb.png";
     });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        children: [
-          // User photo
-          Image.network(_photoUrl),
-          // User name and description
-          Text(_username),
-          Text(_description),
-          // Buttons
-          Row(
-            children: [
-              // Marks button
-              IconButton(
-                onPressed: () {},
-                icon: Icon(Icons.star_border),
+      body: SafeArea(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            SizedBox(height: 30),
+            Text(
+              'Bookmeup',
+              style: TextStyle(
+                fontSize: 30,
+                fontWeight: FontWeight.bold,
+                color: Colors.black,
               ),
-              // Tracker button
-              IconButton(
-                onPressed: () {},
-                icon: Icon(Icons.track_changes),
+            ),
+            SizedBox(height: 30),
+            Stack(
+              alignment: Alignment.center,
+              children: [
+                Container(
+                  height: 150,
+                  width: 250,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.grey.withOpacity(0.5),
+                        spreadRadius: 5,
+                        blurRadius: 7,
+                        offset: Offset(0, 3),
+                      ),
+                    ],
+                    gradient: LinearGradient(
+                      colors: [
+                        Color.fromARGB(255, 10, 13, 218),
+                        Color.fromARGB(255, 111, 160, 252)
+                      ],
+                      begin: Alignment.topLeft,
+                      end: Alignment.bottomRight,
+                    ),
+                  ),
+                ),
+                CircleAvatar(
+                  radius: 60,
+                  backgroundImage: NetworkImage(_photoUrl),
+                ),
+              ],
+            ),
+            SizedBox(height: 20),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: Card(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        _username,
+                        style: TextStyle(
+                          fontSize: 24,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      SizedBox(height: 10),
+                      Text(
+                        _description,
+                        style: TextStyle(fontSize: 16),
+                      ),
+                    ],
+                  ),
+                ),
               ),
-              // Highlight button
-              IconButton(
-                onPressed: () {},
-                icon: Icon(Icons.highlight),
+            ),
+            SizedBox(height: 30),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: Card(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    SizedBox(height: 10),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        _buildIconButton(
+                            Icons.bookmark, 'Bookmark', () => print('')),
+                        _buildIconButton(
+                            Icons.track_changes, 'Tracker', () => print('')),
+                        _buildIconButton(
+                            Icons.highlight, 'Highlights', () => print('')),
+                      ],
+                    ),
+                    SizedBox(height: 20),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        _buildIconButton(
+                            Icons.favorite, 'Favorites', () => print('')),
+                        _buildIconButton(Icons.note, 'Notes', () => print('')),
+                        _buildIconButton(Icons.access_alarm, 'Alarm',
+                            () => Get.to(() => BookAlarmsScreen())),
+                      ],
+                    ),
+                    SizedBox(height: 20),
+                  ],
+                ),
               ),
-              // Favorites button
-              IconButton(
-                onPressed: () {},
-                icon: Icon(Icons.favorite_border),
-              ),
-              // Notes button
-              IconButton(
-                onPressed: () {},
-                icon: Icon(Icons.notes),
-              ),
-              // Configuration button
-              IconButton(
-                onPressed: () {
-                  Get.to(() => BookAlarmsScreen());
-                },
-                icon: Icon(Icons.settings),
-              ),
-            ],
-          ),
-        ],
+            )
+          ],
+        ),
       ),
       bottomNavigationBar: NavigationBarWidget(4),
+    );
+  }
+
+  Widget _buildIconButton(
+      IconData iconData, String text, VoidCallback onPressed) {
+    return Column(
+      children: [
+        IconButton(
+          onPressed: () {
+            onPressed();
+          },
+          icon: Icon(
+            iconData,
+            size: 20,
+            color: Colors.blue,
+          ),
+        ),
+        SizedBox(height: 0),
+        Text(
+          text,
+          style: TextStyle(fontSize: 12),
+        ),
+      ],
     );
   }
 }

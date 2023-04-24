@@ -1,6 +1,5 @@
-import 'package:bookmeup/widgets/navigationbar.dart';
 import 'package:flutter/material.dart';
-import 'package:bookmeup/index.dart';
+import 'package:bookmeup/widgets/navigationbar.dart';
 
 class ReadingDashboardWidget extends StatelessWidget {
   final int daysOfReading;
@@ -17,139 +16,141 @@ class ReadingDashboardWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final List<Widget> _pages = [
-      ReadingStatsWidget(
-        booksReadInMonth: 3,
-        booksRead: const [
-          {'title': 'To Kill a Mockingbird', 'pagesRead': 150},
-          {'title': '1984', 'pagesRead': 200},
-          {'title': 'The Catcher in the Rye', 'pagesRead': 100},
-        ],
-      ),
-      ReadingDashboardWidget(
-        booksToRank: [],
-        booksToRead: [],
-        rankedBooks: [],
-        daysOfReading: 1,
-      ),
-      const WelcomePage(),
-    ];
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
-        title: Text('Reading Dashboard'),
+        backgroundColor: Colors.white,
+        elevation: 0,
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back_ios),
+          color: Colors.black,
+          onPressed: () {},
+        ),
+        title: Text(
+          'Bookmeup',
+          style: TextStyle(
+            color: Colors.black,
+            fontWeight: FontWeight.bold,
+            fontSize: 30.0,
+          ),
+        ),
       ),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          Expanded(
-            child: Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+      body: SafeArea(
+        child: Container(
+          margin: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                'Días de lectura',
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              SizedBox(height: 10),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(
-                    'Days of Reading',
-                    style: TextStyle(fontSize: 18.0),
-                  ),
-                  SizedBox(height: 8.0),
                   Text(
                     '$daysOfReading',
                     style: TextStyle(fontSize: 36.0),
                   ),
-                  SizedBox(height: 16.0),
+                  SizedBox(height: 20),
+                ],
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
                   Text(
-                    'Ranked Books',
-                    style: TextStyle(fontSize: 18.0),
+                    'Número de libros rankeados',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
-                  SizedBox(height: 8.0),
-                  Expanded(
-                    child: ListView.builder(
-                      itemCount: rankedBooks.length,
-                      itemBuilder: (context, index) {
-                        return ListTile(
-                          title: Text(rankedBooks[index]),
-                        );
-                      },
+                  Text(
+                    rankedBooks.length.toString(),
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
                     ),
                   ),
                 ],
               ),
-            ),
-          ),
-          SizedBox(
-            height: 200.0,
-            child: Row(
-              children: [
-                Expanded(
-                  child: Card(
-                    margin: const EdgeInsets.all(16.0),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          'Books to Read',
-                          style: TextStyle(fontSize: 18.0),
+              SizedBox(height: 40),
+              Expanded(
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: Container(
+                        margin: EdgeInsets.only(right: 10, bottom: 50, top: 50),
+                        padding:
+                            EdgeInsets.symmetric(horizontal: 20, vertical: 30),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          color: Colors.blue[50],
                         ),
-                        SizedBox(height: 8.0),
-                        Text(
-                          '${booksToRead.length}',
-                          style: TextStyle(fontSize: 36.0),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              'Porcentaje de libros por leer',
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            SizedBox(height: 20),
+                            Text(
+                              '25%',
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 30,
+                                color: Colors.blue,
+                              ),
+                            ),
+                          ],
                         ),
-                      ],
+                      ),
                     ),
-                  ),
-                ),
-                Expanded(
-                  child: Card(
-                    margin: const EdgeInsets.all(16.0),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          'Books to Rank',
-                          style: TextStyle(fontSize: 18.0),
+                    Expanded(
+                      child: Container(
+                        margin: EdgeInsets.only(left: 10, bottom: 50, top: 50),
+                        padding:
+                            EdgeInsets.symmetric(horizontal: 20, vertical: 30),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          color: Colors.purple[50],
                         ),
-                        SizedBox(height: 8.0),
-                        Text(
-                          '${booksToRank.length}',
-                          style: TextStyle(fontSize: 36.0),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              'Porcentaje de libros por rankear',
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            SizedBox(height: 20),
+                            Text(
+                              '75%',
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 30,
+                                color: Colors.purple,
+                              ),
+                            ),
+                          ],
                         ),
-                      ],
+                      ),
                     ),
-                  ),
+                  ],
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
-          Container(
-            height: 300.0,
-            margin: const EdgeInsets.all(16.0),
-            decoration: BoxDecoration(
-              color: Colors.grey[200],
-              borderRadius: BorderRadius.circular(16.0),
-            ),
-            child: IconButton(
-                onPressed: () => {
-                      Get.to(() => FrequencyStatsWidget(
-                            lectureTime: 120,
-                            pagesRead: 50,
-                            continuousDaysReading: 7,
-                            minutesReadingByDayOfWeek: [
-                              30,
-                              40,
-                              20,
-                              50,
-                              60,
-                              45,
-                              35
-                            ],
-                          ))
-                    },
-                icon: Icon(Icons.add)),
-          ),
-        ],
+        ),
       ),
-      bottomNavigationBar: NavigationBarWidget(1),
+      bottomNavigationBar: NavigationBarWidget(2),
     );
   }
 }

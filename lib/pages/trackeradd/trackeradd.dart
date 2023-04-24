@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:bookmeup/widgets/navigationbar.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:bookmeup/index.dart';
 
 class AddTrackerScreen extends StatelessWidget {
   @override
@@ -53,7 +54,14 @@ class AddTrackerScreen extends StatelessWidget {
                           ),
                           SizedBox(height: 20),
                           ElevatedButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              Get.to(() => ReadingDashboardWidget(
+                                    booksToRank: [],
+                                    booksToRead: [],
+                                    rankedBooks: [],
+                                    daysOfReading: 1,
+                                  ));
+                            },
                             child: Text(
                               'Start Tracker',
                               style: TextStyle(

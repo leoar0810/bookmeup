@@ -104,7 +104,7 @@ class BookAlarmsScreen extends StatelessWidget {
           ],
         ),
       ),
-      bottomNavigationBar: NavigationBarWidget(2),
+      bottomNavigationBar: NavigationBarWidget(4),
     );
   }
 }

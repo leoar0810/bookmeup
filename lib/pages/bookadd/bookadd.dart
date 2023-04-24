@@ -117,13 +117,11 @@ class _BookWidgetState extends State<BookWidget> {
                   minimumSize: Size(double.infinity, 60),
                 ),
               ),
-              Spacer(),
-              SizedBox(height: 20),
-              NavigationBarWidget(2),
             ],
           ),
         ),
       ),
+      bottomNavigationBar: NavigationBarWidget(2),
     );
   }
 }
