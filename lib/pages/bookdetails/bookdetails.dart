@@ -1,5 +1,7 @@
+import 'package:bookmeup/index.dart';
 import 'package:flutter/material.dart';
 import 'package:bookmeup/widgets/navigationbar.dart';
+import 'package:bookmeup/helpers/book.dart';
 
 class BookDetailsWidget extends StatelessWidget {
   final String bookName;
@@ -16,6 +18,13 @@ class BookDetailsWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    List<Book> _allBooks = [
+      Book('Book 1', 'Author 1'),
+      Book('Book 2', 'Author 2'),
+      Book('Book 3', 'Author 3'),
+      Book('Book 4', 'Author 4'),
+    ];
+    List<Book> _selectedBooks = [];
     return Scaffold(
       backgroundColor: Colors.white,
       body: SafeArea(
@@ -111,7 +120,10 @@ class BookDetailsWidget extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center, // Updated
                   children: [
                     ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Get.to(BookListAddWidget(
+                            books: _allBooks, selectedBooks: _selectedBooks));
+                      },
                       child: Text(
                         'Add to list',
                         style: TextStyle(
