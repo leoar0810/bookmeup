@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:bookmeup/db/models/album.dart';
 import 'package:bookmeup/datasources/remote/remote_datasource.dart';
+import 'package:bookmeup/widgets/navigationbar.dart';
 
 class ShowRemote extends StatefulWidget {
   const ShowRemote({super.key});
@@ -44,6 +45,7 @@ class _ShowRemoteState extends State<ShowRemote> {
             },
           ),
         ),
+        bottomNavigationBar: NavigationBarWidget(3),
       ),
     );
   }

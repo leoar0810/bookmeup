@@ -12,9 +12,8 @@ Future main() async {
   Get.put(GeneralController());
   db.initializeDB();
   runApp(GetMaterialApp(
-    title: 'BookmeUP',
-    initialRoute: '/',
-    routes: {'/': (context) => CheckAuthScreen()},
+    home: CheckAuthScreen(),
+    debugShowCheckedModeBanner: false,
   ));
 }
 

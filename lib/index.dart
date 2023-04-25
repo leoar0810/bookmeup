@@ -30,3 +30,12 @@ export 'package:bookmeup/db/sqlite_service.dart' show SqliteService;
 
 //package exports
 export 'package:get/get.dart';
+export 'package:bookmeup/pages/coveradd/coveradd.dart' show AddBookScreen;
+export 'package:bookmeup/pages/trackeradd/trackeradd.dart'
+    show AddTrackerScreen;
+
+//helpers exports
+export 'package:bookmeup/helpers/calculator.dart' show Calculator;
+
+//import get instance
+import 'package:shared_preferences/shared_preferences.dart';

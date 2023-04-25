@@ -14,7 +14,7 @@ class SqliteService {
     String path = await getDatabasesPath();
 
     return openDatabase(
-      join(path, 'database3.db'),
+      join(path, 'database5.db'),
       onCreate: (database, version) async {
         await database.execute(
           "CREATE TABLE Users(id INTEGER PRIMARY KEY AUTOINCREMENT,  name TEXT, username TEXT, password TEXT, description TEXT NOT NULL)",
@@ -35,7 +35,7 @@ class SqliteService {
           "Insert INTO Users(name, username, password, description) VALUES('Admin', 'admin name', 'admin', 'I am Admin')",
         );
         await database.execute(
-          "INSERT INTO Books(title, author, ISBN, description, cover, pages) VALUES('The Lord of the Rings', 'J. R. R. Tolkien', '978-0-618-57498-5', 'The Lord of the Rings is an epic high-fantasy novel written by English author and scholar J. R. R. Tolkien. The story began as a sequel to Tolkien''s 1937 fantasy novel The Hobbit, but eventually developed into a much larger work. Written in stages between 1937 and 1949, The Lord of the Rings is one of the best-selling novels ever written, with over 150 million copies sold.', 'https://images-na.ssl-images-amazon.com/images/I/51%2B1s%2B1FdgL._SX331_BO1,204,203,200_.jpg', 1178)",
+          "INSERT INTO Books(title, author, ISBN, description, cover, pages) VALUES('The Lord of the Rings', 'J. R. R. Tolkien', '978-0-618-57498-5', 'The Lord of the Rings is an ezic high-fantasy novel written by English author and scholar J. R. R. Tolkien. The story began as a sequel to Tolkien''s.', 'https://images-na.ssl-images-amazon.com/images/I/51%2B1s%2B1FdgL._SX331_BO1,204,203,200_.jpg', 1178)",
         );
         await database.execute(
           "INSERT INTO BooksUsers(userid, bookid, starts, pages, toread, status) VALUES(1, 1, 5, 0, 0, 0)",

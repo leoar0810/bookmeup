@@ -1,19 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:bookmeup/widgets/navigationbar.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:bookmeup/index.dart';
 
-class BookDetailsWidget extends StatelessWidget {
-  final String bookName;
-  final String authorName;
-  final int rating;
-  final String description;
-
-  BookDetailsWidget({
-    required this.bookName,
-    required this.authorName,
-    required this.rating,
-    required this.description,
-  });
-
+class AddTrackerScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -42,10 +32,10 @@ class BookDetailsWidget extends StatelessWidget {
                     SizedBox(width: 40),
                   ],
                 ),
-                SizedBox(height: 25),
+                SizedBox(height: 30),
                 Center(
                   child: SizedBox(
-                    height: 300,
+                    height: 400,
                     child: Container(
                       decoration: BoxDecoration(
                         color: Colors.grey[200],
@@ -56,80 +46,80 @@ class BookDetailsWidget extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: [
                           Text(
-                            bookName,
+                            'New Reading?',
                             style: TextStyle(
                               fontSize: 24,
                               fontWeight: FontWeight.bold,
                             ),
                           ),
                           SizedBox(height: 20),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                'Author: $authorName',
-                                style: TextStyle(
-                                  fontSize: 18,
-                                ),
+                          ElevatedButton(
+                            onPressed: () {
+                              Get.to(() => ReadingDashboardWidget(
+                                    booksToRank: [],
+                                    booksToRead: [],
+                                    rankedBooks: [],
+                                    daysOfReading: 1,
+                                  ));
+                            },
+                            child: Text(
+                              'Start Tracker',
+                              style: TextStyle(
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold,
                               ),
-                              Row(
-                                children: List.generate(
-                                  rating,
-                                  (index) => Icon(
-                                    Icons.star,
-                                    color: Colors.amber,
-                                    size: 18,
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                          SizedBox(height: 20),
-                          Text(
-                            'Description:',
-                            style: TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold,
                             ),
-                          ),
-                          SizedBox(height: 8),
-                          Text(
-                            description,
-                            style: TextStyle(
-                              fontSize: 18,
+                            style: ElevatedButton.styleFrom(
+                              primary: Colors.black,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(20),
+                              ),
+                              minimumSize: Size(200, 60),
                             ),
                           ),
                           Spacer(),
                           SizedBox(height: 20),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                'Have you read it yet?',
+                                style: TextStyle(
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              ElevatedButton(
+                                onPressed: () {},
+                                child: Text(
+                                  'Review',
+                                  style: TextStyle(
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                                style: ElevatedButton.styleFrom(
+                                  primary: Colors.black,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(20),
+                                  ),
+                                  minimumSize: Size(120, 60),
+                                ),
+                              ),
+                            ],
+                          ),
+                          IconButton(
+                            icon: Icon(
+                              Icons.star_border,
+                              size: 40,
+                            ),
+                            onPressed: () {},
+                          ),
                         ],
                       ),
                     ),
                   ),
                 ),
-                Spacer(),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center, // Updated
-                  children: [
-                    ElevatedButton(
-                      onPressed: () {},
-                      child: Text(
-                        'Add to list',
-                        style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      style: ElevatedButton.styleFrom(
-                        primary: Colors.black,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20),
-                        ),
-                        minimumSize: Size(120, 60),
-                      ),
-                    ),
-                  ],
-                ),
-                Spacer(),
               ],
             ),
           ),

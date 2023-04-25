@@ -84,6 +84,18 @@ class Calculator {
     return booksUserList;
   }
 
+  // function that calculate the number of pages readed of a book of a particular userid
+  static int calculatePagesReadedBook(
+      List<BooksUserModel> booksUser, int userId, int bookId) {
+    int pagesReaded = 0;
+    for (BooksUserModel bookUser in booksUser) {
+      if (bookUser.userid == userId && bookUser.bookid == bookId) {
+        pagesReaded += bookUser.pages;
+      }
+    }
+    return pagesReaded;
+  }
+
   //function that calculate the time of lecture of a particular userid
   static int calculateTimeReading(
       List<TimeReadingModel> timeReading, int userId) {

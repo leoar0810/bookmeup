@@ -1,5 +1,6 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:bookmeup/widgets/navigationbar.dart';
+import 'package:flutter/cupertino.dart';
 
 class BookAlarmItem extends StatefulWidget {
   final String alarmTime;
@@ -25,9 +26,15 @@ class _BookAlarmItemState extends State<BookAlarmItem> {
   @override
   Widget build(BuildContext context) {
     return Card(
-      margin: EdgeInsets.all(8.0),
+      margin: const EdgeInsets.all(8.0),
       child: ListTile(
-        title: Text(widget.alarmTime),
+        title: Text(
+          widget.alarmTime,
+          style: const TextStyle(
+            fontWeight: FontWeight.bold,
+            fontSize: 18.0,
+          ),
+        ),
         trailing: CupertinoSwitch(
           value: isAlarmOn,
           onChanged: (newValue) {
@@ -45,37 +52,59 @@ class BookAlarmsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
-        title: Text('Book Alarms'),
-      ),
-      body: Column(
-        children: [
-          SizedBox(height: 16.0),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              SizedBox(width: 16.0),
-              Text(
-                'Establecer recordatorios',
-                style: TextStyle(fontSize: 20.0),
-              ),
-              IconButton(
-                icon: Icon(Icons.add),
-                onPressed: () {},
-              ),
-              SizedBox(width: 16.0),
-            ],
+        backgroundColor: Colors.white,
+        elevation: 0,
+        title: Text(
+          'Book Alarms',
+          style: TextStyle(
+            fontSize: 30,
+            fontWeight: FontWeight.bold,
+            color: Colors.black,
           ),
-          Expanded(
-            child: ListView.builder(
-              itemCount: 4,
-              itemBuilder: (BuildContext context, int index) {
-                return BookAlarmItem(alarmTime: '8:00 AM', isAlarmOn: true);
-              },
+        ),
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back_ios_new),
+          onPressed: () => Navigator.pop(context),
+          color: Colors.black,
+        ),
+      ),
+      body: Container(
+        padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            SizedBox(height: 20.0),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  'Establecer recordatorios',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 24.0,
+                  ),
+                ),
+                IconButton(
+                  icon: Icon(Icons.add),
+                  onPressed: () {},
+                ),
+              ],
             ),
-          ),
-        ],
+            SizedBox(height: 20.0),
+            Expanded(
+              child: ListView.builder(
+                itemCount: 4,
+                itemBuilder: (BuildContext context, int index) {
+                  return BookAlarmItem(alarmTime: '8:00 AM', isAlarmOn: true);
+                },
+              ),
+            ),
+          ],
+        ),
       ),
+      bottomNavigationBar: NavigationBarWidget(4),
     );
   }
 }
