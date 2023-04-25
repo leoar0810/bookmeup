@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:bookmeup/widgets/navigationbar.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:bookmeup/index.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:bookmeup/index.dart';
 
 class UserProfileWidget extends StatefulWidget {
   const UserProfileWidget({Key? key}) : super(key: key);
@@ -36,22 +38,41 @@ class _UserProfileWidgetState extends State<UserProfileWidget> {
     });
   }
 
+  void _signOut() async {
+    await FirebaseAuth.instance.signOut();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        centerTitle: true,
+        title: const Text(
+          'Bookmeup',
+          style: TextStyle(
+            fontSize: 30,
+            fontWeight: FontWeight.bold,
+            color: Colors.black,
+          ),
+        ),
+        actions: [
+          IconButton(
+            onPressed: () {
+              _signOut();
+              Get.to(() => WelcomePage());
+            },
+            icon: Icon(
+              Icons.exit_to_app,
+              color: Colors.black,
+            ),
+          ),
+        ],
+      ),
       body: SafeArea(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            SizedBox(height: 30),
-            Text(
-              'Bookmeup',
-              style: TextStyle(
-                fontSize: 30,
-                fontWeight: FontWeight.bold,
-                color: Colors.black,
-              ),
-            ),
             SizedBox(height: 30),
             Stack(
               alignment: Alignment.center,
@@ -128,21 +149,29 @@ class _UserProfileWidgetState extends State<UserProfileWidget> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
+                        _buildIconButton(Icons.bookmark, 'Bookmark',
+                            () => Get.to(BookmarkWidget())),
                         _buildIconButton(
-                            Icons.bookmark, 'Bookmark', () => print('')),
-                        _buildIconButton(
-                            Icons.track_changes, 'Tracker', () => print('')),
-                        _buildIconButton(
-                            Icons.highlight, 'Highlights', () => print('')),
+                            Icons.track_changes,
+                            'Tracker',
+                            () => Get.to(() => ReadingDashboardWidget(
+                                  booksToRank: [],
+                                  booksToRead: [],
+                                  rankedBooks: [],
+                                  daysOfReading: 1,
+                                ))),
+                        _buildIconButton(Icons.highlight, 'Highlights',
+                            () => Get.to(HighlightWidget())),
                       ],
                     ),
                     SizedBox(height: 20),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
+                        _buildIconButton(Icons.favorite, 'Favorites',
+                            () => Get.to(FavoriteWidget())),
                         _buildIconButton(
-                            Icons.favorite, 'Favorites', () => print('')),
-                        _buildIconButton(Icons.note, 'Notes', () => print('')),
+                            Icons.note, 'Notes', () => Get.to(NoteWidget())),
                         _buildIconButton(Icons.access_alarm, 'Alarm',
                             () => Get.to(() => BookAlarmsScreen())),
                       ],

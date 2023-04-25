@@ -35,7 +35,7 @@ class AddBookScreen extends StatelessWidget {
             ),
             SizedBox(height: 20),
             Text(
-              'Añadiste el libro $bookName',
+              'You added the book $bookName',
               style: TextStyle(
                 fontSize: 16,
                 color: Colors.black,
@@ -86,7 +86,7 @@ class AddBookScreen extends StatelessWidget {
                 );
               },
               child: Text(
-                'Omitir',
+                'Skip',
                 style: TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.bold,

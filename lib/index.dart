@@ -21,3 +21,9 @@ export 'package:get/get.dart';
 export 'package:bookmeup/pages/coveradd/coveradd.dart' show AddBookScreen;
 export 'package:bookmeup/pages/trackeradd/trackeradd.dart'
     show AddTrackerScreen;
+export 'package:bookmeup/pages/trending/trending.dart' show TrendingWidget;
+export 'package:bookmeup/pages/friend/friend.dart' show FriendWidget;
+export 'package:bookmeup/pages/bookmark/bookmark.dart' show BookmarkWidget;
+export 'package:bookmeup/pages/highlight/highlight.dart' show HighlightWidget;
+export 'package:bookmeup/pages/favorite/favorite.dart' show FavoriteWidget;
+export 'package:bookmeup/pages/note/note.dart' show NoteWidget;

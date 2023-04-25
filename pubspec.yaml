@@ -46,6 +46,7 @@ dependencies:
   sqflite: ^2.2.7
   date_range_picker: ^1.0.7
   table_calendar: ^3.0.8
+  fluttertoast: ^8.2.1
 
 dev_dependencies:
   flutter_test:

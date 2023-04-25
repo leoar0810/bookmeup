@@ -24,7 +24,7 @@ class ReadingDashboardWidget extends StatelessWidget {
         leading: IconButton(
           icon: Icon(Icons.arrow_back_ios),
           color: Colors.black,
-          onPressed: () {},
+          onPressed: () => Navigator.pop(context),
         ),
         title: Text(
           'Bookmeup',
@@ -42,7 +42,7 @@ class ReadingDashboardWidget extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                'Días de lectura',
+                'Days of reading',
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
                 ),
@@ -62,7 +62,7 @@ class ReadingDashboardWidget extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    'Número de libros rankeados',
+                    'Number of ranked books',
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                     ),
@@ -92,7 +92,7 @@ class ReadingDashboardWidget extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Text(
-                              'Porcentaje de libros por leer',
+                              'books to read',
                               textAlign: TextAlign.center,
                               style: TextStyle(
                                 fontWeight: FontWeight.bold,
@@ -124,7 +124,7 @@ class ReadingDashboardWidget extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Text(
-                              'Porcentaje de libros por rankear',
+                              'books to rank',
                               textAlign: TextAlign.center,
                               style: TextStyle(
                                 fontWeight: FontWeight.bold,

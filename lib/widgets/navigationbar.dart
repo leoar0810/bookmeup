@@ -54,14 +54,7 @@ class NavigationBarWidget extends StatelessWidget {
                 ))
           }
         else if (index == 1)
-          {
-            Get.to(() => ReadingDashboardWidget(
-                  booksToRank: [],
-                  booksToRead: [],
-                  rankedBooks: [],
-                  daysOfReading: 1,
-                ))
-          }
+          {Get.to(() => TrendingWidget())}
         else if (index == 2)
           {
             Get.to(
@@ -70,16 +63,7 @@ class NavigationBarWidget extends StatelessWidget {
             )
           }
         else if (index == 3)
-          {
-            Get.to(() => ReadingStatsWidget(
-                  booksReadInMonth: 3,
-                  booksRead: const [
-                    {'title': 'To Kill a Mockingbird', 'pagesRead': 150},
-                    {'title': '1984', 'pagesRead': 200},
-                    {'title': 'The Catcher in the Rye', 'pagesRead': 100},
-                  ],
-                ))
-          }
+          {Get.to(() => FriendWidget())}
         else if (index == 4)
           {Get.to(() => UserProfileWidget())},
       },
