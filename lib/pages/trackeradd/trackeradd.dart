@@ -90,7 +90,12 @@ class AddTrackerScreen extends StatelessWidget {
                                 ),
                               ),
                               ElevatedButton(
-                                onPressed: () {},
+                                onPressed: () {
+                                  Get.to(RankbookScreen(
+                                    imageUrl:
+                                        'https://i.pinimg.com/originals/34/6a/1f/346a1f4363e1b59f6860fdce6abc1082.jpg',
+                                  ));
+                                },
                                 child: Text(
                                   'Review',
                                   style: TextStyle(
