@@ -36,39 +36,81 @@ class _SignupPageState extends State<SignupPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
-        title: Text('BookmeUP Signup'),
+        backgroundColor: Colors.white,
+        elevation: 0,
+        title: Text(
+          'BookmeUP Signup',
+          style: Theme.of(context).textTheme.headline6,
+        ),
       ),
-      body: Padding(
-        padding: EdgeInsets.all(16),
-        child: Form(
-          child: Column(
-            children: [
-              TextFormField(
-                controller: emailController,
-                decoration: InputDecoration(
-                  labelText: 'Email',
+      body: SafeArea(
+        child: Padding(
+          padding: EdgeInsets.all(16),
+          child: Form(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                SizedBox(height: 40),
+                TextFormField(
+                  controller: emailController,
+                  decoration: InputDecoration(
+                    labelText: 'Email',
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: BorderSide(width: 2, color: Colors.grey),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: BorderSide(width: 2, color: Colors.blue),
+                    ),
+                  ),
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.normal,
+                    color: Colors.black,
+                  ),
                 ),
-              ),
-              TextFormField(
-                controller: passwordController,
-                decoration: InputDecoration(
-                  labelText: 'Password',
+                SizedBox(height: 20),
+                TextFormField(
+                  controller: passwordController,
+                  decoration: InputDecoration(
+                    labelText: 'Password',
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: BorderSide(width: 2, color: Colors.grey),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: BorderSide(width: 2, color: Colors.blue),
+                    ),
+                  ),
+                  obscureText: true,
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.normal,
+                    color: Colors.black,
+                  ),
                 ),
-                obscureText: true,
-              ),
-              SizedBox(
-                height: 16,
-              ),
-              ElevatedButton(
-                onPressed: () => _createUser(context),
-                child: Text('Create Account'),
-              ),
-              ElevatedButton(
-                onPressed: () => Get.to(() => LoginPage()),
-                child: Text('Login'),
-              ),
-            ],
+                SizedBox(height: 20),
+                ElevatedButton(
+                  onPressed: () => _createUser(context),
+                  child: Text('Sign Up'),
+                  style: ElevatedButton.styleFrom(
+                    padding: EdgeInsets.symmetric(vertical: 16),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                  ),
+                ),
+                SizedBox(height: 20),
+                TextButton(
+                  onPressed: () => Get.to(() => LoginPage()),
+                  child: Text('Already have an account? Log in'),
+                ),
+              ],
+            ),
           ),
         ),
       ),

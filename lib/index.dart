@@ -39,3 +39,9 @@ export 'package:bookmeup/helpers/calculator.dart' show Calculator;
 
 //import get instance
 import 'package:shared_preferences/shared_preferences.dart';
+export 'package:bookmeup/pages/trending/trending.dart' show TrendingWidget;
+export 'package:bookmeup/pages/friend/friend.dart' show FriendWidget;
+export 'package:bookmeup/pages/bookmark/bookmark.dart' show BookmarkWidget;
+export 'package:bookmeup/pages/highlight/highlight.dart' show HighlightWidget;
+export 'package:bookmeup/pages/favorite/favorite.dart' show FavoriteWidget;
+export 'package:bookmeup/pages/note/note.dart' show NoteWidget;

@@ -47,7 +47,7 @@ class ReadingDashboardWidget extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                'Días de lectura',
+                'Days of reading',
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
                 ),
@@ -67,7 +67,7 @@ class ReadingDashboardWidget extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    'Número de libros rankeados',
+                    'Number of ranked books',
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                     ),
@@ -97,7 +97,7 @@ class ReadingDashboardWidget extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Text(
-                              'Porcentaje de libros por leer',
+                              'books to read',
                               textAlign: TextAlign.center,
                               style: TextStyle(
                                 fontWeight: FontWeight.bold,
@@ -129,7 +129,7 @@ class ReadingDashboardWidget extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Text(
-                              'Porcentaje de libros por rankear',
+                              'books to rank',
                               textAlign: TextAlign.center,
                               style: TextStyle(
                                 fontWeight: FontWeight.bold,

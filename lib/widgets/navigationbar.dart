@@ -55,14 +55,7 @@ class NavigationBarWidget extends StatelessWidget {
                 ))
           }
         else if (index == 1)
-          {
-            Get.to(() => ReadingDashboardWidget(
-                  booksToRank: [],
-                  booksToRead: [],
-                  rankedBooks: [],
-                  daysOfReading: 1,
-                ))
-          }
+          {Get.to(() => TrendingWidget())}
         else if (index == 2)
           {
             Get.to(
@@ -71,7 +64,7 @@ class NavigationBarWidget extends StatelessWidget {
             )
           }
         else if (index == 3)
-          {Get.to(() => ShowRemote())}
+          {Get.to(() => FriendWidget())}
         else if (index == 4)
           {Get.to(() => UserProfileWidget())},
       },
