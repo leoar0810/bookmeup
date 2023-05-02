@@ -31,7 +31,7 @@ class _UserProfileWidgetState extends State<UserProfileWidget> {
 
     setState(() {
       // Set the state of the widget with the loaded data
-      _username = "Mr. John Doe";
+      _username = "Mr. John Doe.";
       _description =
           "Una persona apasionada por la lectura suele ser alguien que disfruta de sumergirse en historias y conocimientos a través de libros y otros materiales de lectura";
       _photoUrl =
