@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:bookmeup/widgets/navigationbar.dart';
+import 'package:bookmeup/controllers/generalcontroller.dart';
+import 'package:bookmeup/index.dart';
 
 class ReadingDashboardWidget extends StatelessWidget {
+  final miController = GeneralController.to;
   final int daysOfReading;
   final List<String> rankedBooks;
   final List<String> booksToRead;
@@ -24,7 +27,9 @@ class ReadingDashboardWidget extends StatelessWidget {
         leading: IconButton(
           icon: Icon(Icons.arrow_back_ios),
           color: Colors.black,
-          onPressed: () => Navigator.pop(context),
+          onPressed: () {
+            Get.back();
+          },
         ),
         title: Text(
           'Bookmeup',
@@ -150,7 +155,7 @@ class ReadingDashboardWidget extends StatelessWidget {
           ),
         ),
       ),
-      bottomNavigationBar: NavigationBarWidget(2),
+      bottomNavigationBar: NavigationBarWidget(1),
     );
   }
 }

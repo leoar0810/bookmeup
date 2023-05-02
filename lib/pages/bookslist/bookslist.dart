@@ -18,8 +18,51 @@ class BookListAddWidget extends StatefulWidget {
 }
 
 class _BookListAddWidgetState extends State<BookListAddWidget> {
+  int starts = 0;
+  String title = '';
+  String author = '';
+  String description = '';
+  GeneralController generalController = Get.find();
+
+  void getstars() async {
+    final int numberstars = await generalController.booksUser
+        .where((element) => element.bookid == 1)
+        .first
+        .starts;
+    starts = numberstars;
+  }
+
+  void getTitle() async {
+    final String _title = await generalController.books
+        .where((element) => element.id == 1)
+        .first
+        .title;
+    title = _title;
+  }
+
+  void getAuthor() async {
+    final String _author = await generalController.books
+        .where((element) => element.id == 1)
+        .first
+        .author;
+    author = _author;
+  }
+
+  void getDescription() async {
+    final String _description = await generalController.books
+        .where((element) => element.id == 1)
+        .first
+        .description;
+    description = _description;
+  }
+
   @override
   Widget build(BuildContext context) {
+    getstars();
+    getTitle();
+    getAuthor();
+    getDescription();
+
     return Scaffold(
       backgroundColor: Colors.white,
       body: SafeArea(
@@ -85,12 +128,10 @@ class _BookListAddWidgetState extends State<BookListAddWidget> {
                               ),
                               onTap: () => Get.to(
                                 () => BookDetailsWidget(
-                                  bookName: 'The Great Gatsby',
-                                  authorName: 'F. Scott Fitzgerald',
-                                  rating: 5,
-                                  description:
-                                      'The Nightingale is a heart-wrenching and captivating historical fiction novel that tells the story of two sisters, Vianne and Isabelle, during World War II in Nazi-occupied France. ',
-                                ),
+                                    bookName: title,
+                                    authorName: author,
+                                    rating: 5,
+                                    description: description),
                               ),
                             );
                           },

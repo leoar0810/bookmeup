@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:bookmeup/widgets/navigationbar.dart';
 import 'package:sqflite/sqflite.dart';
@@ -171,7 +172,7 @@ class _UserProfileWidgetState extends State<UserProfileWidget> {
                         _buildIconButton(Icons.favorite, 'Favorites',
                             () => Get.to(FavoriteWidget())),
                         _buildIconButton(
-                            Icons.note, 'Notes', () => Get.to(NoteWidget())),
+                            Icons.note, 'Notes', () => {Get.to(NoteWidget())}),
                         _buildIconButton(Icons.access_alarm, 'Alarm',
                             () => Get.to(() => BookAlarmsScreen())),
                       ],
