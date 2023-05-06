@@ -89,20 +89,7 @@ class RankbookScreen extends StatelessWidget {
                     width: double.infinity,
                     child: ElevatedButton(
                       onPressed: () {
-                        Get.to(() => ReadingStatsWidget(
-                              booksReadInMonth: 3,
-                              booksRead: const [
-                                {
-                                  'title': 'To Kill a Mockingbird',
-                                  'pagesRead': 150
-                                },
-                                {'title': '1984', 'pagesRead': 200},
-                                {
-                                  'title': 'The Catcher in the Rye',
-                                  'pagesRead': 100
-                                },
-                              ],
-                            ));
+                        Get.to(() => ReadingStatsWidget());
                       },
                       child: Text(
                         'Submit Review',

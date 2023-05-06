@@ -14,7 +14,7 @@ class SqliteService {
     String path = await getDatabasesPath();
 
     return openDatabase(
-      join(path, 'database5.db'),
+      join(path, 'database8.db'),
       onCreate: (database, version) async {
         await database.execute(
           "CREATE TABLE Users(id INTEGER PRIMARY KEY AUTOINCREMENT,  name TEXT, username TEXT, password TEXT, description TEXT NOT NULL)",
@@ -22,8 +22,9 @@ class SqliteService {
         await database.execute(
           "CREATE TABLE Books(id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT NOT NULL, author TEXT NOT NULL, ISBN TEXT NOT NULL, description TEXT NOT NULL, cover TEXT, pages INT)",
         );
+
         await database.execute(
-          "CREATE TABLE BooksUsers(id INTEGER PRIMARY KEY AUTOINCREMENT,  userid INT, bookid INT, starts INT, pages INT, toread INT, status INT, FOREIGN KEY(userid) REFERENCES Users(id), FOREIGN KEY(bookid) REFERENCES Books(id))",
+          "CREATE TABLE BooksUsers(id INTEGER PRIMARY KEY AUTOINCREMENT,  userid INT, bookid INT, starts INT, pages INT, toread INT, status INT, title TEXT, author TEXT, ISBN TEXT, description TEXT, cover TEXT, pagesreaded INT, FOREIGN KEY(userid) REFERENCES Users(id), FOREIGN KEY(bookid) REFERENCES Books(id))",
         );
         await database.execute(
           "CREATE TABLE TimeReading(id INTEGER PRIMARY KEY AUTOINCREMENT,  bookid INT, userid INT, pagesRead INT, day TEXT, date TEXT, time INT, FOREIGN KEY(bookid) REFERENCES Books(id), FOREIGN KEY(userid) REFERENCES Users(id))",
@@ -38,7 +39,7 @@ class SqliteService {
           "INSERT INTO Books(title, author, ISBN, description, cover, pages) VALUES('The Lord of the Rings', 'J. R. R. Tolkien', '978-0-618-57498-5', 'The Lord of the Rings is an ezic high-fantasy novel written by English author and scholar J. R. R. Tolkien. The story began as a sequel to Tolkien''s.', 'https://images-na.ssl-images-amazon.com/images/I/51%2B1s%2B1FdgL._SX331_BO1,204,203,200_.jpg', 1178)",
         );
         await database.execute(
-          "INSERT INTO BooksUsers(userid, bookid, starts, pages, toread, status) VALUES(1, 1, 5, 0, 0, 0)",
+          "INSERT INTO BooksUsers(userid, bookid, starts, pages, toread, status, title, author, ISBN, description, cover, pagesreaded) VALUES(1, 1, 5, 0, 0, 0, 'The Lord of the Rings', 'J. R. R. Tolkien', '978-0-618-57498-5', 'The Lord of the Rings is an ezic high-fantasy novel written by English author and scholar J. R. R. Tolkien. The story began as a sequel to Tolkien''s.', 'https://images-na.ssl-images-amazon.com/images/I/51%2B1s%2B1FdgL._SX331_BO1,204,203,200_.jpg', 0)",
         );
       },
       version: 1,

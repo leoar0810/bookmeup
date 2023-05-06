@@ -1,52 +1,68 @@
 import 'package:flutter/material.dart';
-import 'package:bookmeup/db/models/album.dart';
-import 'package:bookmeup/datasources/remote/remote_datasource.dart';
-import 'package:bookmeup/widgets/navigationbar.dart';
+import 'package:bookmeup/datasources/remote/bookremoteapi.dart';
 
-class ShowRemote extends StatefulWidget {
-  const ShowRemote({super.key});
+void main() => runApp(MyApp());
 
+class MyApp extends StatelessWidget {
   @override
-  State<ShowRemote> createState() => _ShowRemoteState();
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Book List',
+      home: Scaffold(
+        appBar: AppBar(
+          title: Text('Book List'),
+        ),
+        body: BookList(),
+      ),
+    );
+  }
 }
 
-class _ShowRemoteState extends State<ShowRemote> {
-  late Future<Album> futureAlbum;
+class BookList extends StatefulWidget {
+  @override
+  _BookListState createState() => _BookListState();
+}
+
+class _BookListState extends State<BookList> {
+  late Future<List<dynamic>> futureBooks;
 
   @override
   void initState() {
     super.initState();
-    futureAlbum = fetchAlbum();
+    futureBooks = fetchBooks();
   }
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Fetch Data Example',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: Scaffold(
-        appBar: AppBar(
-          title: const Text('Fetch Data Example'),
-        ),
-        body: Center(
-          child: FutureBuilder<Album>(
-            future: futureAlbum,
-            builder: (context, snapshot) {
-              if (snapshot.hasData) {
-                return Text(snapshot.data!.title);
-              } else if (snapshot.hasError) {
-                return Text('${snapshot.error}');
-              }
-
-              // By default, show a loading spinner.
-              return const CircularProgressIndicator();
+    return FutureBuilder<List<dynamic>>(
+      future: futureBooks,
+      builder: (context, snapshot) {
+        if (snapshot.hasData) {
+          return ListView.builder(
+            itemCount: snapshot.data?.length,
+            itemBuilder: (context, index) {
+              final book = snapshot.data![index]['volumeInfo'];
+              final title = book['title'];
+              final author = book['authors']?.join(', ') ?? 'Unknown author';
+              final pageCount = book['pageCount'] ?? 'Unknown number of pages';
+              final description =
+                  book['description'] ?? 'No description available';
+              return ListTile(
+                title: Text(title),
+                subtitle: Text('$author | $pageCount pages'),
+                trailing: Icon(Icons.arrow_forward),
+                onTap: () {
+                  // TODO: Navigate to book detail page
+                },
+              );
             },
-          ),
-        ),
-        bottomNavigationBar: NavigationBarWidget(3),
-      ),
+          );
+        } else if (snapshot.hasError) {
+          return Text('${snapshot.error}');
+        } else {
+          return Center(child: CircularProgressIndicator());
+        }
+      },
     );
   }
 }

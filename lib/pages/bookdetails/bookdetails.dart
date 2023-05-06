@@ -1,20 +1,11 @@
+import 'package:bookmeup/db/models/BooksUsersModel.dart';
 import 'package:bookmeup/index.dart';
 import 'package:flutter/material.dart';
 import 'package:bookmeup/widgets/navigationbar.dart';
 import 'package:bookmeup/helpers/book.dart';
 
 class BookDetailsWidget extends StatelessWidget {
-  final String bookName;
-  final String authorName;
-  final int rating;
-  final String description;
-
-  BookDetailsWidget({
-    required this.bookName,
-    required this.authorName,
-    required this.rating,
-    required this.description,
-  });
+  BookDetailsWidget();
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +15,10 @@ class BookDetailsWidget extends StatelessWidget {
       Book('Book 3', 'Author 3'),
       Book('Book 4', 'Author 4'),
     ];
+
     List<Book> _selectedBooks = [];
+    BooksUserModel book = Get.arguments[0];
+    GeneralController generalController = Get.find();
     return Scaffold(
       backgroundColor: Colors.white,
       body: SafeArea(
@@ -54,7 +48,7 @@ class BookDetailsWidget extends StatelessWidget {
                 SizedBox(height: 25),
                 Center(
                   child: SizedBox(
-                    height: 300,
+                    height: 500,
                     child: Container(
                       decoration: BoxDecoration(
                         color: Colors.grey[200],
@@ -65,7 +59,7 @@ class BookDetailsWidget extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: [
                           Text(
-                            bookName,
+                            book.title,
                             style: TextStyle(
                               fontSize: 24,
                               fontWeight: FontWeight.bold,
@@ -76,14 +70,14 @@ class BookDetailsWidget extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text(
-                                'Author: $authorName',
+                                'Author: ${book.author}',
                                 style: TextStyle(
                                   fontSize: 18,
                                 ),
                               ),
                               Row(
                                 children: List.generate(
-                                  rating,
+                                  book.starts,
                                   (index) => Icon(
                                     Icons.star,
                                     color: Colors.amber,
@@ -102,12 +96,14 @@ class BookDetailsWidget extends StatelessWidget {
                             ),
                           ),
                           SizedBox(height: 8),
-                          Text(
-                            description,
-                            style: TextStyle(
-                              fontSize: 18,
-                            ),
-                          ),
+                          new SingleChildScrollView(
+                              scrollDirection: Axis.vertical, //.horizontal
+                              child: new Text(
+                                book.description,
+                                style: TextStyle(
+                                  fontSize: 18,
+                                ),
+                              )),
                           Spacer(),
                           SizedBox(height: 20),
                         ],
@@ -120,7 +116,8 @@ class BookDetailsWidget extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center, // Updated
                   children: [
                     ElevatedButton(
-                      onPressed: () {
+                      onPressed: () async {
+                        await generalController.insertBooksUser(book);
                         Get.to(BookListAddWidget(
                             books: _allBooks, selectedBooks: _selectedBooks));
                       },

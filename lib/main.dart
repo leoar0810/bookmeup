@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:bookmeup/index.dart';
 import 'package:bookmeup/controllers/generalcontroller.dart';
+import 'package:bookmeup/controllers/readingcontroller.dart';
 
 final db = SqliteService();
 
@@ -10,6 +11,7 @@ Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   Get.put(GeneralController());
+  Get.put(ReadingController());
   db.initializeDB();
   runApp(GetMaterialApp(
     home: CheckAuthScreen(),
@@ -36,14 +38,16 @@ class _CheckAuthScreenState extends State<CheckAuthScreen> {
   void checkUser() async {
     User? user = _auth.currentUser;
     if (user != null) {
-      Get.to(() => ReadingStatsWidget(
-            booksReadInMonth: 3,
-            booksRead: [
-              {'title': 'To Kill a Mockingbird', 'pagesRead': 150},
-              {'title': '1984', 'pagesRead': 200},
-              {'title': 'The Catcher in the Rye', 'pagesRead': 100},
-            ],
-          ));
+      Get.to(() => ReadingStatsWidget(), arguments: [
+        {'booksReadInMonth': 3},
+        {
+          'booksRead': [
+            {'title': 'To Kill a Mockingbird', 'pagesRead': 150},
+            {'title': '1984', 'pagesRead': 200},
+            {'title': 'The Catcher in the Rye', 'pagesRead': 100},
+          ]
+        }
+      ]);
     } else {
       Get.to(() => WelcomePage());
     }

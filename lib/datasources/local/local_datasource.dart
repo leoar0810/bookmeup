@@ -98,6 +98,32 @@ class LocalDataSource {
     await initUsers();
   }
 
+  //inserting
+  Future<void> insertBook(BookModel book) async {
+    await db.addBook(book);
+    await initBooks();
+  }
+
+  Future<void> insertBooksUser(BooksUserModel bookUser) async {
+    await db.addBooksUser(bookUser);
+    await initBooksUser();
+  }
+
+  Future<void> insertTimeReading(TimeReadingModel timeReading) async {
+    await db.addTimeReading(timeReading);
+    await initTimeReading();
+  }
+
+  Future<void> insertAlarms(AlarmsModel alarm) async {
+    await db.addAlarm(alarm);
+    await initAlarms();
+  }
+
+  Future<void> insertUser(UserModel user) async {
+    await db.addUser(user);
+    await initUsers();
+  }
+
   //deleting
 
   Future<void> deleteBook(BookModel book) async {

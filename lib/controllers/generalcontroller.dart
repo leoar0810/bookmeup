@@ -42,6 +42,33 @@ class GeneralController extends GetxController {
     users.refresh();
   }
 
+  //inserting
+
+  Future<void> insertBook(BookModel book) async {
+    await bookCases.insertBook(book);
+    await getBooks();
+  }
+
+  Future<void> insertBooksUser(BooksUserModel bookUser) async {
+    await bookCases.insertBooksUser(bookUser);
+    await getBooksUser();
+  }
+
+  Future<void> insertTimeReading(TimeReadingModel timeReading) async {
+    await bookCases.insertTimeReading(timeReading);
+    await getTimeReading();
+  }
+
+  Future<void> insertAlarms(AlarmsModel alarm) async {
+    await bookCases.insertAlarms(alarm);
+    await getAlarms();
+  }
+
+  Future<void> insertUser(UserModel user) async {
+    await bookCases.insertUser(user);
+    await getUsers();
+  }
+
   //updating
 
   Future<void> updateBook(BookModel book) async {

@@ -1,12 +1,13 @@
+import 'package:bookmeup/db/models/BooksUsersModel.dart';
 import 'package:bookmeup/index.dart';
 import 'package:flutter/material.dart';
 import 'package:bookmeup/widgets/navigationbar.dart';
 import 'package:bookmeup/pages/trackeradd/trackeradd.dart';
 
 class AddBookScreen extends StatelessWidget {
-  final String bookName;
+  BooksUserModel book = Get.arguments[0];
 
-  AddBookScreen({required this.bookName});
+  AddBookScreen();
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +36,7 @@ class AddBookScreen extends StatelessWidget {
             ),
             SizedBox(height: 20),
             Text(
-              'You added the book $bookName',
+              'You added the book ${book.title}',
               style: TextStyle(
                 fontSize: 16,
                 color: Colors.black,

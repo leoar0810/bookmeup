@@ -1,3 +1,5 @@
+import 'package:bookmeup/db/models/BookModel.dart';
+import 'package:bookmeup/db/models/BooksUsersModel.dart';
 import 'package:flutter/material.dart';
 import 'package:bookmeup/widgets/navigationbar.dart';
 import 'package:bookmeup/index.dart';
@@ -26,6 +28,13 @@ class _BookWidgetState extends State<BookWidget> {
 
   @override
   Widget build(BuildContext context) {
+    GeneralController generalController = Get.find();
+    var data = Get.arguments[0];
+    _bookNameController.text = data.title;
+    _authorNameController.text = data.author;
+    _ratingController.text = data.rating.toString();
+    _descriptionController.text = data.description;
+
     return Scaffold(
       backgroundColor: Colors.white,
       body: SafeArea(
@@ -95,12 +104,14 @@ class _BookWidgetState extends State<BookWidget> {
               ),
               SizedBox(height: 20),
               ElevatedButton(
-                onPressed: () {
-                  final bookName = _bookNameController.text;
-                  final authorName = _authorNameController.text;
-                  final rating = double.tryParse(_ratingController.text) ?? 0.0;
-                  final description = _descriptionController.text;
-                  Get.to(() => AddBookScreen(bookName: 'The Great Gatsby'));
+                onPressed: () async {
+                  BooksUserModel book = data;
+                  book.title = _bookNameController.text;
+                  book.author = _authorNameController.text;
+                  book.starts = int.parse(_ratingController.text);
+                  book.description = _descriptionController.text;
+                  await generalController.updateBooksUser(book);
+                  Get.to(() => AddBookScreen(), arguments: [book]);
                 },
                 child: Text(
                   'Add Book',

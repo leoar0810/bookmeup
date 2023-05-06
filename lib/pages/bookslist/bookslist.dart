@@ -1,8 +1,10 @@
+import 'package:bookmeup/db/models/BooksUsersModel.dart';
 import 'package:bookmeup/index.dart';
 import 'package:bookmeup/widgets/navigationbar.dart';
 import 'package:flutter/material.dart';
 import 'package:bookmeup/helpers/book.dart';
 import 'package:cupertino_icons/cupertino_icons.dart';
+import 'package:bookmeup/datasources/remote/bookremoteapi.dart';
 
 class BookListAddWidget extends StatefulWidget {
   final List<Book> books;
@@ -18,51 +20,18 @@ class BookListAddWidget extends StatefulWidget {
 }
 
 class _BookListAddWidgetState extends State<BookListAddWidget> {
-  int starts = 0;
-  String title = '';
-  String author = '';
-  String description = '';
   GeneralController generalController = Get.find();
 
-  void getstars() async {
-    final int numberstars = await generalController.booksUser
-        .where((element) => element.bookid == 1)
-        .first
-        .starts;
-    starts = numberstars;
-  }
+  late Future<List<dynamic>> futureBooks;
 
-  void getTitle() async {
-    final String _title = await generalController.books
-        .where((element) => element.id == 1)
-        .first
-        .title;
-    title = _title;
-  }
-
-  void getAuthor() async {
-    final String _author = await generalController.books
-        .where((element) => element.id == 1)
-        .first
-        .author;
-    author = _author;
-  }
-
-  void getDescription() async {
-    final String _description = await generalController.books
-        .where((element) => element.id == 1)
-        .first
-        .description;
-    description = _description;
+  @override
+  void initState() {
+    super.initState();
+    futureBooks = fetchBooks();
   }
 
   @override
   Widget build(BuildContext context) {
-    getstars();
-    getTitle();
-    getAuthor();
-    getDescription();
-
     return Scaffold(
       backgroundColor: Colors.white,
       body: SafeArea(
@@ -91,56 +60,66 @@ class _BookListAddWidgetState extends State<BookListAddWidget> {
                       ),
                       SizedBox(height: 20),
                       Expanded(
-                        child: ListView.builder(
-                          itemCount: widget.books.length,
-                          itemBuilder: (BuildContext context, int index) {
-                            return ListTile(
-                              title: Text(widget.books[index].title),
-                              subtitle: Text(widget.books[index].author),
-                              trailing: Row(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  Checkbox(
-                                    value: widget.selectedBooks
-                                        .contains(widget.books[index]),
-                                    onChanged: (bool? value) {
-                                      setState(() {
-                                        if (value != null && value) {
-                                          widget.selectedBooks
-                                              .add(widget.books[index]);
-                                        } else {
-                                          widget.selectedBooks
-                                              .remove(widget.books[index]);
-                                        }
-                                      });
+                        child: FutureBuilder<List<dynamic>>(
+                          future: futureBooks,
+                          builder: (context, snapshot) {
+                            if (snapshot.hasData) {
+                              return ListView.builder(
+                                itemCount: snapshot.data?.length,
+                                itemBuilder: (context, index) {
+                                  final book =
+                                      snapshot.data![index]['volumeInfo'];
+                                  final title = book['title'];
+                                  final author = book['authors']?.join(', ') ??
+                                      'Unknown author';
+                                  final pageCount = book['pageCount'] ??
+                                      'Unknown number of pages';
+                                  final description = book['description'] ??
+                                      'No description available';
+                                  return ListTile(
+                                    title: Text(title),
+                                    subtitle:
+                                        Text('$author | $pageCount pages'),
+                                    trailing: Icon(Icons.arrow_forward),
+                                    onTap: () async {
+                                      BooksUserModel bookuser = BooksUserModel(
+                                        id: 1,
+                                        userid: 1,
+                                        bookid: 1,
+                                        starts: 1,
+                                        pages: book['pageCount'] as int,
+                                        toread: 1,
+                                        status: 1,
+                                        title: book['title'],
+                                        author: book['authors']?.join(', ') ??
+                                            'Unknown author',
+                                        ISBN: 'asdf',
+                                        description: book['description'] ??
+                                            'No description available',
+                                        cover: 'asdf',
+                                        pagesreaded: 0,
+                                      );
+                                      Get.to(BookDetailsWidget(),
+                                          arguments: [bookuser]);
                                     },
-                                  ),
-                                  IconButton(
-                                    onPressed: () {
-                                      setState(() {
-                                        widget.selectedBooks
-                                            .remove(widget.books[index]);
-                                      });
-                                    },
-                                    icon: Icon(Icons.delete),
-                                  ),
-                                ],
-                              ),
-                              onTap: () => Get.to(
-                                () => BookDetailsWidget(
-                                    bookName: title,
-                                    authorName: author,
-                                    rating: 5,
-                                    description: description),
-                              ),
-                            );
+                                  );
+                                },
+                              );
+                            } else if (snapshot.hasError) {
+                              return Text('${snapshot.error}');
+                            } else {
+                              return Center(child: CircularProgressIndicator());
+                            }
                           },
                         ),
                       ),
                       SizedBox(height: 20),
                       TextButton(
                         onPressed: () {
-                          Get.to(() => BookWidget());
+                          Get.to(() => BookListAddWidget(
+                                books: widget.books,
+                                selectedBooks: widget.selectedBooks,
+                              ));
                         },
                         child:
                             Text('Do not you find what you are looking for?'),

@@ -35,6 +35,28 @@ class BookCases {
     return repo.users;
   }
 
+  //inserting
+
+  Future<void> insertBook(BookModel book) async {
+    await repo.insertBook(book);
+  }
+
+  Future<void> insertBooksUser(BooksUserModel bookUser) async {
+    await repo.insertBooksUser(bookUser);
+  }
+
+  Future<void> insertTimeReading(TimeReadingModel timeReading) async {
+    await repo.insertTimeReading(timeReading);
+  }
+
+  Future<void> insertAlarms(AlarmsModel alarm) async {
+    await repo.insertAlarms(alarm);
+  }
+
+  Future<void> insertUser(UserModel user) async {
+    await repo.insertUser(user);
+  }
+
   //updating
 
   Future<void> updateBook(BookModel book) async {
