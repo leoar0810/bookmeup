@@ -12,6 +12,45 @@ class TrendingWidget extends StatefulWidget {
 int _index = 0;
 
 class _TrendingWidget extends State<TrendingWidget> {
+  List<Book> books = [];
+
+  @override
+  void initState() {
+    super.initState();
+    // libros de ejemplo
+    books.add(Book(
+        title: 'El nombre del viento',
+        author: 'Patrick Rothfuss',
+        imageUrl:
+            'https://cdn.shopify.com/s/files/1/0515/0775/7223/products/PorQuienDoblanlasCampanas_227x.jpg?v=1647711358'));
+    books.add(Book(
+        title: 'El imperio final',
+        author: 'Brandon Sanderson',
+        imageUrl:
+            'https://cdn.shopify.com/s/files/1/0515/0775/7223/products/9789585121935_500x.jpg?v=1678145263'));
+    books.add(Book(
+        title: 'El imperio final',
+        author: 'Brandon Sanderson',
+        imageUrl:
+            'https://cdn.shopify.com/s/files/1/0515/0775/7223/products/ElHambre_236x.jpg?v=1642438469'));
+    books.add(Book(
+        title: 'El imperio final',
+        author: 'Brandon Sanderson',
+        imageUrl:
+            'https://cdn.shopify.com/s/files/1/0515/0775/7223/products/9789585549241_229x.jpg?v=1619633988'));
+    books.add(Book(
+        title: 'El imperio final',
+        author: 'Brandon Sanderson',
+        imageUrl:
+            'https://cdn.shopify.com/s/files/1/0515/0775/7223/products/9788418483073_500x.jpg?v=1676158172'));
+  }
+
+  void addBook(String title, String author, String imageUrl) {
+    setState(() {
+      books.add(Book(title: title, author: author, imageUrl: imageUrl));
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -91,262 +130,35 @@ class _TrendingWidget extends State<TrendingWidget> {
             ),
             Container(
               height: 200,
-              child: ListView(
+              child: ListView.builder(
                 scrollDirection: Axis.horizontal,
-                children: [
-                  Padding(
-                      padding: const EdgeInsets.all(15),
-                      child: InkWell(
-                          child: Container(
+                itemCount: books.length,
+                itemBuilder: (BuildContext context, int index) {
+                  Book book = books[index];
+                  return Padding(
+                    padding: const EdgeInsets.all(15),
+                    child: InkWell(
+                      onTap: () {
+                        // Do something when a book is tapped
+                      },
+                      child: Container(
                         decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(20),
-                            color: Colors.grey),
+                          borderRadius: BorderRadius.circular(20),
+                          color: Colors.grey,
+                        ),
                         width: 100,
-                        child: Center(
-                            child: Text(
-                          "ListView 1",
-                          style: TextStyle(fontSize: 15),
-                        )),
-                      ))),
-                  Padding(
-                      padding: const EdgeInsets.all(15),
-                      child: InkWell(
-                          child: Container(
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(20),
-                            color: Colors.grey),
-                        width: 100,
-                        child: Center(
-                            child: Text(
-                          "ListView 1",
-                          style: TextStyle(fontSize: 15),
-                        )),
-                      ))),
-                  Padding(
-                      padding: const EdgeInsets.all(15),
-                      child: InkWell(
-                          child: Container(
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(20),
-                            color: Colors.grey),
-                        width: 100,
-                        child: Center(
-                            child: Text(
-                          "ListView 1",
-                          style: TextStyle(fontSize: 15),
-                        )),
-                      ))),
-                  Padding(
-                      padding: const EdgeInsets.all(15),
-                      child: InkWell(
-                          child: Container(
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(20),
-                            color: Colors.grey),
-                        width: 100,
-                        child: Center(
-                            child: Text(
-                          "ListView 1",
-                          style: TextStyle(fontSize: 15),
-                        )),
-                      ))),
-                  Padding(
-                      padding: const EdgeInsets.all(15),
-                      child: InkWell(
-                          child: Container(
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(20),
-                            color: Colors.grey),
-                        width: 100,
-                        child: Center(
-                            child: Text(
-                          "ListView 1",
-                          style: TextStyle(fontSize: 15),
-                        )),
-                      ))),
-                  Padding(
-                      padding: const EdgeInsets.all(15),
-                      child: InkWell(
-                          child: Container(
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(20),
-                            color: Colors.grey),
-                        width: 100,
-                        child: Center(
-                            child: Text(
-                          "ListView 1",
-                          style: TextStyle(fontSize: 15),
-                        )),
-                      ))),
-                  Padding(
-                      padding: const EdgeInsets.all(15),
-                      child: InkWell(
-                          child: Container(
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(20),
-                            color: Colors.grey),
-                        width: 100,
-                        child: Center(
-                            child: Text(
-                          "ListView 1",
-                          style: TextStyle(fontSize: 15),
-                        )),
-                      ))),
-                  Padding(
-                      padding: const EdgeInsets.all(15),
-                      child: InkWell(
-                          child: Container(
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(20),
-                            color: Colors.grey),
-                        width: 100,
-                        child: Center(
-                            child: Text(
-                          "ListView 1",
-                          style: TextStyle(fontSize: 15),
-                        )),
-                      ))),
-                  Padding(
-                      padding: const EdgeInsets.all(15),
-                      child: InkWell(
-                          child: Container(
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(20),
-                            color: Colors.grey),
-                        width: 100,
-                        child: Center(
-                            child: Text(
-                          "ListView 1",
-                          style: TextStyle(fontSize: 15),
-                        )),
-                      ))),
-                  Padding(
-                      padding: const EdgeInsets.all(15),
-                      child: InkWell(
-                          child: Container(
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(20),
-                            color: Colors.grey),
-                        width: 100,
-                        child: Center(
-                            child: Text(
-                          "ListView 1",
-                          style: TextStyle(fontSize: 15),
-                        )),
-                      ))),
-                  Padding(
-                      padding: const EdgeInsets.all(15),
-                      child: InkWell(
-                          child: Container(
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(20),
-                            color: Colors.grey),
-                        width: 100,
-                        child: Center(
-                            child: Text(
-                          "ListView 1",
-                          style: TextStyle(fontSize: 15),
-                        )),
-                      ))),
-                  Padding(
-                      padding: const EdgeInsets.all(15),
-                      child: InkWell(
-                          child: Container(
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(20),
-                            color: Colors.grey),
-                        width: 100,
-                        child: Center(
-                            child: Text(
-                          "ListView 1",
-                          style: TextStyle(fontSize: 15),
-                        )),
-                      ))),
-                  Padding(
-                      padding: const EdgeInsets.all(15),
-                      child: InkWell(
-                          child: Container(
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(20),
-                            color: Colors.grey),
-                        width: 100,
-                        child: Center(
-                            child: Text(
-                          "ListView 1",
-                          style: TextStyle(fontSize: 15),
-                        )),
-                      ))),
-                  Padding(
-                      padding: const EdgeInsets.all(15),
-                      child: InkWell(
-                          child: Container(
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(20),
-                            color: Colors.grey),
-                        width: 100,
-                        child: Center(
-                            child: Text(
-                          "ListView 1",
-                          style: TextStyle(fontSize: 15),
-                        )),
-                      ))),
-                  Padding(
-                      padding: const EdgeInsets.all(15),
-                      child: InkWell(
-                          child: Container(
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(20),
-                            color: Colors.grey),
-                        width: 100,
-                        child: Center(
-                            child: Text(
-                          "ListView 1",
-                          style: TextStyle(fontSize: 15),
-                        )),
-                      ))),
-                  Padding(
-                      padding: const EdgeInsets.all(15),
-                      child: InkWell(
-                          child: Container(
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(20),
-                            color: Colors.grey),
-                        width: 100,
-                        child: Center(
-                            child: Text(
-                          "ListView 1",
-                          style: TextStyle(fontSize: 15),
-                        )),
-                      ))),
-                  Padding(
-                      padding: const EdgeInsets.all(15),
-                      child: InkWell(
-                          child: Container(
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(20),
-                            color: Colors.grey),
-                        width: 100,
-                        child: Center(
-                            child: Text(
-                          "ListView 1",
-                          style: TextStyle(fontSize: 15),
-                        )),
-                      ))),
-                  Padding(
-                      padding: const EdgeInsets.all(15),
-                      child: InkWell(
-                          child: Container(
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(20),
-                            color: Colors.grey),
-                        width: 100,
-                        child: Center(
-                            child: Text(
-                          "ListView 1",
-                          style: TextStyle(fontSize: 15),
-                        )),
-                      ))),
-                ],
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(20),
+                          child: Image.network(
+                            book.imageUrl,
+                            fit: BoxFit.cover,
+                            height: 150,
+                          ),
+                        ),
+                      ),
+                    ),
+                  );
+                },
               ),
             ),
             NavigationBarWidget(1),
@@ -355,4 +167,12 @@ class _TrendingWidget extends State<TrendingWidget> {
       ),
     );
   }
+}
+
+class Book {
+  String title;
+  String author;
+  String imageUrl;
+
+  Book({required this.title, required this.author, required this.imageUrl});
 }
