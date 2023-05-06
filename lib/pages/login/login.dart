@@ -111,6 +111,7 @@ class _LoginPageState extends State<LoginPage> {
                     onPressed: () => _loginUser(context),
                     child: Text('Log in'),
                     style: ElevatedButton.styleFrom(
+                      backgroundColor: Color.fromARGB(255, 114, 146, 232),
                       padding: EdgeInsets.symmetric(vertical: 16),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10),
