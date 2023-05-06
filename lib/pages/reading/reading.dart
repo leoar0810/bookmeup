@@ -3,12 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:bookmeup/index.dart';
 import 'package:bookmeup/helpers/book.dart';
 import 'package:bookmeup/widgets/navigationbar.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class ReadingStatsWidget extends StatefulWidget {
-  final int booksReadInMonth;
-  final List<Map<String, dynamic>> booksRead;
-
-  ReadingStatsWidget({required this.booksReadInMonth, required this.booksRead});
+  ReadingStatsWidget();
 
   @override
   _ReadingStatsWidget createState() => _ReadingStatsWidget();
@@ -17,13 +15,7 @@ class ReadingStatsWidget extends StatefulWidget {
 int _index = 0;
 
 class _ReadingStatsWidget extends State<ReadingStatsWidget> {
-  List<Book> _allBooks = [
-    Book('Book 1', 'Author 1'),
-    Book('Book 2', 'Author 2'),
-    Book('Book 3', 'Author 3'),
-    Book('Book 4', 'Author 4'),
-  ];
-  List<Book> _selectedBooks = [];
+  GeneralController generalcontroller = Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -57,8 +49,7 @@ class _ReadingStatsWidget extends State<ReadingStatsWidget> {
                   },
                   color: CupertinoColors.black,
                   child: Text(
-                    'Books read this month: ' +
-                        widget.booksReadInMonth.toString(),
+                    'Books read this month: ' + '1',
                     style:
                         TextStyle(fontSize: 24, color: CupertinoColors.white),
                   ),
@@ -70,40 +61,47 @@ class _ReadingStatsWidget extends State<ReadingStatsWidget> {
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16.0),
                 child: ListView.builder(
-                  itemCount: widget.booksRead.length,
+                  itemCount: generalcontroller.booksUser.length,
                   itemBuilder: (context, index) {
-                    return Container(
-                      margin: const EdgeInsets.symmetric(vertical: 13.0),
-                      padding: const EdgeInsets.all(30.0),
-                      decoration: BoxDecoration(
-                        color: CupertinoColors.white,
-                        borderRadius: BorderRadius.circular(12.0),
-                        boxShadow: [
-                          BoxShadow(
-                            color: CupertinoColors.systemGrey2.withOpacity(0.5),
-                            spreadRadius: 1,
-                            blurRadius: 5,
-                            offset: Offset(0, 3),
+                    return GestureDetector(
+                        onTap: () async {
+                          Get.to(BookWidget(),
+                              arguments: [generalcontroller.booksUser[index]]);
+                        },
+                        child: Container(
+                          margin: const EdgeInsets.symmetric(vertical: 13.0),
+                          padding: const EdgeInsets.all(30.0),
+                          decoration: BoxDecoration(
+                            color: CupertinoColors.white,
+                            borderRadius: BorderRadius.circular(12.0),
+                            boxShadow: [
+                              BoxShadow(
+                                color: CupertinoColors.systemGrey2
+                                    .withOpacity(0.5),
+                                spreadRadius: 1,
+                                blurRadius: 5,
+                                offset: Offset(0, 3),
+                              ),
+                            ],
                           ),
-                        ],
-                      ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            widget.booksRead[index]['title'],
-                            style: TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold,
-                            ),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                generalcontroller.booksUser[index].title,
+                                style: TextStyle(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              Text(
+                                '${generalcontroller.booksUser[index].pages} pages read',
+                                style:
+                                    TextStyle(fontSize: 14, color: Colors.grey),
+                              ),
+                            ],
                           ),
-                          Text(
-                            '${widget.booksRead[index]['pagesRead']} pages read',
-                            style: TextStyle(fontSize: 14, color: Colors.grey),
-                          ),
-                        ],
-                      ),
-                    );
+                        ));
                   },
                 ),
               ),

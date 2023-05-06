@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:bookmeup/index.dart';
 import 'package:bookmeup/helpers/book.dart';
 import 'package:bookmeup/pages/showremote.dart';
+import 'package:bookmeup/pages/showremote.dart';
 
 class NavigationBarWidget extends StatelessWidget {
   final int _index;
@@ -18,14 +19,7 @@ class NavigationBarWidget extends StatelessWidget {
     List<Book> _selectedBooks = [];
 
     final List<Widget> _pages = [
-      ReadingStatsWidget(
-        booksReadInMonth: 3,
-        booksRead: const [
-          {'title': 'To Kill a Mockingbird', 'pagesRead': 150},
-          {'title': '1984', 'pagesRead': 200},
-          {'title': 'The Catcher in the Rye', 'pagesRead': 100},
-        ],
-      ),
+      ReadingStatsWidget(),
       ReadingDashboardWidget(
         booksToRank: [],
         booksToRead: [],
@@ -44,16 +38,7 @@ class NavigationBarWidget extends StatelessWidget {
       onTap: (int index) => {
         print(index),
         if (index == 0)
-          {
-            Get.to(() => ReadingStatsWidget(
-                  booksReadInMonth: 3,
-                  booksRead: const [
-                    {'title': 'To Kill a Mockingbird', 'pagesRead': 150},
-                    {'title': '1984', 'pagesRead': 200},
-                    {'title': 'The Catcher in the Rye', 'pagesRead': 100},
-                  ],
-                ))
-          }
+          {Get.to(() => ReadingStatsWidget())}
         else if (index == 1)
           {Get.to(() => TrendingWidget())}
         else if (index == 2)
@@ -64,7 +49,7 @@ class NavigationBarWidget extends StatelessWidget {
             )
           }
         else if (index == 3)
-          {Get.to(() => FriendWidget())}
+          {Get.to(() => MyApp())}
         else if (index == 4)
           {Get.to(() => UserProfileWidget())},
       },

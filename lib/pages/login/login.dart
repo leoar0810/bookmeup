@@ -1,6 +1,7 @@
 import 'package:bookmeup/index.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -21,14 +22,10 @@ class _LoginPageState extends State<LoginPage> {
         password: passwordController.text,
       );
       print('User ${userCredential.user!.uid} logged in');
-      Get.to(() => ReadingStatsWidget(
-            booksReadInMonth: 3,
-            booksRead: [
-              {'title': 'To Kill a Mockingbird', 'pagesRead': 150},
-              {'title': '1984', 'pagesRead': 200},
-              {'title': 'The Catcher in the Rye', 'pagesRead': 100},
-            ],
-          ));
+      final prefs = await SharedPreferences.getInstance();
+
+      await prefs.setInt('user', 1);
+      Get.to(() => ReadingStatsWidget());
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
         print('No user found for that email.');

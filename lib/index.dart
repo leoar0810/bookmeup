@@ -25,6 +25,9 @@ export 'package:bookmeup/widgets/navigationbar.dart' show NavigationBarWidget;
 export 'package:bookmeup/controllers/generalcontroller.dart'
     show GeneralController;
 
+export 'package:bookmeup/controllers/readingcontroller.dart'
+    show ReadingController;
+
 //db exports
 export 'package:bookmeup/db/sqlite_service.dart' show SqliteService;
 
