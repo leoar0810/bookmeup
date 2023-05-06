@@ -12,6 +12,7 @@ class BookWidget extends StatefulWidget {
 }
 
 class _BookWidgetState extends State<BookWidget> {
+  GeneralController generalController = Get.find();
   final TextEditingController _bookNameController = TextEditingController();
   final TextEditingController _authorNameController = TextEditingController();
   final TextEditingController _ratingController = TextEditingController();
@@ -32,7 +33,7 @@ class _BookWidgetState extends State<BookWidget> {
     var data = Get.arguments[0];
     _bookNameController.text = data.title;
     _authorNameController.text = data.author;
-    _ratingController.text = data.rating.toString();
+    _ratingController.text = data.starts.toString();
     _descriptionController.text = data.description;
 
     return Scaffold(

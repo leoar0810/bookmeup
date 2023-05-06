@@ -116,10 +116,7 @@ class _BookListAddWidgetState extends State<BookListAddWidget> {
                       SizedBox(height: 20),
                       TextButton(
                         onPressed: () {
-                          Get.to(() => BookListAddWidget(
-                                books: widget.books,
-                                selectedBooks: widget.selectedBooks,
-                              ));
+                          Get.to(() => BookWidget(), arguments: []);
                         },
                         child:
                             Text('Do not you find what you are looking for?'),

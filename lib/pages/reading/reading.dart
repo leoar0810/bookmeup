@@ -63,38 +63,45 @@ class _ReadingStatsWidget extends State<ReadingStatsWidget> {
                 child: ListView.builder(
                   itemCount: generalcontroller.booksUser.length,
                   itemBuilder: (context, index) {
-                    return Container(
-                      margin: const EdgeInsets.symmetric(vertical: 13.0),
-                      padding: const EdgeInsets.all(30.0),
-                      decoration: BoxDecoration(
-                        color: CupertinoColors.white,
-                        borderRadius: BorderRadius.circular(12.0),
-                        boxShadow: [
-                          BoxShadow(
-                            color: CupertinoColors.systemGrey2.withOpacity(0.5),
-                            spreadRadius: 1,
-                            blurRadius: 5,
-                            offset: Offset(0, 3),
+                    return GestureDetector(
+                        onTap: () async {
+                          Get.to(BookWidget(),
+                              arguments: [generalcontroller.booksUser[index]]);
+                        },
+                        child: Container(
+                          margin: const EdgeInsets.symmetric(vertical: 13.0),
+                          padding: const EdgeInsets.all(30.0),
+                          decoration: BoxDecoration(
+                            color: CupertinoColors.white,
+                            borderRadius: BorderRadius.circular(12.0),
+                            boxShadow: [
+                              BoxShadow(
+                                color: CupertinoColors.systemGrey2
+                                    .withOpacity(0.5),
+                                spreadRadius: 1,
+                                blurRadius: 5,
+                                offset: Offset(0, 3),
+                              ),
+                            ],
                           ),
-                        ],
-                      ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            generalcontroller.booksUser[index].title,
-                            style: TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold,
-                            ),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                generalcontroller.booksUser[index].title,
+                                style: TextStyle(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              Text(
+                                '${generalcontroller.booksUser[index].pages} pages read',
+                                style:
+                                    TextStyle(fontSize: 14, color: Colors.grey),
+                              ),
+                            ],
                           ),
-                          Text(
-                            '${generalcontroller.booksUser[index].pages} pages read',
-                            style: TextStyle(fontSize: 14, color: Colors.grey),
-                          ),
-                        ],
-                      ),
-                    );
+                        ));
                   },
                 ),
               ),
