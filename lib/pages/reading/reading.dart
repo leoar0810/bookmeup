@@ -16,9 +16,38 @@ int _index = 0;
 
 class _ReadingStatsWidget extends State<ReadingStatsWidget> {
   GeneralController generalcontroller = Get.find();
+  int pagesReaded = 0;
+  int booksReaded = 0;
+  int rankedBooks = 0;
+  int booksToRead = 0;
+
+  void calculatePagesReaded() {
+    int pagesReaded1 = 0;
+    int booksReaded1 = 0;
+    int rankedBooks1 = 0;
+    int booksToRead1 = 0;
+    for (var book in generalcontroller.booksUser) {
+      if (book.userid == 1) {
+        if (book.pagesreaded != 0) {
+          pagesReaded1 += book.pagesreaded;
+          booksReaded1 += 1;
+        } else {
+          booksToRead1 += 1;
+        }
+        if (book.starts != 0) {
+          rankedBooks1 += 1;
+        }
+      }
+    }
+    pagesReaded = pagesReaded1;
+    booksReaded = booksReaded1;
+    rankedBooks = rankedBooks1;
+    booksToRead = booksToRead1;
+  }
 
   @override
   Widget build(BuildContext context) {
+    calculatePagesReaded();
     return Scaffold(
       backgroundColor: Colors.white,
       body: SafeArea(
@@ -39,12 +68,13 @@ class _ReadingStatsWidget extends State<ReadingStatsWidget> {
                   onPressed: () {
                     print('asdfadskfjsdfjklasd');
                     Get.to(
-                      () => ReadingDashboardWidget(
-                        booksToRank: [],
-                        booksToRead: [],
-                        rankedBooks: [],
-                        daysOfReading: 1,
-                      ),
+                      ReadingDashboardWidget(),
+                      arguments: [
+                        pagesReaded,
+                        booksReaded,
+                        rankedBooks,
+                        booksToRead
+                      ],
                     );
                   },
                   color: CupertinoColors.black,
@@ -65,6 +95,7 @@ class _ReadingStatsWidget extends State<ReadingStatsWidget> {
                   itemBuilder: (context, index) {
                     return GestureDetector(
                         onTap: () async {
+                          print(generalcontroller.booksUser[index].id);
                           Get.to(BookWidget(),
                               arguments: [generalcontroller.booksUser[index]]);
                         },

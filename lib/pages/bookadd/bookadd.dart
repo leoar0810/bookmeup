@@ -33,7 +33,7 @@ class _BookWidgetState extends State<BookWidget> {
     var data = Get.arguments[0];
     _bookNameController.text = data.title;
     _authorNameController.text = data.author;
-    _ratingController.text = data.starts.toString();
+    _ratingController.text = data.pagesreaded.toString();
     _descriptionController.text = data.description;
 
     return Scaffold(
@@ -90,7 +90,7 @@ class _BookWidgetState extends State<BookWidget> {
               TextField(
                 controller: _ratingController,
                 decoration: InputDecoration(
-                  hintText: 'Enter rating',
+                  hintText: 'Enter pages readed',
                   border: OutlineInputBorder(),
                 ),
                 keyboardType: TextInputType.number,
@@ -106,10 +106,12 @@ class _BookWidgetState extends State<BookWidget> {
               SizedBox(height: 20),
               ElevatedButton(
                 onPressed: () async {
+                  print('asdf' + data.id.toString());
                   BooksUserModel book = data;
+                  book.id = data.id;
                   book.title = _bookNameController.text;
                   book.author = _authorNameController.text;
-                  book.starts = int.parse(_ratingController.text);
+                  book.pagesreaded = int.parse(_ratingController.text);
                   book.description = _descriptionController.text;
                   await generalController.updateBooksUser(book);
                   Get.to(() => AddBookScreen(), arguments: [book]);

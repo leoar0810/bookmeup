@@ -14,7 +14,7 @@ class SqliteService {
     String path = await getDatabasesPath();
 
     return openDatabase(
-      join(path, 'database8.db'),
+      join(path, 'database9.db'),
       onCreate: (database, version) async {
         await database.execute(
           "CREATE TABLE Users(id INTEGER PRIMARY KEY AUTOINCREMENT,  name TEXT, username TEXT, password TEXT, description TEXT NOT NULL)",
@@ -62,8 +62,8 @@ class SqliteService {
 
   Future<void> addBooksUser(BooksUserModel booksusermodel) async {
     final Database db = await initializeDB();
-    await db.insert('BooksUsers', booksusermodel.toMap(),
-        conflictAlgorithm: ConflictAlgorithm.replace);
+    await db.rawInsert(
+        "INSERT INTO BooksUsers(userid, bookid, starts, pages, toread, status, title, author, ISBN, description, cover, pagesreaded) VALUES(${booksusermodel.userid}, ${booksusermodel.bookid}, ${booksusermodel.starts}, ${booksusermodel.pages}, ${booksusermodel.toread}, ${booksusermodel.status}, '${booksusermodel.title}', '${booksusermodel.author}', '${booksusermodel.ISBN}', '${booksusermodel.description}', '${booksusermodel.cover}', ${booksusermodel.pagesreaded})");
   }
 
   Future<void> addTimeReading(TimeReadingModel timereadingmodel) async {
@@ -127,12 +127,13 @@ class SqliteService {
   }
 
   Future<void> updateBooksUser(BooksUserModel booksusermodel) async {
+    print(booksusermodel.toMap());
     final db = await initializeDB();
     await db.update(
       'BooksUsers',
       booksusermodel.toMap(),
-      where: "bookid = ?",
-      whereArgs: [booksusermodel.bookid],
+      where: "id = ?",
+      whereArgs: [booksusermodel.id],
     );
   }
 

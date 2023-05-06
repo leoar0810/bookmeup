@@ -46,6 +46,7 @@ class BooksUserModel {
 
   Map<String, Object> toMap() {
     return {
+      "id": id,
       "userid": userid,
       "bookid": bookid,
       "starts": starts,

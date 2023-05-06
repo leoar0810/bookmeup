@@ -54,14 +54,7 @@ class AddTrackerScreen extends StatelessWidget {
                           ),
                           SizedBox(height: 20),
                           ElevatedButton(
-                            onPressed: () {
-                              Get.to(() => ReadingDashboardWidget(
-                                    booksToRank: [],
-                                    booksToRead: [],
-                                    rankedBooks: [],
-                                    daysOfReading: 1,
-                                  ));
-                            },
+                            onPressed: () {},
                             child: Text(
                               'Start Tracker',
                               style: TextStyle(

@@ -4,21 +4,17 @@ import 'package:bookmeup/controllers/generalcontroller.dart';
 import 'package:bookmeup/index.dart';
 
 class ReadingDashboardWidget extends StatelessWidget {
-  final miController = GeneralController.to;
-  final int daysOfReading;
-  final List<String> rankedBooks;
-  final List<String> booksToRead;
-  final List<String> booksToRank;
+  GeneralController generalController = Get.find();
 
-  ReadingDashboardWidget({
-    required this.daysOfReading,
-    required this.rankedBooks,
-    required this.booksToRead,
-    required this.booksToRank,
-  });
+  ReadingDashboardWidget();
 
   @override
   Widget build(BuildContext context) {
+    final pagesReaded = Get.arguments[0];
+    final booksReaded = Get.arguments[1];
+    final rankedBooks = Get.arguments[2];
+    final booksToRead = Get.arguments[3];
+
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -47,7 +43,7 @@ class ReadingDashboardWidget extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                'Days of reading',
+                'Pages readed',
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
                 ),
@@ -57,7 +53,7 @@ class ReadingDashboardWidget extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    '$daysOfReading',
+                    pagesReaded.toString(),
                     style: TextStyle(fontSize: 36.0),
                   ),
                   SizedBox(height: 20),
@@ -67,13 +63,13 @@ class ReadingDashboardWidget extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    'Number of ranked books',
+                    'Number of books to read',
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                     ),
                   ),
                   Text(
-                    rankedBooks.length.toString(),
+                    booksToRead.toString(),
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                     ),
@@ -97,7 +93,7 @@ class ReadingDashboardWidget extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Text(
-                              'books to read',
+                              'books readed',
                               textAlign: TextAlign.center,
                               style: TextStyle(
                                 fontWeight: FontWeight.bold,
@@ -105,7 +101,7 @@ class ReadingDashboardWidget extends StatelessWidget {
                             ),
                             SizedBox(height: 20),
                             Text(
-                              '25%',
+                              booksReaded.toString(),
                               style: TextStyle(
                                 fontWeight: FontWeight.bold,
                                 fontSize: 30,
@@ -129,7 +125,7 @@ class ReadingDashboardWidget extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Text(
-                              'books to rank',
+                              'books ranked',
                               textAlign: TextAlign.center,
                               style: TextStyle(
                                 fontWeight: FontWeight.bold,
@@ -137,7 +133,7 @@ class ReadingDashboardWidget extends StatelessWidget {
                             ),
                             SizedBox(height: 20),
                             Text(
-                              '75%',
+                              rankedBooks.toString(),
                               style: TextStyle(
                                 fontWeight: FontWeight.bold,
                                 fontSize: 30,
