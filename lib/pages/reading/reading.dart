@@ -155,7 +155,7 @@ class _ReadingStatsWidget extends State<ReadingStatsWidget> {
                     ),
                   ),
                   child: Padding(
-                    padding: const EdgeInsets.only(top: 15.0, bottom: 0.0),
+                    padding: const EdgeInsets.only(top: 10.0, bottom: 0.0),
                     child: Column(
                       children: [
                         Padding(
@@ -191,7 +191,7 @@ class _ReadingStatsWidget extends State<ReadingStatsWidget> {
                           ),
                         ),
                         Padding(
-                          padding: const EdgeInsets.only(top: 10.0),
+                          padding: const EdgeInsets.only(top: 5.0),
                           child: Column(
                             children: [
                               Row(
@@ -277,7 +277,7 @@ class _ReadingStatsWidget extends State<ReadingStatsWidget> {
               ),
             ),
             Padding(
-              padding: EdgeInsets.only(left: 20.0, bottom: 30.0),
+              padding: EdgeInsets.only(left: 20.0, bottom: 20.0),
               child: Container(
                 height: 200,
                 decoration: BoxDecoration(
