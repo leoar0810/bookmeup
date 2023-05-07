@@ -1,9 +1,11 @@
+import 'package:bookmeup/db/models/BooksUsersModel.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:bookmeup/index.dart';
 import 'package:bookmeup/helpers/book.dart';
 import 'package:bookmeup/widgets/navigationbar.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class ReadingStatsWidget extends StatefulWidget {
   ReadingStatsWidget();
@@ -16,11 +18,24 @@ int _index = 0;
 
 class _ReadingStatsWidget extends State<ReadingStatsWidget> {
   GeneralController generalcontroller = Get.find();
-  List books = [];
+  List<BooksUserModel> books = [];
+  List<Person> people = [];
   @override
   void initState() {
     super.initState();
     books = generalcontroller.booksUser;
+    people.add(Person(
+        name: 'Juan',
+        imageUrl:
+            'https://this-person-does-not-exist.com/img/avatar-gen11b4cc74f765e731cb1bbd603713094c.jpg'));
+    people.add(Person(
+        name: 'David',
+        imageUrl:
+            'https://this-person-does-not-exist.com/img/avatar-gen116813ffdcd572489c515494a5b1296f.jpg'));
+    people.add(Person(
+        name: 'Julio',
+        imageUrl:
+            'https://this-person-does-not-exist.com/img/avatar-gen111eea15bbf14f3eb8472c089323f21c.jpg'));
   }
 
   int pagesReaded = 0;
@@ -60,18 +75,27 @@ class _ReadingStatsWidget extends State<ReadingStatsWidget> {
       body: SafeArea(
         child: Column(
           children: <Widget>[
-            Text(
-              'Bookmeup',
-              style: TextStyle(
-                fontSize: 30,
-                fontWeight: FontWeight.bold,
-                color: Colors.black,
+            Padding(
+              padding: EdgeInsets.only(top: 20.0, left: 20),
+              child: Align(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  'BookmeUp',
+                  style: GoogleFonts.quicksand(
+                      textStyle: TextStyle(
+                    color: Color(0xFF7292E8),
+                    fontSize: 36,
+                    letterSpacing: -0.54,
+                    fontWeight: FontWeight.w600,
+                  )),
+                ),
               ),
             ),
             Expanded(
               child: Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: CupertinoButton(
+                padding: const EdgeInsets.only(
+                    top: 20.0, left: 20.0, right: 20.0, bottom: 20.0),
+                child: ElevatedButton(
                   onPressed: () {
                     print('asdfadskfjsdfjklasd');
                     Get.to(
@@ -84,62 +108,308 @@ class _ReadingStatsWidget extends State<ReadingStatsWidget> {
                       ],
                     );
                   },
-                  color: CupertinoColors.black,
-                  child: Text(
-                    'Books read this month: ' + booksReaded.toString(),
-                    style:
-                        TextStyle(fontSize: 24, color: CupertinoColors.white),
+                  style: ButtonStyle(
+                    backgroundColor:
+                        MaterialStateProperty.all<Color>(Color(0xFFD3DEFC)),
+                    shape: MaterialStateProperty.all<OutlinedBorder>(
+                      RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(19.0),
+                      ),
+                    ),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.only(top: 15.0, bottom: 0.0),
+                    child: Column(
+                      children: [
+                        Padding(
+                          padding:
+                              const EdgeInsets.only(top: 0.0, bottom: 10.0),
+                          child: Text(
+                            'Congratulations!',
+                            style: GoogleFonts.quicksand(
+                                textStyle: TextStyle(
+                              color: Color(0xFF5074C3),
+                              fontSize: 26,
+                              letterSpacing: -0.54,
+                              fontWeight: FontWeight.w600,
+                            )),
+                          ),
+                        ),
+                        Container(
+                          height: 20.0,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10.0),
+                            color: Color(0xFFf6f8fe),
+                          ),
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(10.0),
+                            clipBehavior: Clip
+                                .antiAliasWithSaveLayer, // agregar anti-aliasing
+                            child: LinearProgressIndicator(
+                              value: 0.5, // Aquí iría el porcentaje de progreso
+                              backgroundColor: Colors.transparent,
+                              valueColor: AlwaysStoppedAnimation<Color>(
+                                  Color(0xFF9CB5F7)),
+                            ),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(top: 10.0),
+                          child: Column(
+                            children: [
+                              Row(
+                                children: [
+                                  Text(
+                                    '10 of 20',
+                                    style: GoogleFonts.dmSans(
+                                      textStyle: TextStyle(
+                                        color: Color(0xFF123A93),
+                                        fontSize: 25,
+                                        letterSpacing: -0.54,
+                                        fontWeight: FontWeight.w500,
+                                      ),
+                                    ),
+                                  ),
+                                  Spacer(),
+                                  Text(
+                                    '50%', // Aquí iría el porcentaje de progreso
+                                    style: GoogleFonts.quicksand(
+                                      textStyle: TextStyle(
+                                        color: Color(0xFF3E578E),
+                                        fontSize: 32,
+                                        letterSpacing: -0.54,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              Row(
+                                children: [
+                                  Text(
+                                    'books read',
+                                    style: GoogleFonts.dmSans(
+                                      textStyle: TextStyle(
+                                        color: Color(0xFF123A93),
+                                        fontSize: 18,
+                                        letterSpacing: -0.54,
+                                        fontWeight: FontWeight.w500,
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),
             ),
-            Expanded(
-              flex: 2,
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                child: ListView.builder(
-                  itemCount: books.length,
-                  itemBuilder: (context, index) {
-                    return GestureDetector(
-                        onTap: () async {
-                          //print(generalcontroller.booksUser[index].id);
-                          Get.to(BookWidget(), arguments: [books[index]]);
-                        },
-                        child: Container(
-                          margin: const EdgeInsets.symmetric(vertical: 13.0),
-                          padding: const EdgeInsets.all(30.0),
-                          decoration: BoxDecoration(
-                            color: CupertinoColors.white,
-                            borderRadius: BorderRadius.circular(12.0),
-                            boxShadow: [
-                              BoxShadow(
-                                color: CupertinoColors.systemGrey2
-                                    .withOpacity(0.5),
-                                spreadRadius: 1,
-                                blurRadius: 5,
-                                offset: Offset(0, 3),
-                              ),
-                            ],
-                          ),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
+            Padding(
+              padding:
+                  EdgeInsets.only(top: 0.0, left: 20, bottom: 5, right: 20),
+              child: Align(
+                child: Row(
+                  children: [
+                    Text(
+                      'Your books',
+                      style: GoogleFonts.dmSans(
+                          textStyle: TextStyle(
+                        color: Color(0xFF394970),
+                        fontSize: 17,
+                        letterSpacing: -0.54,
+                        fontWeight: FontWeight.w600,
+                      )),
+                    ),
+                    Spacer(),
+                    Text(
+                      'See more >',
+                      style: GoogleFonts.dmSans(
+                          textStyle: TextStyle(
+                        color: Colors.grey,
+                        fontSize: 14,
+                        letterSpacing: -0.54,
+                        fontWeight: FontWeight.w600,
+                      )),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.only(left: 20.0, bottom: 30.0),
+              child: Container(
+                height: 200,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(19.0),
+                    topRight: Radius.zero,
+                    bottomLeft: Radius.circular(19.0),
+                    bottomRight: Radius.zero,
+                  ),
+                  gradient: LinearGradient(
+                    begin: Alignment.bottomLeft,
+                    end: Alignment.topRight,
+                    colors: [
+                      Color(0xFFD3DEFC),
+                      Colors.white,
+                    ],
+                  ),
+                ),
+                child: Padding(
+                  padding: EdgeInsets.only(left: 0.0, right: 0.0),
+                  child: ListView.builder(
+                    scrollDirection: Axis.horizontal,
+                    itemCount: books.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      BooksUserModel book = books[index];
+                      return Padding(
+                        padding: const EdgeInsets.all(15),
+                        child: InkWell(
+                          onTap: () {
+                            // Do something when a book is tapped
+                          },
+                          child: Stack(
                             children: [
-                              Text(
-                                books[index].title,
-                                style: TextStyle(
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.bold,
+                              Container(
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(20),
+                                  color: Colors.grey,
+                                ),
+                                width: 100,
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(20),
+                                  child: Image.network(
+                                    book.cover,
+                                    fit: BoxFit.cover,
+                                    height: 150,
+                                  ),
                                 ),
                               ),
-                              Text(
-                                '${books[index].pages} pages read',
-                                style:
-                                    TextStyle(fontSize: 14, color: Colors.grey),
+                              Positioned(
+                                right: 15,
+                                bottom: 0,
+                                child: Container(
+                                  width: 70,
+                                  height: 8,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.only(
+                                      bottomLeft: Radius.circular(20),
+                                      bottomRight: Radius.circular(20),
+                                      topLeft: Radius.circular(20),
+                                      topRight: Radius.circular(20),
+                                    ),
+                                    color: Colors.white,
+                                  ),
+                                  child: ClipRRect(
+                                    borderRadius: BorderRadius.circular(10.0),
+                                    clipBehavior: Clip
+                                        .antiAliasWithSaveLayer, // agregar anti-aliasing
+                                    child: LinearProgressIndicator(
+                                      value:
+                                          0.5, // Aquí iría el porcentaje de progreso
+                                      backgroundColor: Colors.transparent,
+                                      valueColor: AlwaysStoppedAnimation<Color>(
+                                          Color(0xFF6283CE)),
+                                    ),
+                                  ),
+                                ),
                               ),
                             ],
                           ),
-                        ));
-                  },
+                        ),
+                      );
+                    },
+                  ),
+                ),
+              ),
+            ),
+            Padding(
+              padding:
+                  EdgeInsets.only(top: 0.0, left: 20, bottom: 5, right: 20),
+              child: Align(
+                child: Row(
+                  children: [
+                    Text(
+                      'Your friends',
+                      style: GoogleFonts.dmSans(
+                          textStyle: TextStyle(
+                        color: Color(0xFF394970),
+                        fontSize: 17,
+                        letterSpacing: -0.54,
+                        fontWeight: FontWeight.w600,
+                      )),
+                    ),
+                    Spacer(),
+                    Text(
+                      'See more >',
+                      style: GoogleFonts.dmSans(
+                          textStyle: TextStyle(
+                        color: Colors.grey,
+                        fontSize: 14,
+                        letterSpacing: -0.54,
+                        fontWeight: FontWeight.w600,
+                      )),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.only(left: 20.0),
+              child: Container(
+                height: 150,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(19.0),
+                    topRight: Radius.zero,
+                    bottomLeft: Radius.zero,
+                    bottomRight: Radius.zero,
+                  ),
+                  gradient: LinearGradient(
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
+                    colors: [
+                      Color(0xFFD3DEFC),
+                      Colors.white,
+                    ],
+                  ),
+                ),
+                child: Padding(
+                  padding: EdgeInsets.only(left: 0.0, right: 0.0),
+                  child: ListView.builder(
+                    scrollDirection: Axis.horizontal,
+                    itemCount: people.length,
+                    itemBuilder: (BuildContext context, int index2) {
+                      Person person = people[index2];
+                      return Padding(
+                        padding: const EdgeInsets.all(15),
+                        child: InkWell(
+                          onTap: () {
+                            // Do something when a person is tapped
+                          },
+                          child: Container(
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              color: Colors.grey,
+                            ),
+                            width: 120,
+                            height: 120,
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(60),
+                              child: Image.network(
+                                person.imageUrl,
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                          ),
+                        ),
+                      );
+                    },
+                  ),
                 ),
               ),
             ),
@@ -149,4 +419,11 @@ class _ReadingStatsWidget extends State<ReadingStatsWidget> {
       ),
     );
   }
+}
+
+class Person {
+  String name;
+  String imageUrl;
+
+  Person({required this.name, required this.imageUrl});
 }
