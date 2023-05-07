@@ -14,7 +14,7 @@ class SqliteService {
     String path = await getDatabasesPath();
 
     return openDatabase(
-      join(path, 'database14.db'),
+      join(path, 'database16.db'),
       onCreate: (database, version) async {
         await database.execute(
           "CREATE TABLE Users(id INTEGER PRIMARY KEY AUTOINCREMENT,  name TEXT, username TEXT, password TEXT, description TEXT NOT NULL)",
@@ -24,7 +24,7 @@ class SqliteService {
         );
 
         await database.execute(
-          "CREATE TABLE BooksUsers(id INTEGER PRIMARY KEY AUTOINCREMENT,  userid INT, bookid INT, starts INT, pages INT, toread INT, status INT, title TEXT, author TEXT, ISBN TEXT, description TEXT, cover TEXT, pagesreaded INT, FOREIGN KEY(userid) REFERENCES Users(id), FOREIGN KEY(bookid) REFERENCES Books(id))",
+          "CREATE TABLE BooksUsers(id INTEGER PRIMARY KEY AUTOINCREMENT,  userid TEXT, bookid INT, starts INT, pages INT, toread INT, status INT, title TEXT, author TEXT, ISBN TEXT, description TEXT, cover TEXT, pagesreaded INT, FOREIGN KEY(userid) REFERENCES Users(id), FOREIGN KEY(bookid) REFERENCES Books(id))",
         );
         await database.execute(
           "CREATE TABLE TimeReading(id INTEGER PRIMARY KEY AUTOINCREMENT,  bookid INT, userid INT, pagesRead INT, day TEXT, date TEXT, time INT, FOREIGN KEY(bookid) REFERENCES Books(id), FOREIGN KEY(userid) REFERENCES Users(id))",
@@ -63,7 +63,21 @@ class SqliteService {
   Future<void> addBooksUser(BooksUserModel booksusermodel) async {
     final Database db = await initializeDB();
     await db.rawInsert(
-        "INSERT INTO BooksUsers(userid, bookid, starts, pages, toread, status, title, author, ISBN, description, cover, pagesreaded) VALUES(${booksusermodel.userid}, ${booksusermodel.bookid}, ${booksusermodel.starts}, ${booksusermodel.pages}, ${booksusermodel.toread}, ${booksusermodel.status}, '${booksusermodel.title}', '${booksusermodel.author}', '${booksusermodel.ISBN}', '${booksusermodel.description}', '${booksusermodel.cover}', ${booksusermodel.pagesreaded})");
+        "INSERT INTO BooksUsers(userid, bookid, starts, pages, toread, status, title, author, ISBN, description, cover, pagesreaded) VALUES(?,?,?,?,?,?,?,?,?,?,?,?)",
+        [
+          booksusermodel.userid,
+          booksusermodel.bookid,
+          booksusermodel.starts,
+          booksusermodel.pages,
+          booksusermodel.toread,
+          booksusermodel.status,
+          booksusermodel.title,
+          booksusermodel.author,
+          booksusermodel.ISBN,
+          booksusermodel.description,
+          booksusermodel.cover,
+          booksusermodel.pagesreaded
+        ]);
   }
 
   Future<void> addTimeReading(TimeReadingModel timereadingmodel) async {
@@ -98,14 +112,14 @@ class SqliteService {
     return queryResult.map((e) => UserModel.fromMap(e)).toList();
   }
 
-  Future<List<TimeReadingModel>> getTimeReading(int userid) async {
+  Future<List<TimeReadingModel>> getTimeReading(String userid) async {
     final db = await initializeDB();
     List<Map<String, Object?>> result = await db
         .rawQuery('SELECT * FROM TimeReading WHERE userid=? ', [userid]);
     return result.map((e) => TimeReadingModel.fromMap(e)).toList();
   }
 
-  Future<List<AlarmsModel>> getAlarms(int userid) async {
+  Future<List<AlarmsModel>> getAlarms(String userid) async {
     final db = await initializeDB();
     List<Map<String, Object?>> result =
         await db.rawQuery('SELECT * FROM Alarms WHERE userid=? ', [userid]);

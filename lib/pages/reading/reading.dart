@@ -16,6 +16,13 @@ int _index = 0;
 
 class _ReadingStatsWidget extends State<ReadingStatsWidget> {
   GeneralController generalcontroller = Get.find();
+  List books = [];
+  @override
+  void initState() {
+    super.initState();
+    books = generalcontroller.booksUser;
+  }
+
   int pagesReaded = 0;
   int booksReaded = 0;
   int rankedBooks = 0;
@@ -27,7 +34,7 @@ class _ReadingStatsWidget extends State<ReadingStatsWidget> {
     int rankedBooks1 = 0;
     int booksToRead1 = 0;
     for (var book in generalcontroller.booksUser) {
-      if (book.userid == 1) {
+      if (true) {
         if (book.pagesreaded != 0) {
           pagesReaded1 += book.pagesreaded;
           booksReaded1 += 1;
@@ -79,7 +86,7 @@ class _ReadingStatsWidget extends State<ReadingStatsWidget> {
                   },
                   color: CupertinoColors.black,
                   child: Text(
-                    'Books read this month: ' + '1',
+                    'Books read this month: ' + booksReaded.toString(),
                     style:
                         TextStyle(fontSize: 24, color: CupertinoColors.white),
                   ),
@@ -91,13 +98,12 @@ class _ReadingStatsWidget extends State<ReadingStatsWidget> {
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16.0),
                 child: ListView.builder(
-                  itemCount: generalcontroller.booksUser.length,
+                  itemCount: books.length,
                   itemBuilder: (context, index) {
                     return GestureDetector(
                         onTap: () async {
-                          print(generalcontroller.booksUser[index].id);
-                          Get.to(BookWidget(),
-                              arguments: [generalcontroller.booksUser[index]]);
+                          //print(generalcontroller.booksUser[index].id);
+                          Get.to(BookWidget(), arguments: [books[index]]);
                         },
                         child: Container(
                           margin: const EdgeInsets.symmetric(vertical: 13.0),
@@ -119,14 +125,14 @@ class _ReadingStatsWidget extends State<ReadingStatsWidget> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                generalcontroller.booksUser[index].title,
+                                books[index].title,
                                 style: TextStyle(
                                   fontSize: 18,
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
                               Text(
-                                '${generalcontroller.booksUser[index].pages} pages read',
+                                '${books[index].pages} pages read',
                                 style:
                                     TextStyle(fontSize: 14, color: Colors.grey),
                               ),

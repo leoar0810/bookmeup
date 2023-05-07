@@ -27,6 +27,8 @@ class _BookWidgetState extends State<BookWidget> {
   Widget build(BuildContext context) {
     GeneralController generalController = Get.find();
     var data = Get.arguments[0];
+    _ratingController.text = data.pagesreaded.toString();
+    _descriptionController.text = data.description;
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -78,7 +80,7 @@ class _BookWidgetState extends State<BookWidget> {
                   book.pagesreaded = int.parse(_ratingController.text);
                   book.description = _descriptionController.text;
                   await generalController.updateBooksUser(book);
-                  Get.to(() => AddBookScreen(), arguments: [book]);
+                  Get.to(ReadingStatsWidget());
                 },
                 child: Text(
                   'Update Book',
@@ -98,10 +100,12 @@ class _BookWidgetState extends State<BookWidget> {
               SizedBox(height: 20),
               TextButton(
                 onPressed: () {
-                  Get.to(RankbookScreen(
-                    imageUrl:
-                        'https://i.pinimg.com/originals/34/6a/1f/346a1f4363e1b59f6860fdce6abc1082.jpg',
-                  ));
+                  Get.to(
+                      RankbookScreen(
+                        imageUrl:
+                            'https://i.pinimg.com/originals/34/6a/1f/346a1f4363e1b59f6860fdce6abc1082.jpg',
+                      ),
+                      arguments: [data]);
                 },
                 child: Text(
                   'Already read this book? Rank it!',

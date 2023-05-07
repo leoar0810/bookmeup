@@ -1,3 +1,4 @@
+import 'package:bookmeup/db/models/BooksUsersModel.dart';
 import 'package:flutter/material.dart';
 import 'package:bookmeup/index.dart';
 import 'package:bookmeup/widgets/navigationbar.dart';
@@ -14,6 +15,17 @@ class RankbookScreen extends StatefulWidget {
 class _RankbookScreenState extends State<RankbookScreen> {
   List<bool> _starStates = [false, false, false, false, false];
   int _rating = 0;
+  GeneralController generalController = Get.find();
+  BooksUserModel data = Get.arguments[0];
+
+  @override
+  void initState() {
+    super.initState();
+    for (int i = 0; i < data.starts; i++) {
+      _starStates[i] = true;
+    }
+    _rating = data.starts;
+  }
 
   void _updateRating(int rating) {
     setState(() {
@@ -22,6 +34,8 @@ class _RankbookScreenState extends State<RankbookScreen> {
         _starStates[i] = i < rating;
       }
       print(_rating);
+      data.starts = _rating;
+      generalController.updateBooksUser(data);
     });
   }
 
@@ -141,7 +155,10 @@ class _RankbookScreenState extends State<RankbookScreen> {
                   SizedBox(
                     width: double.infinity,
                     child: ElevatedButton(
-                      onPressed: () {
+                      onPressed: () async {
+                        data.starts = _rating;
+                        print(data.starts);
+                        await generalController.updateBooksUser(data);
                         Get.to(() => ReadingStatsWidget());
                       },
                       child: Text(

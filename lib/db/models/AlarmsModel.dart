@@ -1,6 +1,6 @@
 class AlarmsModel {
   final int id;
-  final int userid;
+  final String userid;
   final String day;
   final String time;
   final int status;

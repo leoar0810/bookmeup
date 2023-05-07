@@ -24,7 +24,7 @@ class _LoginPageState extends State<LoginPage> {
       print('User ${userCredential.user!.uid} logged in');
       final prefs = await SharedPreferences.getInstance();
 
-      await prefs.setInt('user', 1);
+      await prefs.setString('user', userCredential.user!.uid);
       Get.to(() => ReadingStatsWidget());
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {

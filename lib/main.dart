@@ -4,6 +4,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:bookmeup/index.dart';
 import 'package:bookmeup/controllers/generalcontroller.dart';
 import 'package:bookmeup/controllers/readingcontroller.dart';
+import 'package:bookmeup/pages/intermediate.dart';
 
 final db = SqliteService();
 
@@ -38,16 +39,7 @@ class _CheckAuthScreenState extends State<CheckAuthScreen> {
   void checkUser() async {
     User? user = _auth.currentUser;
     if (user != null) {
-      Get.to(() => ReadingStatsWidget(), arguments: [
-        {'booksReadInMonth': 3},
-        {
-          'booksRead': [
-            {'title': 'To Kill a Mockingbird', 'pagesRead': 150},
-            {'title': '1984', 'pagesRead': 200},
-            {'title': 'The Catcher in the Rye', 'pagesRead': 100},
-          ]
-        }
-      ]);
+      Get.to(() => Intermediate());
     } else {
       Get.to(() => WelcomePage());
     }

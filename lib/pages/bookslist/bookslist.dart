@@ -5,6 +5,10 @@ import 'package:flutter/material.dart';
 import 'package:bookmeup/helpers/book.dart';
 import 'package:cupertino_icons/cupertino_icons.dart';
 import 'package:bookmeup/datasources/remote/bookremoteapi.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
+
+import 'package:shared_preferences/shared_preferences.dart';
 
 class BookListAddWidget extends StatefulWidget {
   final List<Book> books;
@@ -21,13 +25,31 @@ class BookListAddWidget extends StatefulWidget {
 
 class _BookListAddWidgetState extends State<BookListAddWidget> {
   GeneralController generalController = Get.find();
+  final _searchController = TextEditingController();
+
+  Future<List<dynamic>> fetchBooks(String searchQuery) async {
+    var response;
+    if (searchQuery.isEmpty) {
+      response = await http.get(Uri.parse(
+          'https://www.googleapis.com/books/v1/volumes?q=inauthor&orderBy=relevance&maxResults=20'));
+    } else {
+      response = await http.get(Uri.parse(
+          'https://www.googleapis.com/books/v1/volumes?q=$searchQuery'));
+    }
+
+    if (response.statusCode == 200) {
+      return json.decode(response.body)['items'].take(100).toList();
+    } else {
+      throw Exception('Failed to load books');
+    }
+  }
 
   late Future<List<dynamic>> futureBooks;
 
   @override
   void initState() {
     super.initState();
-    futureBooks = fetchBooks();
+    futureBooks = fetchBooks('');
   }
 
   @override
@@ -40,6 +62,24 @@ class _BookListAddWidgetState extends State<BookListAddWidget> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
+              Row(
+                children: [
+                  Icon(Icons.search),
+                  Expanded(
+                    child: TextField(
+                      controller: _searchController,
+                      decoration: InputDecoration(
+                        hintText: 'Search for a book',
+                      ),
+                      onChanged: (query) {
+                        setState(() {
+                          futureBooks = fetchBooks(query);
+                        });
+                      },
+                    ),
+                  ),
+                ],
+              ),
               SizedBox(height: 30),
               Expanded(
                 child: Container(
@@ -90,17 +130,19 @@ class _BookListAddWidgetState extends State<BookListAddWidget> {
                                         Text('$author | $pageCount pages'),
                                     trailing: Icon(Icons.arrow_forward),
                                     onTap: () async {
+                                      final prefs =
+                                          await SharedPreferences.getInstance();
+
                                       BooksUserModel bookuser = BooksUserModel(
                                         id: 1,
-                                        userid: 1,
+                                        userid: prefs.getString('user') ?? '',
                                         bookid: 1,
                                         starts: 0,
                                         pages: book['pageCount'] as int,
                                         toread: 1,
                                         status: 1,
                                         title: book['title'],
-                                        author: book['authors'][0] ??
-                                            'Unknown author',
+                                        author: author,
                                         ISBN: 'asdf',
                                         description: description,
                                         cover: book['imageLinks']
@@ -121,14 +163,6 @@ class _BookListAddWidgetState extends State<BookListAddWidget> {
                             }
                           },
                         ),
-                      ),
-                      SizedBox(height: 20),
-                      TextButton(
-                        onPressed: () {
-                          Get.to(() => BookWidget(), arguments: []);
-                        },
-                        child:
-                            Text('Do not you find what you are looking for?'),
                       ),
                     ],
                   ),

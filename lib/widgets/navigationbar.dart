@@ -44,7 +44,7 @@ class NavigationBarWidget extends StatelessWidget {
             )
           }
         else if (index == 3)
-          {Get.to(() => MyApp())}
+          {Get.to(() => FriendsBooksWidget())}
         else if (index == 4)
           {Get.to(() => UserProfileWidget())},
       },

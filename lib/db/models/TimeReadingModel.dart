@@ -1,7 +1,7 @@
 class TimeReadingModel {
   final int id;
   final int bookid;
-  final int userid;
+  final String userid;
   final int pagesRead;
   final String day;
   final String date;

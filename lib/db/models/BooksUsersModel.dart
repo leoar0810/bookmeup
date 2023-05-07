@@ -1,6 +1,6 @@
 class BooksUserModel {
   int id;
-  int userid;
+  String userid;
   int bookid;
   int starts;
   int pages;

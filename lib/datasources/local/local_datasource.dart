@@ -34,14 +34,14 @@ class LocalDataSource {
   Future<void> initTimeReading() async {
     final prefs = await SharedPreferences.getInstance();
     // fijar valor
-    final userg = prefs.getInt('user') ?? 0;
+    final userg = prefs.getString('user') ?? '';
     timeReading = await db.getTimeReading(userg);
   }
 
   Future<void> initAlarms() async {
     final prefs = await SharedPreferences.getInstance();
     // fijar valor
-    final userg = prefs.getInt('user') ?? 0;
+    final userg = prefs.getString('user') ?? '';
     alarms = await db.getAlarms(userg);
   }
 
