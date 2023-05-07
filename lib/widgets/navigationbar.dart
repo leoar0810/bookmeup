@@ -20,7 +20,7 @@ class NavigationBarWidget extends StatelessWidget {
 
     final List<Widget> _pages = [
       ReadingStatsWidget(),
-      ReadingDashboardWidget(),
+      ReadingDashboardWidget(booksToRank: [], booksToRead: [], daysOfReading: 0, rankedBooks: [],),
       const WelcomePage(),
     ];
     return BottomNavigationBar(

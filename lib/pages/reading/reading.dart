@@ -68,7 +68,7 @@ class _ReadingStatsWidget extends State<ReadingStatsWidget> {
                   onPressed: () {
                     print('asdfadskfjsdfjklasd');
                     Get.to(
-                      ReadingDashboardWidget(),
+                      ReadingDashboardWidget(booksToRank: [], booksToRead: [], daysOfReading: 0, rankedBooks: [],),
                       arguments: [
                         pagesReaded,
                         booksReaded,
