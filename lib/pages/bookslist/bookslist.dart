@@ -70,12 +70,20 @@ class _BookListAddWidgetState extends State<BookListAddWidget> {
                                   final book =
                                       snapshot.data![index]['volumeInfo'];
                                   final title = book['title'];
-                                  final author = book['authors']?.join(', ') ??
-                                      'Unknown author';
+                                  String author = '';
+                                  if (book['authors'] == null) {
+                                    author = 'Unknown author';
+                                  } else {
+                                    author = book['authors'][0];
+                                  }
+
                                   final pageCount = book['pageCount'] ??
                                       'Unknown number of pages';
-                                  final description = book['description'] ??
+                                  String description = book['description'] ??
                                       'No description available';
+                                  if (description.length > 200) {
+                                    description = description.substring(0, 200);
+                                  }
                                   return ListTile(
                                     title: Text(title),
                                     subtitle:
@@ -91,14 +99,13 @@ class _BookListAddWidgetState extends State<BookListAddWidget> {
                                         toread: 1,
                                         status: 1,
                                         title: book['title'],
-                                        author: book['authors']?.join(', ') ??
+                                        author: book['authors'][0] ??
                                             'Unknown author',
                                         ISBN: 'asdf',
-                                        description: book['description'] ??
-                                            'No description available',
+                                        description: description,
                                         cover: book['imageLinks']
                                                 ['thumbnail'] ??
-                                            '',
+                                            'https://img.freepik.com/premium-vector/white-blank-book-cover-isolated-grey-background-realistic-closed-vertical-book-magazine-notebook-template-your-design-front-side-book_168129-357.jpg',
                                         pagesreaded: 0,
                                       );
                                       Get.to(BookDetailsWidget(),

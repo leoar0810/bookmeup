@@ -1,3 +1,4 @@
+import 'package:bookmeup/db/models/BooksUsersModel.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:bookmeup/index.dart';
@@ -12,43 +13,30 @@ class TrendingWidget extends StatefulWidget {
 int _index = 0;
 
 class _TrendingWidget extends State<TrendingWidget> {
-  List<Book> books = [];
+  List<BooksUserModel> books = [];
+
+  GeneralController generalController = Get.find();
 
   @override
   void initState() {
     super.initState();
     // libros de ejemplo
-    books.add(Book(
-        title: 'El nombre del viento',
-        author: 'Patrick Rothfuss',
-        imageUrl:
-            'https://cdn.shopify.com/s/files/1/0515/0775/7223/products/PorQuienDoblanlasCampanas_227x.jpg?v=1647711358'));
-    books.add(Book(
-        title: 'El imperio final',
-        author: 'Brandon Sanderson',
-        imageUrl:
-            'https://cdn.shopify.com/s/files/1/0515/0775/7223/products/9789585121935_500x.jpg?v=1678145263'));
-    books.add(Book(
-        title: 'El imperio final',
-        author: 'Brandon Sanderson',
-        imageUrl:
-            'https://cdn.shopify.com/s/files/1/0515/0775/7223/products/ElHambre_236x.jpg?v=1642438469'));
-    books.add(Book(
-        title: 'El imperio final',
-        author: 'Brandon Sanderson',
-        imageUrl:
-            'https://cdn.shopify.com/s/files/1/0515/0775/7223/products/9789585549241_229x.jpg?v=1619633988'));
-    books.add(Book(
-        title: 'El imperio final',
-        author: 'Brandon Sanderson',
-        imageUrl:
-            'https://cdn.shopify.com/s/files/1/0515/0775/7223/products/9788418483073_500x.jpg?v=1676158172'));
-  }
+    int tam = 0;
+    if (generalController.booksUser.length > 5) {
+      tam = 5;
+    } else {
+      tam = generalController.booksUser.length;
+    }
 
-  void addBook(String title, String author, String imageUrl) {
-    setState(() {
-      books.add(Book(title: title, author: author, imageUrl: imageUrl));
-    });
+    List<BooksUserModel> getTopRatedBooks(List<BooksUserModel> books) {
+      books.sort((a, b) => b.starts.compareTo(
+          a.starts)); // sort books by star rating in descending order
+      return books
+          .take(tam)
+          .toList(); // get the first 5 books from the sorted list
+    }
+
+    books = getTopRatedBooks(generalController.booksUser);
   }
 
   @override
@@ -134,12 +122,12 @@ class _TrendingWidget extends State<TrendingWidget> {
                 scrollDirection: Axis.horizontal,
                 itemCount: books.length,
                 itemBuilder: (BuildContext context, int index) {
-                  Book book = books[index];
+                  BooksUserModel book = books[index];
                   return Padding(
                     padding: const EdgeInsets.all(15),
                     child: InkWell(
                       onTap: () {
-                        // Do something when a book is tapped
+                        Get.to(BookDetailsWidget(), arguments: [book]);
                       },
                       child: Container(
                         decoration: BoxDecoration(
@@ -150,7 +138,7 @@ class _TrendingWidget extends State<TrendingWidget> {
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(20),
                           child: Image.network(
-                            book.imageUrl,
+                            book.cover,
                             fit: BoxFit.cover,
                             height: 150,
                           ),
