@@ -4,21 +4,17 @@ import 'package:bookmeup/controllers/generalcontroller.dart';
 import 'package:bookmeup/index.dart';
 
 class ReadingDashboardWidget extends StatelessWidget {
-  final miController = GeneralController.to;
-  final int daysOfReading;
-  final List<String> rankedBooks;
-  final List<String> booksToRead;
-  final List<String> booksToRank;
+  GeneralController generalController = Get.find();
 
-  ReadingDashboardWidget({
-    required this.daysOfReading,
-    required this.rankedBooks,
-    required this.booksToRead,
-    required this.booksToRank,
-  });
+  ReadingDashboardWidget();
 
   @override
   Widget build(BuildContext context) {
+    //final pagesReaded = Get.arguments[0];
+    //final booksReaded = Get.arguments[1];
+    //final rankedBooks = Get.arguments[2];
+    //final booksToRead = Get.arguments[3];
+
     return Scaffold(
       backgroundColor: Color.fromARGB(255, 28, 117, 190),
       appBar: AppBar(
@@ -74,7 +70,8 @@ class ReadingDashboardWidget extends StatelessWidget {
                               ),
                             ),
                             Text(
-                              '$daysOfReading',
+                              //pagesReaded.toString(),
+                              '0',
                               style: TextStyle(
                                 fontSize: 36.0,
                                 color: Colors.blue,
@@ -108,8 +105,10 @@ class ReadingDashboardWidget extends StatelessWidget {
                               ),
                             ),
                             Text(
-                              booksToRead.toString(),
+                              //booksToRead.toString(),
+                              '0',
                               style: TextStyle(
+                                fontSize: 30,
                                 fontWeight: FontWeight.bold,
                                 color: Colors.blue,
                               ),
@@ -149,6 +148,7 @@ class ReadingDashboardWidget extends StatelessWidget {
                               ),
                             ),
                             Text(
+                              //booksReaded.toString(),
                               '0',
                               style: TextStyle(
                                 fontWeight: FontWeight.bold,
@@ -185,6 +185,7 @@ class ReadingDashboardWidget extends StatelessWidget {
                               ),
                             ),
                             Text(
+                              //rankedBooks.toString(),
                               '0',
                               style: TextStyle(
                                 fontWeight: FontWeight.bold,
