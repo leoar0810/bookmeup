@@ -2,10 +2,28 @@ import 'package:flutter/material.dart';
 import 'package:bookmeup/index.dart';
 import 'package:bookmeup/widgets/navigationbar.dart';
 
-class RankbookScreen extends StatelessWidget {
+class RankbookScreen extends StatefulWidget {
   final String imageUrl;
 
   RankbookScreen({required this.imageUrl});
+
+  @override
+  _RankbookScreenState createState() => _RankbookScreenState();
+}
+
+class _RankbookScreenState extends State<RankbookScreen> {
+  List<bool> _starStates = [false, false, false, false, false];
+  int _rating = 0;
+
+  void _updateRating(int rating) {
+    setState(() {
+      _rating = rating;
+      for (int i = 0; i < _starStates.length; i++) {
+        _starStates[i] = i < rating;
+      }
+      print(_rating);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -52,7 +70,7 @@ class RankbookScreen extends StatelessWidget {
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(20),
                   image: DecorationImage(
-                    image: NetworkImage(imageUrl),
+                    image: NetworkImage(widget.imageUrl),
                     fit: BoxFit.cover,
                   ),
                 ),
@@ -77,11 +95,46 @@ class RankbookScreen extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Icon(Icons.star_border, color: Colors.black, size: 40),
-                      Icon(Icons.star_border, color: Colors.black, size: 40),
-                      Icon(Icons.star_border, color: Colors.black, size: 40),
-                      Icon(Icons.star_border, color: Colors.black, size: 40),
-                      Icon(Icons.star_border, color: Colors.black, size: 40),
+                      IconButton(
+                        icon: Icon(
+                          _starStates[0] ? Icons.star : Icons.star_border,
+                          color: Colors.black,
+                          size: 40,
+                        ),
+                        onPressed: () => _updateRating(1),
+                      ),
+                      IconButton(
+                        icon: Icon(
+                          _starStates[1] ? Icons.star : Icons.star_border,
+                          color: Colors.black,
+                          size: 40,
+                        ),
+                        onPressed: () => _updateRating(2),
+                      ),
+                      IconButton(
+                        icon: Icon(
+                          _starStates[2] ? Icons.star : Icons.star_border,
+                          color: Colors.black,
+                          size: 40,
+                        ),
+                        onPressed: () => _updateRating(3),
+                      ),
+                      IconButton(
+                        icon: Icon(
+                          _starStates[3] ? Icons.star : Icons.star_border,
+                          color: Colors.black,
+                          size: 40,
+                        ),
+                        onPressed: () => _updateRating(4),
+                      ),
+                      IconButton(
+                        icon: Icon(
+                          _starStates[4] ? Icons.star : Icons.star_border,
+                          color: Colors.black,
+                          size: 40,
+                        ),
+                        onPressed: () => _updateRating(5),
+                      ),
                     ],
                   ),
                   SizedBox(height: 16),

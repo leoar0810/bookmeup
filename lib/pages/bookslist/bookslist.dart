@@ -86,7 +86,7 @@ class _BookListAddWidgetState extends State<BookListAddWidget> {
                                         id: 1,
                                         userid: 1,
                                         bookid: 1,
-                                        starts: 1,
+                                        starts: 0,
                                         pages: book['pageCount'] as int,
                                         toread: 1,
                                         status: 1,
@@ -96,7 +96,9 @@ class _BookListAddWidgetState extends State<BookListAddWidget> {
                                         ISBN: 'asdf',
                                         description: book['description'] ??
                                             'No description available',
-                                        cover: 'asdf',
+                                        cover: book['imageLinks']
+                                                ['thumbnail'] ??
+                                            '',
                                         pagesreaded: 0,
                                       );
                                       Get.to(BookDetailsWidget(),

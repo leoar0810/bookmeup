@@ -152,15 +152,8 @@ class _UserProfileWidgetState extends State<UserProfileWidget> {
                       children: [
                         _buildIconButton(Icons.bookmark, 'Bookmark',
                             () => Get.to(BookmarkWidget())),
-                        _buildIconButton(
-                            Icons.track_changes,
-                            'Tracker',
-                            () => Get.to(() => ReadingDashboardWidget(
-                                  booksToRank: [],
-                                  booksToRead: [],
-                                  rankedBooks: [],
-                                  daysOfReading: 1,
-                                ))),
+                        _buildIconButton(Icons.track_changes, 'Tracker',
+                            () => Get.to(() => ReadingDashboardWidget())),
                         _buildIconButton(Icons.highlight, 'Highlights',
                             () => Get.to(HighlightWidget())),
                       ],
