@@ -13,15 +13,11 @@ class BookWidget extends StatefulWidget {
 
 class _BookWidgetState extends State<BookWidget> {
   GeneralController generalController = Get.find();
-  final TextEditingController _bookNameController = TextEditingController();
-  final TextEditingController _authorNameController = TextEditingController();
   final TextEditingController _ratingController = TextEditingController();
   final TextEditingController _descriptionController = TextEditingController();
 
   @override
   void dispose() {
-    _bookNameController.dispose();
-    _authorNameController.dispose();
     _ratingController.dispose();
     _descriptionController.dispose();
     super.dispose();
@@ -31,10 +27,6 @@ class _BookWidgetState extends State<BookWidget> {
   Widget build(BuildContext context) {
     GeneralController generalController = Get.find();
     var data = Get.arguments[0];
-    _bookNameController.text = data.title;
-    _authorNameController.text = data.author;
-    _ratingController.text = data.pagesreaded.toString();
-    _descriptionController.text = data.description;
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -42,51 +34,24 @@ class _BookWidgetState extends State<BookWidget> {
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20.0),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  GestureDetector(
-                    onTap: () => Navigator.pop(context),
-                    child: Icon(Icons.arrow_back_ios_new),
-                  ),
-                  Text(
-                    'Bookmeup',
-                    style: TextStyle(
-                      fontSize: 30,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.black,
-                    ),
-                  ),
-                  SizedBox(width: 40),
-                ],
-              ),
               SizedBox(height: 30),
               Text(
-                'Add Book',
+                data.title,
                 style: TextStyle(
                   fontSize: 24,
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              SizedBox(height: 20),
-              TextField(
-                controller: _bookNameController,
-                decoration: InputDecoration(
-                  hintText: 'Enter book name',
-                  border: OutlineInputBorder(),
+              SizedBox(height: 10),
+              Text(
+                'by ${data.author}',
+                style: TextStyle(
+                  fontSize: 16,
                 ),
               ),
-              SizedBox(height: 20),
-              TextField(
-                controller: _authorNameController,
-                decoration: InputDecoration(
-                  hintText: 'Enter author name',
-                  border: OutlineInputBorder(),
-                ),
-              ),
-              SizedBox(height: 20),
+              SizedBox(height: 40),
               TextField(
                 controller: _ratingController,
                 decoration: InputDecoration(
@@ -102,6 +67,7 @@ class _BookWidgetState extends State<BookWidget> {
                   hintText: 'Enter book description',
                   border: OutlineInputBorder(),
                 ),
+                maxLines: 5,
               ),
               SizedBox(height: 20),
               ElevatedButton(
@@ -109,15 +75,13 @@ class _BookWidgetState extends State<BookWidget> {
                   print('asdf' + data.id.toString());
                   BooksUserModel book = data;
                   book.id = data.id;
-                  book.title = _bookNameController.text;
-                  book.author = _authorNameController.text;
                   book.pagesreaded = int.parse(_ratingController.text);
                   book.description = _descriptionController.text;
                   await generalController.updateBooksUser(book);
                   Get.to(() => AddBookScreen(), arguments: [book]);
                 },
                 child: Text(
-                  'Add Book',
+                  'Update Book',
                   style: TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
@@ -129,6 +93,22 @@ class _BookWidgetState extends State<BookWidget> {
                     borderRadius: BorderRadius.circular(20),
                   ),
                   minimumSize: Size(double.infinity, 60),
+                ),
+              ),
+              SizedBox(height: 20),
+              TextButton(
+                onPressed: () {
+                  Get.to(RankbookScreen(
+                    imageUrl:
+                        'https://i.pinimg.com/originals/34/6a/1f/346a1f4363e1b59f6860fdce6abc1082.jpg',
+                  ));
+                },
+                child: Text(
+                  'Already read this book? Rank it!',
+                  style: TextStyle(
+                    color: Colors.grey[600],
+                    fontSize: 16,
+                  ),
                 ),
               ),
             ],

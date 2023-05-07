@@ -65,8 +65,7 @@ class _SignupPageState extends State<SignupPage> {
                     controller: emailController,
                     decoration: InputDecoration(
                       labelText: 'Email',
-                      labelStyle:
-                          TextStyle(color: Color.fromARGB(255, 61, 109, 180)),
+                      labelStyle: TextStyle(color: Color.fromARGB(255, 61, 109, 180)),
                       enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10),
                         borderSide: BorderSide(width: 2, color: Colors.grey),
@@ -87,8 +86,7 @@ class _SignupPageState extends State<SignupPage> {
                     controller: passwordController,
                     decoration: InputDecoration(
                       labelText: 'Password',
-                      labelStyle:
-                          TextStyle(color: Color.fromARGB(255, 61, 109, 180)),
+                      labelStyle: TextStyle(color: Color.fromARGB(255, 61, 109, 180)),
                       enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10),
                         borderSide: BorderSide(width: 2, color: Colors.grey),
@@ -120,8 +118,7 @@ class _SignupPageState extends State<SignupPage> {
                   SizedBox(height: 20),
                   TextButton(
                     onPressed: () => Get.to(() => LoginPage()),
-                    child: Text('Already have an account? Log in',
-                        style: TextStyle(color: Colors.white)),
+                    child: Text('Already have an account? Log in', style: TextStyle(color: Colors.white)),
                   ),
                 ],
               ),
