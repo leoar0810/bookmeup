@@ -78,6 +78,12 @@ flutter:
     - lib/images/backgroundwelcome.png
     - lib/images/backgroundlogin.png
     - lib/images/backgroundsignup.png
+    - lib/images/thunder.png
+    - lib/images/home.png
+    - lib/images/add.png
+    - lib/images/friends.png
+    - lib/images/account.png
+
   # assets:
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg

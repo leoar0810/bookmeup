@@ -42,6 +42,7 @@ class _ReadingStatsWidget extends State<ReadingStatsWidget> {
   int booksReaded = 0;
   int rankedBooks = 0;
   int booksToRead = 0;
+  int percentage = 0;
 
   void calculatePagesReaded() {
     int pagesReaded1 = 0;
@@ -65,6 +66,18 @@ class _ReadingStatsWidget extends State<ReadingStatsWidget> {
     booksReaded = booksReaded1;
     rankedBooks = rankedBooks1;
     booksToRead = booksToRead1;
+
+    if (booksReaded != 0) {
+      percentage = ((booksReaded / (booksReaded + booksToRead)) * 100).round();
+    } else {
+      percentage = 0;
+    }
+  }
+
+  void addPerson(String name, String imageUrl) {
+    setState(() {
+      people.add(Person(name: name, imageUrl: imageUrl));
+    });
   }
 
   @override
@@ -118,7 +131,7 @@ class _ReadingStatsWidget extends State<ReadingStatsWidget> {
                     ),
                   ),
                   child: Padding(
-                    padding: const EdgeInsets.only(top: 15.0, bottom: 0.0),
+                    padding: const EdgeInsets.only(top: 10.0, bottom: 0.0),
                     child: Column(
                       children: [
                         Padding(
@@ -146,7 +159,8 @@ class _ReadingStatsWidget extends State<ReadingStatsWidget> {
                             clipBehavior: Clip
                                 .antiAliasWithSaveLayer, // agregar anti-aliasing
                             child: LinearProgressIndicator(
-                              value: 0.5, // Aquí iría el porcentaje de progreso
+                              value: percentage /
+                                  100, // Aquí iría el porcentaje de progreso
                               backgroundColor: Colors.transparent,
                               valueColor: AlwaysStoppedAnimation<Color>(
                                   Color(0xFF9CB5F7)),
@@ -154,13 +168,13 @@ class _ReadingStatsWidget extends State<ReadingStatsWidget> {
                           ),
                         ),
                         Padding(
-                          padding: const EdgeInsets.only(top: 10.0),
+                          padding: const EdgeInsets.only(top: 5.0),
                           child: Column(
                             children: [
                               Row(
                                 children: [
                                   Text(
-                                    '10 of 20',
+                                    '$booksReaded of ${booksToRead + booksReaded}',
                                     style: GoogleFonts.dmSans(
                                       textStyle: TextStyle(
                                         color: Color(0xFF123A93),
@@ -172,7 +186,7 @@ class _ReadingStatsWidget extends State<ReadingStatsWidget> {
                                   ),
                                   Spacer(),
                                   Text(
-                                    '50%', // Aquí iría el porcentaje de progreso
+                                    '${percentage} %', // Aquí iría el porcentaje de progreso
                                     style: GoogleFonts.quicksand(
                                       textStyle: TextStyle(
                                         color: Color(0xFF3E578E),
@@ -240,7 +254,7 @@ class _ReadingStatsWidget extends State<ReadingStatsWidget> {
               ),
             ),
             Padding(
-              padding: EdgeInsets.only(left: 20.0, bottom: 30.0),
+              padding: EdgeInsets.only(left: 20.0, bottom: 20.0),
               child: Container(
                 height: 200,
                 decoration: BoxDecoration(
@@ -270,7 +284,7 @@ class _ReadingStatsWidget extends State<ReadingStatsWidget> {
                         padding: const EdgeInsets.all(15),
                         child: InkWell(
                           onTap: () {
-                            // Do something when a book is tapped
+                            Get.to(BookWidget(), arguments: [book]);
                           },
                           child: Stack(
                             children: [
@@ -309,8 +323,8 @@ class _ReadingStatsWidget extends State<ReadingStatsWidget> {
                                     clipBehavior: Clip
                                         .antiAliasWithSaveLayer, // agregar anti-aliasing
                                     child: LinearProgressIndicator(
-                                      value:
-                                          0.5, // Aquí iría el porcentaje de progreso
+                                      value: book.pagesreaded /
+                                          book.pages, // Aquí iría el porcentaje de progreso
                                       backgroundColor: Colors.transparent,
                                       valueColor: AlwaysStoppedAnimation<Color>(
                                           Color(0xFF6283CE)),

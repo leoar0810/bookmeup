@@ -24,11 +24,8 @@ class NavigationBarWidget extends StatelessWidget {
       const WelcomePage(),
     ];
     return BottomNavigationBar(
+      backgroundColor: Colors.white,
       currentIndex: _index,
-      selectedItemColor: Colors.blue,
-      unselectedItemColor: Colors.black,
-      selectedLabelStyle: TextStyle(color: Colors.black),
-      unselectedLabelStyle: TextStyle(color: Colors.black),
       showUnselectedLabels: true,
       onTap: (int index) => {
         print(index),
@@ -50,24 +47,59 @@ class NavigationBarWidget extends StatelessWidget {
       },
       items: [
         BottomNavigationBarItem(
-          icon: Icon(Icons.home),
-          label: 'Home',
+          icon: Padding(
+            padding: EdgeInsets.only(top: 0.0),
+            child: Image.asset(
+              'lib/images/home.png',
+              width: 30,
+              height: 30,
+            ),
+          ),
+          label: '',
         ),
         BottomNavigationBarItem(
-          icon: Icon(Icons.trending_up),
-          label: 'Trending',
+          icon: Padding(
+            padding: EdgeInsets.only(top: 0.0),
+            child: Image.asset(
+              'lib/images/thunder.png',
+              width: 30,
+              height: 30,
+            ),
+          ),
+          label: '',
         ),
         BottomNavigationBarItem(
-          icon: Icon(Icons.add),
-          label: 'Add',
+          icon: Padding(
+            padding: EdgeInsets.only(top: 0.0),
+            child: Image.asset(
+              'lib/images/add.png',
+              width: 50,
+              height: 50,
+            ),
+          ),
+          label: '',
         ),
         BottomNavigationBarItem(
-          icon: Icon(Icons.people),
-          label: 'Friends',
+          icon: Padding(
+            padding: EdgeInsets.only(top: 0.0),
+            child: Image.asset(
+              'lib/images/friends.png',
+              width: 30,
+              height: 30,
+            ),
+          ),
+          label: '',
         ),
         BottomNavigationBarItem(
-          icon: Icon(Icons.person),
-          label: 'Profile',
+          icon: Padding(
+            padding: EdgeInsets.only(top: 0.0),
+            child: Image.asset(
+              'lib/images/account.png',
+              width: 30,
+              height: 30,
+            ),
+          ),
+          label: '',
         ),
       ],
     );
