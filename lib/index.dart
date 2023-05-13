@@ -49,3 +49,4 @@ export 'package:bookmeup/pages/highlight/highlight.dart' show HighlightWidget;
 export 'package:bookmeup/pages/favorite/favorite.dart' show FavoriteWidget;
 export 'package:bookmeup/pages/note/note.dart' show NoteWidget;
 export 'package:bookmeup/pages/rankbook/rankbook.dart' show RankbookScreen;
+export 'package:bookmeup/pages/alarmWidget.dart' show AlarmWidget;

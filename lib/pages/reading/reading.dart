@@ -1,4 +1,5 @@
 import 'package:bookmeup/db/models/BooksUsersModel.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:bookmeup/index.dart';
@@ -24,6 +25,7 @@ class _ReadingStatsWidget extends State<ReadingStatsWidget> {
   void initState() {
     super.initState();
     books = generalcontroller.booksUser;
+
     people.add(Person(
         name: 'Juan',
         imageUrl:
@@ -255,88 +257,92 @@ class _ReadingStatsWidget extends State<ReadingStatsWidget> {
             ),
             Padding(
               padding: EdgeInsets.only(left: 20.0, bottom: 20.0),
-              child: Container(
-                height: 200,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(19.0),
-                    topRight: Radius.zero,
-                    bottomLeft: Radius.circular(19.0),
-                    bottomRight: Radius.zero,
+              child: Expanded(
+                flex: 1,
+                child: Container(
+                  height: 200,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(19.0),
+                      topRight: Radius.zero,
+                      bottomLeft: Radius.circular(19.0),
+                      bottomRight: Radius.zero,
+                    ),
+                    gradient: LinearGradient(
+                      begin: Alignment.bottomLeft,
+                      end: Alignment.topRight,
+                      colors: [
+                        Color(0xFFD3DEFC),
+                        Colors.white,
+                      ],
+                    ),
                   ),
-                  gradient: LinearGradient(
-                    begin: Alignment.bottomLeft,
-                    end: Alignment.topRight,
-                    colors: [
-                      Color(0xFFD3DEFC),
-                      Colors.white,
-                    ],
-                  ),
-                ),
-                child: Padding(
-                  padding: EdgeInsets.only(left: 0.0, right: 0.0),
-                  child: ListView.builder(
-                    scrollDirection: Axis.horizontal,
-                    itemCount: books.length,
-                    itemBuilder: (BuildContext context, int index) {
-                      BooksUserModel book = books[index];
-                      return Padding(
-                        padding: const EdgeInsets.all(15),
-                        child: InkWell(
-                          onTap: () {
-                            Get.to(BookWidget(), arguments: [book]);
-                          },
-                          child: Stack(
-                            children: [
-                              Container(
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(20),
-                                  color: Colors.grey,
-                                ),
-                                width: 100,
-                                child: ClipRRect(
-                                  borderRadius: BorderRadius.circular(20),
-                                  child: Image.network(
-                                    book.cover,
-                                    fit: BoxFit.cover,
-                                    height: 150,
-                                  ),
-                                ),
-                              ),
-                              Positioned(
-                                right: 15,
-                                bottom: 0,
-                                child: Container(
-                                  width: 70,
-                                  height: 8,
+                  child: Padding(
+                    padding: EdgeInsets.only(left: 0.0, right: 0.0),
+                    child: ListView.builder(
+                      scrollDirection: Axis.horizontal,
+                      itemCount: books.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        BooksUserModel book = books[index];
+                        return Padding(
+                          padding: const EdgeInsets.all(15),
+                          child: InkWell(
+                            onTap: () {
+                              Get.to(BookWidget(), arguments: [book]);
+                            },
+                            child: Stack(
+                              children: [
+                                Container(
                                   decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.only(
-                                      bottomLeft: Radius.circular(20),
-                                      bottomRight: Radius.circular(20),
-                                      topLeft: Radius.circular(20),
-                                      topRight: Radius.circular(20),
-                                    ),
-                                    color: Colors.white,
+                                    borderRadius: BorderRadius.circular(20),
+                                    color: Colors.grey,
                                   ),
+                                  width: 100,
                                   child: ClipRRect(
-                                    borderRadius: BorderRadius.circular(10.0),
-                                    clipBehavior: Clip
-                                        .antiAliasWithSaveLayer, // agregar anti-aliasing
-                                    child: LinearProgressIndicator(
-                                      value: book.pagesreaded /
-                                          book.pages, // Aquí iría el porcentaje de progreso
-                                      backgroundColor: Colors.transparent,
-                                      valueColor: AlwaysStoppedAnimation<Color>(
-                                          Color(0xFF6283CE)),
+                                    borderRadius: BorderRadius.circular(20),
+                                    child: Image.network(
+                                      book.cover,
+                                      fit: BoxFit.cover,
+                                      height: 150,
                                     ),
                                   ),
                                 ),
-                              ),
-                            ],
+                                Positioned(
+                                  right: 15,
+                                  bottom: 0,
+                                  child: Container(
+                                    width: 70,
+                                    height: 8,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.only(
+                                        bottomLeft: Radius.circular(20),
+                                        bottomRight: Radius.circular(20),
+                                        topLeft: Radius.circular(20),
+                                        topRight: Radius.circular(20),
+                                      ),
+                                      color: Colors.white,
+                                    ),
+                                    child: ClipRRect(
+                                      borderRadius: BorderRadius.circular(10.0),
+                                      clipBehavior: Clip
+                                          .antiAliasWithSaveLayer, // agregar anti-aliasing
+                                      child: LinearProgressIndicator(
+                                        value: book.pagesreaded /
+                                            book.pages, // Aquí iría el porcentaje de progreso
+                                        backgroundColor: Colors.transparent,
+                                        valueColor:
+                                            AlwaysStoppedAnimation<Color>(
+                                                Color(0xFF6283CE)),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
-                        ),
-                      );
-                    },
+                        );
+                      },
+                    ),
                   ),
                 ),
               ),

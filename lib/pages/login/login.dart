@@ -1,3 +1,4 @@
+import 'package:bookmeup/db/models/userModel.dart';
 import 'package:bookmeup/index.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -13,6 +14,7 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
+  GeneralController generalController = Get.find();
 
   Future<void> _loginUser(BuildContext context) async {
     try {
@@ -23,8 +25,9 @@ class _LoginPageState extends State<LoginPage> {
       );
       print('User ${userCredential.user!.uid} logged in');
       final prefs = await SharedPreferences.getInstance();
-
+      generalController.initController();
       await prefs.setString('user', userCredential.user!.uid);
+      await generalController.getBooksFromFirestore();
       Get.to(() => ReadingStatsWidget());
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {

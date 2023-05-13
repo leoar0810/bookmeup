@@ -1,4 +1,6 @@
+import 'package:bookmeup/db/models/FriendModel.dart';
 import 'package:bookmeup/index.dart';
+import 'package:bookmeup/pages/friend/friend.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:bookmeup/db/models/AlarmsModel.dart';
 import 'package:bookmeup/db/models/BookModel.dart';
@@ -16,6 +18,7 @@ class GeneralController extends GetxController {
   RxList<TimeReadingModel> timeReading = <TimeReadingModel>[].obs;
   RxList<AlarmsModel> alarms = <AlarmsModel>[].obs;
   RxList<UserModel> users = <UserModel>[].obs;
+  RxList<FriendModel> friends = <FriendModel>[].obs;
 
   Future<void> getBooks() async {
     books.value = await bookCases.getBooks();
@@ -23,8 +26,23 @@ class GeneralController extends GetxController {
   }
 
   Future<void> getBooksUser() async {
-    booksUser.value = await bookCases.getBooksUser();
+    final prefs = await SharedPreferences.getInstance();
+    List booksfrom = await bookCases.getBooksUser();
+    List<BooksUserModel> alluserbooks = [];
+    String? user = prefs.getString('user');
+    for (BooksUserModel book in booksfrom) {
+      if (book.userid == user) {
+        print(user);
+        alluserbooks.add(book);
+      }
+    }
+    booksUser.value = alluserbooks;
     booksUser.refresh();
+  }
+
+  Future<void> getFriends() async {
+    friends.value = await bookCases.getFriends();
+    friends.refresh();
   }
 
   Future<void> getTimeReading() async {
@@ -52,6 +70,11 @@ class GeneralController extends GetxController {
   Future<void> insertBooksUser(BooksUserModel bookUser) async {
     await bookCases.insertBooksUser(bookUser);
     await getBooksUser();
+  }
+
+  Future<void> insertFriend(FriendModel friendModel) async {
+    await bookCases.insertFriend(friendModel);
+    await getFriends();
   }
 
   Future<void> insertTimeReading(TimeReadingModel timeReading) async {
@@ -123,15 +146,35 @@ class GeneralController extends GetxController {
     await getUsers();
   }
 
-  @override
-  void onInit() async {
-    super.onInit();
+  Future<void> deleteall() async {
+    await bookCases.deleteall();
+    initController();
+  }
+
+  Future<void> uploadData() async {
+    await bookCases.uploadData();
+    await getUsers();
+  }
+
+  Future<void> getBooksFromFirestore() async {
+    await bookCases.getBooksFromFirestore();
+    await getBooksUser();
+    await getUsers();
+  }
+
+  void initController() async {
     await bookCases.initialize();
     await getBooks();
     await getBooksUser();
     await getTimeReading();
     await getAlarms();
     await getUsers();
+    await getFriends();
+  }
+
+  @override
+  void onInit() async {
+    super.onInit();
   }
 
   @override

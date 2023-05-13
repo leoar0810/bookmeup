@@ -1,3 +1,4 @@
+import 'package:bookmeup/db/models/userModel.dart';
 import 'package:bookmeup/index.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -12,6 +13,8 @@ class SignupPage extends StatefulWidget {
 class _SignupPageState extends State<SignupPage> {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
+  final TextEditingController nameController = TextEditingController();
+  final TextEditingController descriptionController = TextEditingController();
 
   Future<void> _createUser(BuildContext context) async {
     try {
@@ -21,6 +24,15 @@ class _SignupPageState extends State<SignupPage> {
         password: passwordController.text,
       );
       print('User ${userCredential.user!.uid} created');
+      UserModel userModel = UserModel(
+          id: userCredential.user!.uid,
+          name: nameController.text,
+          username: emailController.text,
+          password: passwordController.text,
+          description: descriptionController.text);
+      GeneralController generalController = Get.find();
+      generalController.insertUser(userModel);
+
       Get.to(() => BookListWidget());
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
@@ -65,7 +77,8 @@ class _SignupPageState extends State<SignupPage> {
                     controller: emailController,
                     decoration: InputDecoration(
                       labelText: 'Email',
-                      labelStyle: TextStyle(color: Color.fromARGB(255, 61, 109, 180)),
+                      labelStyle:
+                          TextStyle(color: Color.fromARGB(255, 61, 109, 180)),
                       enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10),
                         borderSide: BorderSide(width: 2, color: Colors.grey),
@@ -86,7 +99,8 @@ class _SignupPageState extends State<SignupPage> {
                     controller: passwordController,
                     decoration: InputDecoration(
                       labelText: 'Password',
-                      labelStyle: TextStyle(color: Color.fromARGB(255, 61, 109, 180)),
+                      labelStyle:
+                          TextStyle(color: Color.fromARGB(255, 61, 109, 180)),
                       enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10),
                         borderSide: BorderSide(width: 2, color: Colors.grey),
@@ -97,6 +111,48 @@ class _SignupPageState extends State<SignupPage> {
                       ),
                     ),
                     obscureText: true,
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.normal,
+                      color: Colors.black,
+                    ),
+                  ),
+                  TextFormField(
+                    controller: nameController,
+                    decoration: InputDecoration(
+                      labelText: 'Name',
+                      labelStyle:
+                          TextStyle(color: Color.fromARGB(255, 61, 109, 180)),
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                        borderSide: BorderSide(width: 2, color: Colors.grey),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                        borderSide: BorderSide(width: 2, color: Colors.blue),
+                      ),
+                    ),
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.normal,
+                      color: Colors.black,
+                    ),
+                  ),
+                  TextFormField(
+                    controller: descriptionController,
+                    decoration: InputDecoration(
+                      labelText: 'Description',
+                      labelStyle:
+                          TextStyle(color: Color.fromARGB(255, 61, 109, 180)),
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                        borderSide: BorderSide(width: 2, color: Colors.grey),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                        borderSide: BorderSide(width: 2, color: Colors.blue),
+                      ),
+                    ),
                     style: TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.normal,
@@ -118,7 +174,8 @@ class _SignupPageState extends State<SignupPage> {
                   SizedBox(height: 20),
                   TextButton(
                     onPressed: () => Get.to(() => LoginPage()),
-                    child: Text('Already have an account? Log in', style: TextStyle(color: Colors.white)),
+                    child: Text('Already have an account? Log in',
+                        style: TextStyle(color: Colors.white)),
                   ),
                 ],
               ),

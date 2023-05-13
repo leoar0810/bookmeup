@@ -5,6 +5,8 @@ import 'package:sqflite/sqflite.dart';
 import 'package:bookmeup/index.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:bookmeup/index.dart';
+import 'package:bookmeup/datasources/local/local_datasource.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class UserProfileWidget extends StatefulWidget {
   const UserProfileWidget({Key? key}) : super(key: key);
@@ -14,10 +16,12 @@ class UserProfileWidget extends StatefulWidget {
 }
 
 class _UserProfileWidgetState extends State<UserProfileWidget> {
-  late String _username;
-  late String _description;
-  late String _photoUrl;
-
+  late String _username = '';
+  late String _description = '';
+  late String _photoUrl = '';
+  GeneralController generalController = Get.find();
+  String name = '';
+  String description = '';
   @override
   void initState() {
     super.initState();
@@ -28,23 +32,56 @@ class _UserProfileWidgetState extends State<UserProfileWidget> {
   Future<void> _loadUserData() async {
     // Load user data from SQFlite database
     // ...
+    final CollectionReference booksCollection1 = FirebaseFirestore.instance
+        .collection(FirebaseAuth.instance.currentUser!.uid);
 
+    final QuerySnapshot querySnapshot1 = await booksCollection1.get();
+
+    querySnapshot1.docs.forEach((doc) async {
+      name = doc.get('name');
+      description = doc.get('description');
+    });
     setState(() {
       // Set the state of the widget with the loaded data
-      _username = "Mr. John Doe.";
-      _description =
-          "Una persona apasionada por la lectura suele ser alguien que disfruta de sumergirse en historias y conocimientos a través de libros y otros materiales de lectura";
+      _username = name;
+      _description = description;
       _photoUrl =
           "https://i.pinimg.com/originals/a6/58/32/a65832155622ac173337874f02b218fb.png";
     });
   }
 
   void _signOut() async {
+    final QuerySnapshot querySnapshot = await FirebaseFirestore.instance
+        .collection(FirebaseAuth.instance.currentUser!.uid)
+        .get();
+
+    final List<Future<void>> futures = [];
+
+    querySnapshot.docs.forEach((doc) {
+      futures.add(doc.reference.delete());
+    });
+
+    await Future.wait(futures);
     await FirebaseAuth.instance.signOut();
+
+    await generalController.uploadData();
+    await generalController.deleteall();
   }
 
   @override
   Widget build(BuildContext context) {
+    Future<void> getBooksFromFirestore() async {
+      final CollectionReference booksCollection1 = FirebaseFirestore.instance
+          .collection(FirebaseAuth.instance.currentUser!.uid);
+
+      final QuerySnapshot querySnapshot1 = await booksCollection1.get();
+
+      querySnapshot1.docs.forEach((doc) async {
+        name = doc.get('name');
+        description = doc.get('description');
+      });
+    }
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
@@ -151,7 +188,7 @@ class _UserProfileWidgetState extends State<UserProfileWidget> {
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
                         _buildIconButton(Icons.bookmark, 'Bookmark',
-                            () => Get.to(BookmarkWidget())),
+                            () => getBooksFromFirestore()),
                         _buildIconButton(Icons.track_changes, 'Tracker',
                             () => Get.to(() => ReadingDashboardWidget())),
                         _buildIconButton(Icons.highlight, 'Highlights',

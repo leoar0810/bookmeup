@@ -4,6 +4,7 @@ import 'dart:ffi';
 import 'package:bookmeup/db/models/AlarmsModel.dart';
 import 'package:bookmeup/db/models/BookModel.dart';
 import 'package:bookmeup/db/models/BooksUsersModel.dart';
+import 'package:bookmeup/db/models/FriendModel.dart';
 import 'package:bookmeup/db/models/TimeReadingModel.dart';
 import 'package:bookmeup/db/models/userModel.dart';
 import 'package:sqflite/sqflite.dart';
@@ -14,10 +15,10 @@ class SqliteService {
     String path = await getDatabasesPath();
 
     return openDatabase(
-      join(path, 'database16.db'),
+      join(path, 'database18.db'),
       onCreate: (database, version) async {
         await database.execute(
-          "CREATE TABLE Users(id INTEGER PRIMARY KEY AUTOINCREMENT,  name TEXT, username TEXT, password TEXT, description TEXT NOT NULL)",
+          "CREATE TABLE Users(id TEXT, name TEXT, username TEXT, password TEXT, description TEXT)",
         );
         await database.execute(
           "CREATE TABLE Books(id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT NOT NULL, author TEXT NOT NULL, ISBN TEXT NOT NULL, description TEXT NOT NULL, cover TEXT, pages INT)",
@@ -33,8 +34,11 @@ class SqliteService {
           "CREATE TABLE Alarms(id INTEGER PRIMARY KEY AUTOINCREMENT, userid INT, day TEXT, time TEXT, status INT, FOREIGN KEY(userid) REFERENCES Users(id))",
         );
         await database.execute(
-          "Insert INTO Users(name, username, password, description) VALUES('Admin', 'admin name', 'admin', 'I am Admin')",
+          "CREATE TABLE Friends(id TEXT, friendid TEXT)",
         );
+        //await database.execute(
+        //  "Insert INTO Users(name, username, password, description) VALUES('Admin', 'admin name', 'admin', 'I am Admin')",
+        //);
         await database.execute(
           "INSERT INTO Books(title, author, ISBN, description, cover, pages) VALUES('The Lord of the Rings', 'J. R. R. Tolkien', '978-0-618-57498-5', 'The Lord of the Rings is an ezic high-fantasy novel written by English author and scholar J. R. R. Tolkien. The story began as a sequel to Tolkien''s.', 'https://images-na.ssl-images-amazon.com/images/I/51%2B1s%2B1FdgL._SX331_BO1,204,203,200_.jpg', 1178)",
         );
@@ -51,6 +55,12 @@ class SqliteService {
   Future<void> addUser(UserModel usermodel) async {
     final Database db = await initializeDB();
     await db.insert('Users', usermodel.toMap(),
+        conflictAlgorithm: ConflictAlgorithm.replace);
+  }
+
+  Future<void> addFriend(FriendModel friendmodel) async {
+    final Database db = await initializeDB();
+    await db.insert('Friends', friendmodel.toMap(),
         conflictAlgorithm: ConflictAlgorithm.replace);
   }
 
@@ -100,6 +110,12 @@ class SqliteService {
     return queryResult.map((e) => BookModel.fromMap(e)).toList();
   }
 
+  Future<List<FriendModel>> getFriends() async {
+    final db = await initializeDB();
+    final List<Map<String, Object?>> queryResult = await db.query('Friends');
+    return queryResult.map((e) => FriendModel.fromMap(e)).toList();
+  }
+
   Future<List<BooksUserModel>> getBooksUsers() async {
     final db = await initializeDB();
     final List<Map<String, Object?>> queryResult = await db.query('BooksUsers');
@@ -137,6 +153,16 @@ class SqliteService {
       bookmodel.toMap(),
       where: "id = ?",
       whereArgs: [bookmodel.id],
+    );
+  }
+
+  Future<void> updateFriends(FriendModel friendModel) async {
+    final db = await initializeDB();
+    await db.update(
+      'Friends',
+      friendModel.toMap(),
+      where: "id = ?",
+      whereArgs: [friendModel.id],
     );
   }
 
@@ -194,6 +220,15 @@ class SqliteService {
     );
   }
 
+  Future<void> deleteFriend(String id) async {
+    final db = await initializeDB();
+    await db.delete(
+      'Friends',
+      where: "id = ?",
+      whereArgs: [id],
+    );
+  }
+
   Future<void> deleteBooksUser(int id) async {
     final db = await initializeDB();
     await db.delete(
@@ -221,7 +256,7 @@ class SqliteService {
     );
   }
 
-  Future<void> deleteUser(int id) async {
+  Future<void> deleteUser(String id) async {
     final db = await initializeDB();
     await db.delete(
       'Users',

@@ -1,6 +1,7 @@
 import 'package:bookmeup/datasources/local/local_datasource.dart';
 import 'package:bookmeup/db/models/BookModel.dart';
 import 'package:bookmeup/db/models/BooksUsersModel.dart';
+import 'package:bookmeup/db/models/FriendModel.dart';
 import 'package:bookmeup/db/models/TimeReadingModel.dart';
 import 'package:bookmeup/db/models/userModel.dart';
 import 'package:bookmeup/db/models/AlarmsModel.dart';
@@ -21,6 +22,10 @@ class BookCases {
 
   Future<List<BooksUserModel>> getBooksUser() async {
     return repo.booksUser;
+  }
+
+  Future<List<FriendModel>> getFriends() async {
+    return repo.friends;
   }
 
   Future<List<TimeReadingModel>> getTimeReading() async {
@@ -45,6 +50,10 @@ class BookCases {
     await repo.insertBooksUser(bookUser);
   }
 
+  Future<void> insertFriend(FriendModel friendModel) async {
+    await repo.insertFriend(friendModel);
+  }
+
   Future<void> insertTimeReading(TimeReadingModel timeReading) async {
     await repo.insertTimeReading(timeReading);
   }
@@ -65,6 +74,10 @@ class BookCases {
 
   Future<void> updateBooksUser(BooksUserModel bookUser) async {
     await repo.updateBooksUser(bookUser);
+  }
+
+  Future<void> updateFriend(FriendModel friendModel) async {
+    await repo.updateFriend(friendModel);
   }
 
   Future<void> updateTimeReading(TimeReadingModel timeReading) async {
@@ -99,5 +112,17 @@ class BookCases {
 
   Future<void> deleteUser(UserModel user) async {
     await repo.deleteUser(user);
+  }
+
+  Future<void> deleteall() async {
+    await repo.deleteall();
+  }
+
+  Future<void> uploadData() async {
+    await repo.databasecopy();
+  }
+
+  Future<void> getBooksFromFirestore() async {
+    await repo.getBooksFromFirestore();
   }
 }

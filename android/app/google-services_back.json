@@ -1,33 +1,33 @@
 {
   "project_info": {
-    "project_number": "532715877978",
-    "project_id": "bookmeup-be973",
-    "storage_bucket": "bookmeup-be973.appspot.com"
+    "project_number": "798932346505",
+    "project_id": "bookmeup-3d6d8",
+    "storage_bucket": "bookmeup-3d6d8.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:532715877978:android:eb398e03ae854bb9a2ca63",
+        "mobilesdk_app_id": "1:798932346505:android:4bec52dc68eb84c822c858",
         "android_client_info": {
           "package_name": "com.example.bookmeup"
         }
       },
       "oauth_client": [
         {
-          "client_id": "532715877978-rglee4e9kob9hp0blgvdmerm4525kktj.apps.googleusercontent.com",
+          "client_id": "798932346505-eonpur5r2afn6e4uj0ns1gddju43mknn.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDYdPG47q180LkSueNWAgUfSr8ueunf5ac"
+          "current_key": "AIzaSyDBnWE5xKMSU7moZ78xusWhwc9K_T-T_og"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "532715877978-rglee4e9kob9hp0blgvdmerm4525kktj.apps.googleusercontent.com",
+              "client_id": "798932346505-eonpur5r2afn6e4uj0ns1gddju43mknn.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
