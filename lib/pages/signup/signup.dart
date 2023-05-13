@@ -3,6 +3,7 @@ import 'package:bookmeup/index.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class SignupPage extends StatefulWidget {
   const SignupPage({Key? key}) : super(key: key);
@@ -84,27 +85,30 @@ class _SignupPageState extends State<SignupPage> {
                   SizedBox(height: 145),
                   Container(
                     alignment: Alignment.center,
-                    child: Text('Register',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 34,
-                          fontWeight: FontWeight.normal,
-                        )),
+                    child: Text(
+                      'Sign Up',
+                      style: GoogleFonts.quicksand(
+                          textStyle: TextStyle(
+                        color: Colors.white,
+                        fontSize: 36,
+                        letterSpacing: -0.54,
+                        fontWeight: FontWeight.w600,
+                      )),
+                    ),
                   ),
-                  SizedBox(height: 100),
+                  SizedBox(height: 50),
                   TextFormField(
                     controller: emailController,
                     decoration: InputDecoration(
                       labelText: 'Email',
-                      labelStyle:
-                          TextStyle(color: Color.fromARGB(255, 61, 109, 180)),
+                      labelStyle: TextStyle(color: Colors.white),
                       enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10),
-                        borderSide: BorderSide(width: 2, color: Colors.grey),
+                        borderSide: BorderSide(width: 2, color: Colors.white),
                       ),
                       focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10),
-                        borderSide: BorderSide(width: 2, color: Colors.blue),
+                        borderSide: BorderSide(width: 2, color: Colors.white),
                       ),
                     ),
                     style: TextStyle(
@@ -118,15 +122,14 @@ class _SignupPageState extends State<SignupPage> {
                     controller: passwordController,
                     decoration: InputDecoration(
                       labelText: 'Password',
-                      labelStyle:
-                          TextStyle(color: Color.fromARGB(255, 61, 109, 180)),
+                      labelStyle: TextStyle(color: Colors.white),
                       enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10),
-                        borderSide: BorderSide(width: 2, color: Colors.grey),
+                        borderSide: BorderSide(width: 2, color: Colors.white),
                       ),
                       focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10),
-                        borderSide: BorderSide(width: 2, color: Colors.blue),
+                        borderSide: BorderSide(width: 2, color: Colors.white),
                       ),
                     ),
                     obscureText: true,
@@ -136,19 +139,19 @@ class _SignupPageState extends State<SignupPage> {
                       color: Colors.black,
                     ),
                   ),
+                  SizedBox(height: 20),
                   TextFormField(
                     controller: nameController,
                     decoration: InputDecoration(
-                      labelText: 'Name',
-                      labelStyle:
-                          TextStyle(color: Color.fromARGB(255, 61, 109, 180)),
+                      labelText: 'Username',
+                      labelStyle: TextStyle(color: Colors.white),
                       enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10),
-                        borderSide: BorderSide(width: 2, color: Colors.grey),
+                        borderSide: BorderSide(width: 2, color: Colors.white),
                       ),
                       focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10),
-                        borderSide: BorderSide(width: 2, color: Colors.blue),
+                        borderSide: BorderSide(width: 2, color: Colors.white),
                       ),
                     ),
                     style: TextStyle(
@@ -157,19 +160,19 @@ class _SignupPageState extends State<SignupPage> {
                       color: Colors.black,
                     ),
                   ),
+                  SizedBox(height: 20),
                   TextFormField(
                     controller: descriptionController,
                     decoration: InputDecoration(
                       labelText: 'Description',
-                      labelStyle:
-                          TextStyle(color: Color.fromARGB(255, 61, 109, 180)),
+                      labelStyle: TextStyle(color: Colors.white),
                       enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10),
-                        borderSide: BorderSide(width: 2, color: Colors.grey),
+                        borderSide: BorderSide(width: 2, color: Colors.white),
                       ),
                       focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10),
-                        borderSide: BorderSide(width: 2, color: Colors.blue),
+                        borderSide: BorderSide(width: 2, color: Colors.white),
                       ),
                     ),
                     style: TextStyle(

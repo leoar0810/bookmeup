@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:bookmeup/index.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class WelcomePage extends StatelessWidget {
   const WelcomePage({Key? key}) : super(key: key);
@@ -20,12 +21,17 @@ class WelcomePage extends StatelessWidget {
           child: Center(
             child: Column(
               children: [
-                Text('Bookmeup',
-                    style: TextStyle(
-                      color: Colors.blueAccent,
-                      fontSize: 34,
-                      fontWeight: FontWeight.normal,
-                    )),
+                Text(
+                  'Bookmeup',
+                  style: GoogleFonts.quicksand(
+                    textStyle: TextStyle(
+                      color: Color.fromARGB(255, 114, 146, 232),
+                      fontSize: 36,
+                      letterSpacing: -0.54,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                ),
                 SizedBox(
                   height: 380,
                 ),
@@ -67,7 +73,7 @@ class WelcomePage extends StatelessWidget {
                       style: TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.bold,
-                        color: Colors.blue,
+                        color: Color.fromARGB(255, 114, 146, 232),
                       ),
                     ),
                   ),
@@ -75,7 +81,7 @@ class WelcomePage extends StatelessWidget {
                       backgroundColor: Color.fromARGB(255, 211, 222, 252),
                       side: const BorderSide(
                         width: 2.0,
-                        color: Colors.blueAccent,
+                        color: Color.fromARGB(255, 114, 146, 232),
                       )),
                 ),
               ],

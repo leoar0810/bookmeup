@@ -5,6 +5,7 @@ import 'package:bookmeup/pages/friend/friend.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -61,31 +62,38 @@ class _LoginPageState extends State<LoginPage> {
                   SizedBox(height: 15),
                   Align(
                     alignment: Alignment.center,
-                    child: Text('Login',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 34,
-                          fontWeight: FontWeight.normal,
-                        )),
+                    child: Text(
+                      'Login',
+                      style: GoogleFonts.quicksand(
+                          textStyle: TextStyle(
+                        color: Colors.white,
+                        fontSize: 36,
+                        letterSpacing: -0.54,
+                        fontWeight: FontWeight.w600,
+                      )),
+                    ),
                   ),
                   SizedBox(height: 150),
                   TextFormField(
                     controller: emailController,
                     decoration: InputDecoration(
                       labelText: 'Email',
+                      labelStyle: TextStyle(color: Color(0xffC9CCCF)),
                       enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10),
-                        borderSide: BorderSide(width: 2, color: Colors.grey),
+                        borderSide:
+                            BorderSide(width: 2, color: Color(0xffC9CCCF)),
                       ),
                       focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10),
-                        borderSide: BorderSide(width: 2, color: Colors.blue),
+                        borderSide:
+                            BorderSide(width: 2, color: Color(0xffC9CCCF)),
                       ),
                     ),
                     style: TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.normal,
-                      color: Colors.black,
+                      color: Color(0xffC9CCCF),
                     ),
                   ),
                   SizedBox(height: 20),
@@ -93,13 +101,16 @@ class _LoginPageState extends State<LoginPage> {
                     controller: passwordController,
                     decoration: InputDecoration(
                       labelText: 'Password',
+                      labelStyle: TextStyle(color: Color(0xffC9CCCF)),
                       enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10),
-                        borderSide: BorderSide(width: 2, color: Colors.grey),
+                        borderSide:
+                            BorderSide(width: 2, color: Color(0xffC9CCCF)),
                       ),
                       focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10),
-                        borderSide: BorderSide(width: 2, color: Colors.blue),
+                        borderSide:
+                            BorderSide(width: 2, color: Color(0xffC9CCCF)),
                       ),
                     ),
                     obscureText: true,
@@ -124,7 +135,16 @@ class _LoginPageState extends State<LoginPage> {
                   SizedBox(height: 20),
                   TextButton(
                     onPressed: () => Get.to(() => SignupPage()),
-                    child: Text('Don\'t have an account? Sign up'),
+                    child: Text(
+                      'Don\'t have an account? Sign up',
+                      style: GoogleFonts.quicksand(
+                          textStyle: TextStyle(
+                        color: Color.fromARGB(255, 114, 146, 232),
+                        fontSize: 15,
+                        letterSpacing: -0.54,
+                        fontWeight: FontWeight.w600,
+                      )),
+                    ),
                   ),
                 ],
               ),
