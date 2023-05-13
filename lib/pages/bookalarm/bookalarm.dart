@@ -89,7 +89,9 @@ class BookAlarmsScreen extends StatelessWidget {
                 ),
                 IconButton(
                   icon: Icon(Icons.add),
-                  onPressed: () {},
+                  onPressed: () {
+                    Get.to(MyAlarmW());
+                  },
                 ),
               ],
             ),

@@ -1,3 +1,4 @@
+import 'package:bookmeup/db/models/FriendModel.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:bookmeup/widgets/navigationbar.dart';
@@ -60,8 +61,44 @@ class _UserProfileWidgetState extends State<UserProfileWidget> {
     querySnapshot.docs.forEach((doc) {
       futures.add(doc.reference.delete());
     });
-
     await Future.wait(futures);
+
+    final QuerySnapshot querySnapshot1 = await FirebaseFirestore.instance
+        .collection(FirebaseAuth.instance.currentUser!.uid)
+        .doc('booksUser')
+        .collection('booksUser')
+        .get();
+    final List<Future<void>> futures2 = [];
+
+    querySnapshot1.docs.forEach((doc) {
+      futures2.add(doc.reference.delete());
+    });
+    await Future.wait(futures2);
+
+    final QuerySnapshot querySnapshot3 = await FirebaseFirestore.instance
+        .collection(FirebaseAuth.instance.currentUser!.uid)
+        .doc('alarms')
+        .collection('alarms')
+        .get();
+    final List<Future<void>> futures3 = [];
+
+    querySnapshot3.docs.forEach((doc) {
+      futures3.add(doc.reference.delete());
+    });
+    await Future.wait(futures3);
+
+    final QuerySnapshot querySnapshot4 = await FirebaseFirestore.instance
+        .collection(FirebaseAuth.instance.currentUser!.uid)
+        .doc('friends')
+        .collection('friends')
+        .get();
+    final List<Future<void>> futures4 = [];
+
+    querySnapshot4.docs.forEach((doc) {
+      futures4.add(doc.reference.delete());
+    });
+    await Future.wait(futures4);
+
     await FirebaseAuth.instance.signOut();
 
     await generalController.uploadData();
@@ -187,8 +224,14 @@ class _UserProfileWidgetState extends State<UserProfileWidget> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        _buildIconButton(Icons.bookmark, 'Bookmark',
-                            () => getBooksFromFirestore()),
+                        _buildIconButton(
+                            Icons.bookmark,
+                            'Bookmark',
+                            () => {
+                                  for (FriendModel friend
+                                      in generalController.friends)
+                                    {print(friend.id)}
+                                }),
                         _buildIconButton(Icons.track_changes, 'Tracker',
                             () => Get.to(() => ReadingDashboardWidget())),
                         _buildIconButton(Icons.highlight, 'Highlights',

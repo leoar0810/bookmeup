@@ -160,6 +160,8 @@ class GeneralController extends GetxController {
     await bookCases.getBooksFromFirestore();
     await getBooksUser();
     await getUsers();
+    await getFriends();
+    await getAlarms();
   }
 
   void initController() async {

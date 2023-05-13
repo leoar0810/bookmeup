@@ -1,5 +1,7 @@
+import 'package:bookmeup/db/models/FriendModel.dart';
 import 'package:bookmeup/db/models/userModel.dart';
 import 'package:bookmeup/index.dart';
+import 'package:bookmeup/pages/friend/friend.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -28,6 +30,7 @@ class _LoginPageState extends State<LoginPage> {
       generalController.initController();
       await prefs.setString('user', userCredential.user!.uid);
       await generalController.getBooksFromFirestore();
+      generalController.initController();
       Get.to(() => ReadingStatsWidget());
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {

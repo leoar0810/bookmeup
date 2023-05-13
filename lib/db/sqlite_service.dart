@@ -272,5 +272,6 @@ class SqliteService {
     await db.delete('TimeReading');
     await db.delete('Alarms');
     await db.delete('Users');
+    await db.delete('Friends');
   }
 }

@@ -1,5 +1,6 @@
 import 'package:bookmeup/db/models/userModel.dart';
 import 'package:bookmeup/index.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -32,6 +33,24 @@ class _SignupPageState extends State<SignupPage> {
           description: descriptionController.text);
       GeneralController generalController = Get.find();
       generalController.insertUser(userModel);
+      void copyInfoToFireStore(
+          Map<String, dynamic> dataList, String user) async {
+        // get a reference to the Firestore collection
+        CollectionReference collectionRef =
+            FirebaseFirestore.instance.collection(user);
+
+        // iterate through the list and add each item to Firestore
+
+        await collectionRef.add(dataList);
+      }
+
+      copyInfoToFireStore({
+        'id': userCredential.user!.uid,
+        'name': nameController.text,
+        'description': descriptionController.text
+      }, 'allusers');
+
+      copyInfoToFireStore(userModel.toMap(), userCredential.user!.uid);
 
       Get.to(() => BookListWidget());
     } on FirebaseAuthException catch (e) {

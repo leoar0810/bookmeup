@@ -125,7 +125,7 @@ class LocalDataSource {
 
   Future<void> insertFriend(FriendModel friendModel) async {
     await db.addFriend(friendModel);
-    await initBooks();
+    await initFriends();
   }
 
   Future<void> insertBooksUser(BooksUserModel bookUser) async {
@@ -183,6 +183,9 @@ class LocalDataSource {
   Future<void> deleteall() async {
     await db.deleteAll();
     await initUsers();
+    await initAlarms();
+    await initBooksUser();
+    await initFriends();
   }
 
   void copyListToFirestore(List<Map<String, dynamic>> dataList,
@@ -190,7 +193,7 @@ class LocalDataSource {
     // get a reference to the Firestore collection
     CollectionReference collectionRef = FirebaseFirestore.instance
         .collection(user)
-        .doc('booksUser')
+        .doc(collectionName)
         .collection(collectionName);
 
     // iterate through the list and add each item to Firestore
@@ -237,6 +240,14 @@ class LocalDataSource {
         break;
       }
     }
+
+    List<Map<String, dynamic>> friendsl = [];
+    for (FriendModel fri in friends) {
+      if (fri.id == user) {
+        friendsl.add(fri.toMap());
+      }
+    }
+    copyListToFirestore(friendsl, 'friends', user);
   }
 
   Future<void> getBooksFromFirestore() async {
@@ -283,6 +294,22 @@ class LocalDataSource {
       );
       await insertUser(userm);
       print(users[0].toMap());
+    });
+
+    //adding friends
+    final CollectionReference booksCollection3 = FirebaseFirestore.instance
+        .collection(FirebaseAuth.instance.currentUser!.uid)
+        .doc('friends')
+        .collection('friends');
+    final QuerySnapshot querySnapshot3 = await booksCollection3.get();
+
+    querySnapshot3.docs.forEach((doc) async {
+      FriendModel bum = FriendModel(
+        id: doc.get('id'),
+        friendid: doc.get('friendid'),
+      );
+      print(bum.toMap());
+      insertFriend(bum);
     });
   }
 }
