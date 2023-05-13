@@ -51,7 +51,7 @@ class _UserListState extends State<UserList> {
               Get.to(() => FriendsBooksWidget());
             },
             icon: Icon(
-              Icons.exit_to_app,
+              Icons.list,
               color: Colors.black,
             ),
           ),
@@ -94,6 +94,7 @@ class _UserListState extends State<UserList> {
           );
         },
       ),
+      bottomNavigationBar: NavigationBarWidget(3),
     );
   }
 }

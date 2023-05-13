@@ -52,8 +52,12 @@ class _SignupPageState extends State<SignupPage> {
       }, 'allusers');
 
       copyInfoToFireStore(userModel.toMap(), userCredential.user!.uid);
+      void _signOut() async {
+        await FirebaseAuth.instance.signOut();
+      }
 
-      Get.to(() => BookListWidget());
+      _signOut();
+      Get.to(() => LoginPage());
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
         print('The password provided is too weak.');
