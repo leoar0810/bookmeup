@@ -24,19 +24,38 @@ class _FriendsBooksWidgetState extends State<FriendsBooksWidget> {
 
   Future<void> getBooksFromFirestore() async {
     for (FriendModel friend in generalController.friends) {
-      print(friend.id);
+      print(friend.friendid);
       final CollectionReference booksCollection = FirebaseFirestore.instance
           .collection(friend.friendid)
           .doc('booksUser')
           .collection('booksUser');
       final QuerySnapshot querySnapshot = await booksCollection.get();
-      _users.add(friend.friendid);
-      _books[friend.friendid] = [];
-      querySnapshot.docs.forEach((doc) async {
-        _books[friend.friendid]?.add(
-            {'title': doc.get('title'), 'description': doc.get('description')});
+
+      final CollectionReference booksCollection1 =
+          FirebaseFirestore.instance.collection(friend.friendid);
+
+      final QuerySnapshot querySnapshot1 = await booksCollection1.get();
+
+      querySnapshot1.docs.forEach((doc) async {
+        UserModel userm = UserModel(
+          id: doc.get('id'),
+          name: doc.get('name'),
+          username: doc.get('username'),
+          password: doc.get('password'),
+          description: doc.get('description'),
+        );
+
+        _users.add(userm.name);
+        print('sdifjklsdfklasjdklfjsdkljflsdjfjsdjkfsdfjklf');
+        _books[userm.name] = [];
+        querySnapshot.docs.forEach((doc) async {
+          _books[userm.name]?.add({
+            'title': doc.get('title'),
+            'description': doc.get('description')
+          });
+        });
+        setState(() {});
       });
-      setState(() {});
     }
 
 //adding user
@@ -87,6 +106,7 @@ class _FriendsBooksWidgetState extends State<FriendsBooksWidget> {
             ),
         ],
       ),
+      bottomNavigationBar: NavigationBarWidget(3),
     );
   }
 }
