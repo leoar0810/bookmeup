@@ -18,6 +18,7 @@ class UserProfileWidget extends StatefulWidget {
 }
 
 class _UserProfileWidgetState extends State<UserProfileWidget> {
+  GeneralController generalcontroller = Get.find();
   late String _username = '';
   late String _description = '';
   late String _photoUrl = '';
@@ -104,6 +105,42 @@ class _UserProfileWidgetState extends State<UserProfileWidget> {
 
     await generalController.uploadData();
     await generalController.deleteall();
+  }
+
+  int pagesReaded = 0;
+  int booksReaded = 0;
+  int rankedBooks = 0;
+  int booksToRead = 0;
+  int percentage = 0;
+
+  void calculatePagesReaded() {
+    int pagesReaded1 = 0;
+    int booksReaded1 = 0;
+    int rankedBooks1 = 0;
+    int booksToRead1 = 0;
+    for (var book in generalcontroller.booksUser) {
+      if (true) {
+        if (book.pagesreaded != 0) {
+          pagesReaded1 += book.pagesreaded;
+          booksReaded1 += 1;
+        } else {
+          booksToRead1 += 1;
+        }
+        if (book.starts != 0) {
+          rankedBooks1 += 1;
+        }
+      }
+    }
+    pagesReaded = pagesReaded1;
+    booksReaded = booksReaded1;
+    rankedBooks = rankedBooks1;
+    booksToRead = booksToRead1;
+
+    if (booksReaded != 0) {
+      percentage = ((booksReaded / (booksReaded + booksToRead)) * 100).round();
+    } else {
+      percentage = 0;
+    }
   }
 
   @override
@@ -236,8 +273,16 @@ class _UserProfileWidgetState extends State<UserProfileWidget> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        _buildIconButton(Icons.track_changes, 'Tracker',
-                            () => Get.to(() => ReadingDashboardWidget())),
+                        _buildIconButton(
+                            Icons.track_changes,
+                            'Tracker',
+                            () => Get.to(() => ReadingDashboardWidget(),
+                                    arguments: [
+                                      pagesReaded,
+                                      booksReaded,
+                                      rankedBooks,
+                                      booksToRead
+                                    ])),
                         _buildIconButton(Icons.access_alarm, 'Alarm',
                             () => Get.to(MyAlarmW())),
                       ],
