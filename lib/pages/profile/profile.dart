@@ -247,7 +247,7 @@ class _UserProfileWidgetState extends State<UserProfileWidget> {
                         _buildIconButton(
                             Icons.note, 'Notes', () => {Get.to(NoteWidget())}),
                         _buildIconButton(Icons.access_alarm, 'Alarm',
-                            () => Get.to(() => BookAlarmsScreen())),
+                            () => Get.to(MyAlarmW())),
                       ],
                     ),
                     SizedBox(height: 20),

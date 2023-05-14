@@ -7,7 +7,7 @@ import 'package:cupertino_icons/cupertino_icons.dart';
 import 'package:bookmeup/datasources/remote/bookremoteapi.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
-
+import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class BookListAddWidget extends StatefulWidget {
@@ -55,7 +55,7 @@ class _BookListAddWidgetState extends State<BookListAddWidget> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Color(0xFFd3defc),
       body: SafeArea(
         child: Container(
           padding: EdgeInsets.symmetric(vertical: 30, horizontal: 20),
@@ -64,18 +64,43 @@ class _BookListAddWidgetState extends State<BookListAddWidget> {
             children: [
               Row(
                 children: [
-                  Icon(Icons.search),
                   Expanded(
-                    child: TextField(
-                      controller: _searchController,
-                      decoration: InputDecoration(
-                        hintText: 'Search for a book',
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(20),
                       ),
-                      onChanged: (query) {
-                        setState(() {
-                          futureBooks = fetchBooks(query);
-                        });
-                      },
+                      child: Row(
+                        children: [
+                          SizedBox(width: 10),
+                          Icon(Icons.search, color: Colors.grey),
+                          SizedBox(width: 10),
+                          Expanded(
+                            child: TextField(
+                              controller: _searchController,
+                              decoration: InputDecoration(
+                                hintText: 'Search for a book',
+                                hintStyle: TextStyle(
+                                  color: Colors.grey,
+                                  fontSize: 16,
+                                ),
+                                border: InputBorder.none,
+                                contentPadding:
+                                    EdgeInsets.symmetric(horizontal: 10),
+                              ),
+                              style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 16,
+                              ),
+                              onChanged: (query) {
+                                setState(() {
+                                  futureBooks = fetchBooks(query);
+                                });
+                              },
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ],
@@ -84,7 +109,7 @@ class _BookListAddWidgetState extends State<BookListAddWidget> {
               Expanded(
                 child: Container(
                   decoration: BoxDecoration(
-                    color: Colors.grey[200],
+                    color: Colors.white,
                     borderRadius: BorderRadius.circular(20),
                   ),
                   padding: EdgeInsets.all(20),
@@ -93,10 +118,13 @@ class _BookListAddWidgetState extends State<BookListAddWidget> {
                     children: [
                       Text(
                         'Book List',
-                        style: TextStyle(
-                          fontSize: 24,
+                        style: GoogleFonts.quicksand(
+                            textStyle: TextStyle(
+                          color: Color(0xFF5074C3),
+                          fontSize: 26,
+                          letterSpacing: -0.54,
                           fontWeight: FontWeight.bold,
-                        ),
+                        )),
                       ),
                       SizedBox(height: 20),
                       Expanded(
@@ -125,9 +153,26 @@ class _BookListAddWidgetState extends State<BookListAddWidget> {
                                     description = description.substring(0, 200);
                                   }
                                   return ListTile(
-                                    title: Text(title),
-                                    subtitle:
-                                        Text('$author | $pageCount pages'),
+                                    title: Text(
+                                      title,
+                                      style: GoogleFonts.quicksand(
+                                          textStyle: TextStyle(
+                                        color: Colors.black,
+                                        fontSize: 15,
+                                        letterSpacing: -0.54,
+                                        fontWeight: FontWeight.bold,
+                                      )),
+                                    ),
+                                    subtitle: Text(
+                                      '$author | $pageCount pages',
+                                      style: GoogleFonts.quicksand(
+                                          textStyle: TextStyle(
+                                        color: Colors.grey,
+                                        fontSize: 15,
+                                        letterSpacing: -0.54,
+                                        fontWeight: FontWeight.bold,
+                                      )),
+                                    ),
                                     trailing: Icon(Icons.arrow_forward),
                                     onTap: () async {
                                       final prefs =

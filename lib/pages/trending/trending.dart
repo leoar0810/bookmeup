@@ -50,12 +50,16 @@ class _TrendingWidget extends State<TrendingWidget> {
             Container(
               height: MediaQuery.of(context).size.height * 0.55,
               width: double.infinity,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(20),
+              ),
               child: Stack(
                 fit: StackFit.expand,
                 children: [
                   Image.network(
                     'https://images.unsplash.com/photo-1519307212971-dd9561667ffb?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8cGFyZWphJTIwZW4lMjBsYSUyMHBsYXlhfGVufDB8fDB8fA%3D%3D&w=1000&q=80',
                     fit: BoxFit.cover,
+                    // border radius
                   ),
                   Positioned(
                     top: 20,
