@@ -8,6 +8,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:bookmeup/index.dart';
 import 'package:bookmeup/datasources/local/local_datasource.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class UserProfileWidget extends StatefulWidget {
   const UserProfileWidget({Key? key}) : super(key: key);
@@ -47,7 +48,7 @@ class _UserProfileWidgetState extends State<UserProfileWidget> {
       _username = name;
       _description = description;
       _photoUrl =
-          "https://i.pinimg.com/originals/a6/58/32/a65832155622ac173337874f02b218fb.png";
+          "https://this-person-does-not-exist.com/img/avatar-gen11b4cc74f765e731cb1bbd603713094c.jpg";
     });
   }
 
@@ -123,13 +124,15 @@ class _UserProfileWidgetState extends State<UserProfileWidget> {
       appBar: AppBar(
         backgroundColor: Colors.white,
         centerTitle: true,
-        title: const Text(
+        title: Text(
           'Bookmeup',
-          style: TextStyle(
+          style: GoogleFonts.quicksand(
+              textStyle: TextStyle(
+            color: Color(0xFF5074C3),
             fontSize: 30,
+            letterSpacing: -0.54,
             fontWeight: FontWeight.bold,
-            color: Colors.black,
-          ),
+          )),
         ),
         actions: [
           IconButton(
@@ -139,7 +142,7 @@ class _UserProfileWidgetState extends State<UserProfileWidget> {
             },
             icon: Icon(
               Icons.exit_to_app,
-              color: Colors.black,
+              color: Color(0xFF5074C3),
             ),
           ),
         ],
@@ -167,8 +170,8 @@ class _UserProfileWidgetState extends State<UserProfileWidget> {
                     ],
                     gradient: LinearGradient(
                       colors: [
-                        Color.fromARGB(255, 10, 13, 218),
-                        Color.fromARGB(255, 111, 160, 252)
+                        Color(0xFFD3DEFC),
+                        Colors.white,
                       ],
                       begin: Alignment.topLeft,
                       end: Alignment.bottomRight,
@@ -195,15 +198,24 @@ class _UserProfileWidgetState extends State<UserProfileWidget> {
                     children: [
                       Text(
                         _username,
-                        style: TextStyle(
-                          fontSize: 24,
+                        style: GoogleFonts.quicksand(
+                            textStyle: TextStyle(
+                          color: Color(0xFF5074C3),
+                          fontSize: 25,
+                          letterSpacing: -0.54,
                           fontWeight: FontWeight.bold,
-                        ),
+                        )),
                       ),
                       SizedBox(height: 10),
                       Text(
                         _description,
-                        style: TextStyle(fontSize: 16),
+                        style: GoogleFonts.quicksand(
+                            textStyle: TextStyle(
+                          color: Colors.black,
+                          fontSize: 20,
+                          letterSpacing: -0.54,
+                          fontWeight: FontWeight.bold,
+                        )),
                       ),
                     ],
                   ),
@@ -224,28 +236,8 @@ class _UserProfileWidgetState extends State<UserProfileWidget> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        _buildIconButton(
-                            Icons.bookmark,
-                            'Bookmark',
-                            () => {
-                                  for (FriendModel friend
-                                      in generalController.friends)
-                                    {print(friend.id)}
-                                }),
                         _buildIconButton(Icons.track_changes, 'Tracker',
                             () => Get.to(() => ReadingDashboardWidget())),
-                        _buildIconButton(Icons.highlight, 'Highlights',
-                            () => Get.to(HighlightWidget())),
-                      ],
-                    ),
-                    SizedBox(height: 20),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        _buildIconButton(Icons.favorite, 'Favorites',
-                            () => Get.to(FavoriteWidget())),
-                        _buildIconButton(
-                            Icons.note, 'Notes', () => {Get.to(NoteWidget())}),
                         _buildIconButton(Icons.access_alarm, 'Alarm',
                             () => Get.to(MyAlarmW())),
                       ],
@@ -272,14 +264,20 @@ class _UserProfileWidgetState extends State<UserProfileWidget> {
           },
           icon: Icon(
             iconData,
-            size: 20,
-            color: Colors.blue,
+            size: 30,
+            color: Color(0xFF5074C3),
           ),
         ),
-        SizedBox(height: 0),
+        SizedBox(height: 10),
         Text(
           text,
-          style: TextStyle(fontSize: 12),
+          style: GoogleFonts.quicksand(
+              textStyle: TextStyle(
+            color: Color(0xFF5074C3),
+            fontSize: 14,
+            letterSpacing: -0.54,
+            fontWeight: FontWeight.bold,
+          )),
         ),
       ],
     );

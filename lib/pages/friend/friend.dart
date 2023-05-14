@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:bookmeup/db/models/BooksUsersModel.dart';
 import 'package:bookmeup/db/models/FriendModel.dart';
 import 'package:bookmeup/db/models/userModel.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import '../../index.dart';
 
@@ -71,7 +72,24 @@ class _FriendsBooksWidgetState extends State<FriendsBooksWidget> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('User List'),
+        title: Text(
+          'User List',
+          style: GoogleFonts.quicksand(
+              textStyle: TextStyle(
+            color: Color(0xFF5074C3),
+            fontSize: 25,
+            letterSpacing: -0.54,
+            fontWeight: FontWeight.bold,
+          )),
+        ),
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back_ios),
+          color: Color(0xFF5074C3),
+          onPressed: () {
+            Get.back();
+          },
+        ),
+        backgroundColor: Color(0xFFd3defc),
       ),
       body: Row(
         children: [
@@ -81,7 +99,16 @@ class _FriendsBooksWidgetState extends State<FriendsBooksWidget> {
               itemBuilder: (context, index) {
                 final user = _users[index];
                 return ListTile(
-                  title: Text(user),
+                  title: Text(
+                    user,
+                    style: GoogleFonts.quicksand(
+                        textStyle: TextStyle(
+                      color: Color(0xFF5074C3),
+                      fontSize: 20,
+                      letterSpacing: -0.54,
+                      fontWeight: FontWeight.bold,
+                    )),
+                  ),
                   onTap: () {
                     setState(() {
                       _selectedUser = user;
@@ -98,8 +125,26 @@ class _FriendsBooksWidgetState extends State<FriendsBooksWidget> {
                 itemBuilder: (context, index) {
                   final book = _books[_selectedUser]![index];
                   return ListTile(
-                    title: Text(book['title']!),
-                    subtitle: Text(book['description']!),
+                    title: Text(
+                      book['title']!,
+                      style: GoogleFonts.quicksand(
+                          textStyle: TextStyle(
+                        color: Colors.black,
+                        fontSize: 16,
+                        letterSpacing: -0.54,
+                        fontWeight: FontWeight.bold,
+                      )),
+                    ),
+                    subtitle: Text(
+                      book['description']!,
+                      style: GoogleFonts.quicksand(
+                          textStyle: TextStyle(
+                        color: Colors.grey,
+                        fontSize: 14,
+                        letterSpacing: -0.54,
+                        fontWeight: FontWeight.bold,
+                      )),
+                    ),
                   );
                 },
               ),
