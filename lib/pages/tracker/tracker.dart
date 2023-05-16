@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:bookmeup/widgets/navigationbar.dart';
 import 'package:bookmeup/controllers/generalcontroller.dart';
 import 'package:bookmeup/index.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class ReadingDashboardWidget extends StatelessWidget {
   GeneralController generalController = Get.find();
@@ -22,18 +23,20 @@ class ReadingDashboardWidget extends StatelessWidget {
         elevation: 0,
         leading: IconButton(
           icon: Icon(Icons.arrow_back_ios),
-          color: Colors.black,
+          color: Color(0xFF5074C3),
           onPressed: () {
             Get.back();
           },
         ),
         title: Text(
           'Bookmeup',
-          style: TextStyle(
-            color: Colors.black,
+          style: GoogleFonts.quicksand(
+              textStyle: TextStyle(
+            fontSize: 30,
+            color: Color(0xFF5074C3),
+            letterSpacing: -0.54,
             fontWeight: FontWeight.bold,
-            fontSize: 30.0,
-          ),
+          )),
         ),
       ),
       body: SafeArea(
@@ -43,9 +46,14 @@ class ReadingDashboardWidget extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                'Pages readed',
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
+                'Pages in reading',
+                style: GoogleFonts.quicksand(
+                  textStyle: TextStyle(
+                    fontSize: 18,
+                    color: Colors.black,
+                    letterSpacing: -0.54,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ),
               SizedBox(height: 10),
@@ -54,7 +62,14 @@ class ReadingDashboardWidget extends StatelessWidget {
                 children: [
                   Text(
                     pagesReaded.toString(),
-                    style: TextStyle(fontSize: 36.0),
+                    style: GoogleFonts.quicksand(
+                      textStyle: TextStyle(
+                        fontSize: 36,
+                        color: Colors.black,
+                        letterSpacing: -0.54,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
                   ),
                   SizedBox(height: 20),
                 ],
@@ -64,14 +79,24 @@ class ReadingDashboardWidget extends StatelessWidget {
                 children: [
                   Text(
                     'Number of books to read',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
+                    style: GoogleFonts.quicksand(
+                      textStyle: TextStyle(
+                        fontSize: 16,
+                        color: Colors.black,
+                        letterSpacing: -0.54,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                   ),
                   Text(
                     booksToRead.toString(),
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
+                    style: GoogleFonts.quicksand(
+                      textStyle: TextStyle(
+                        fontSize: 16,
+                        color: Colors.black,
+                        letterSpacing: -0.54,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                   ),
                 ],
@@ -93,19 +118,27 @@ class ReadingDashboardWidget extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Text(
-                              'books readed',
+                              'books in reading',
                               textAlign: TextAlign.center,
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
+                              style: GoogleFonts.quicksand(
+                                textStyle: TextStyle(
+                                  fontSize: 23,
+                                  color: Colors.black,
+                                  letterSpacing: -0.54,
+                                  fontWeight: FontWeight.bold,
+                                ),
                               ),
                             ),
                             SizedBox(height: 20),
                             Text(
                               booksReaded.toString(),
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 30,
-                                color: Colors.blue,
+                              style: GoogleFonts.quicksand(
+                                textStyle: TextStyle(
+                                  fontSize: 30,
+                                  color: Colors.blue,
+                                  letterSpacing: -0.54,
+                                  fontWeight: FontWeight.bold,
+                                ),
                               ),
                             ),
                           ],
@@ -127,17 +160,25 @@ class ReadingDashboardWidget extends StatelessWidget {
                             Text(
                               'books ranked',
                               textAlign: TextAlign.center,
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
+                              style: GoogleFonts.quicksand(
+                                textStyle: TextStyle(
+                                  fontSize: 23,
+                                  color: Colors.black,
+                                  letterSpacing: -0.54,
+                                  fontWeight: FontWeight.bold,
+                                ),
                               ),
                             ),
                             SizedBox(height: 20),
                             Text(
                               rankedBooks.toString(),
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 30,
-                                color: Colors.purple,
+                              style: GoogleFonts.quicksand(
+                                textStyle: TextStyle(
+                                  fontSize: 30,
+                                  color: Colors.purple,
+                                  letterSpacing: -0.54,
+                                  fontWeight: FontWeight.bold,
+                                ),
                               ),
                             ),
                           ],

@@ -2,6 +2,7 @@ import 'package:bookmeup/db/models/BooksUsersModel.dart';
 import 'package:flutter/material.dart';
 import 'package:bookmeup/index.dart';
 import 'package:bookmeup/widgets/navigationbar.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class RankbookScreen extends StatefulWidget {
   final String imageUrl;
@@ -47,16 +48,18 @@ class _RankbookScreenState extends State<RankbookScreen> {
         backgroundColor: Colors.white,
         elevation: 0,
         leading: IconButton(
-          icon: Icon(Icons.arrow_back_ios_new, color: Colors.black),
+          icon: Icon(Icons.arrow_back_ios_new, color: Color(0xFF5074C3)),
           onPressed: () => Navigator.pop(context),
         ),
         title: Text(
           'Bookmeup',
-          style: TextStyle(
+          style: GoogleFonts.quicksand(
+              textStyle: TextStyle(
             fontSize: 30,
+            color: Color(0xFF5074C3),
+            letterSpacing: -0.54,
             fontWeight: FontWeight.bold,
-            color: Colors.black,
-          ),
+          )),
         ),
         centerTitle: true,
       ),
@@ -71,11 +74,13 @@ class _RankbookScreenState extends State<RankbookScreen> {
               ),
               Text(
                 'Book Finished!',
-                style: TextStyle(
+                style: GoogleFonts.quicksand(
+                    textStyle: TextStyle(
                   fontSize: 24,
-                  fontWeight: FontWeight.bold,
                   color: Colors.black,
-                ),
+                  letterSpacing: -0.54,
+                  fontWeight: FontWeight.bold,
+                )),
               ),
               SizedBox(height: 16),
               Container(
@@ -92,18 +97,25 @@ class _RankbookScreenState extends State<RankbookScreen> {
               SizedBox(height: 16),
               Text(
                 'You have earned the Rookie badge.',
-                style: TextStyle(fontSize: 18, color: Colors.black),
+                style: GoogleFonts.quicksand(
+                    textStyle: TextStyle(
+                  fontSize: 18,
+                  color: Colors.black,
+                  letterSpacing: -0.54,
+                )),
               ),
               Spacer(),
               Column(
                 children: [
                   Text(
                     'Review',
-                    style: TextStyle(
+                    style: GoogleFonts.quicksand(
+                        textStyle: TextStyle(
                       fontSize: 24,
-                      fontWeight: FontWeight.bold,
                       color: Colors.black,
-                    ),
+                      letterSpacing: -0.54,
+                      fontWeight: FontWeight.bold,
+                    )),
                   ),
                   SizedBox(height: 16),
                   Row(
@@ -163,13 +175,15 @@ class _RankbookScreenState extends State<RankbookScreen> {
                       },
                       child: Text(
                         'Submit Review',
-                        style: TextStyle(
+                        style: GoogleFonts.quicksand(
+                            textStyle: TextStyle(
                           fontSize: 18,
+                          letterSpacing: -0.54,
                           fontWeight: FontWeight.bold,
-                        ),
+                        )),
                       ),
                       style: ElevatedButton.styleFrom(
-                        primary: Colors.black,
+                        primary: Color(0xFF5074C3),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(20),
                         ),

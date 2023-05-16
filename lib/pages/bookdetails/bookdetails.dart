@@ -3,6 +3,7 @@ import 'package:bookmeup/index.dart';
 import 'package:flutter/material.dart';
 import 'package:bookmeup/widgets/navigationbar.dart';
 import 'package:bookmeup/helpers/book.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class BookDetailsWidget extends StatelessWidget {
   BookDetailsWidget();
@@ -32,15 +33,18 @@ class BookDetailsWidget extends StatelessWidget {
                   children: [
                     GestureDetector(
                       onTap: () => Navigator.pop(context),
-                      child: Icon(Icons.arrow_back_ios_new),
+                      child: Icon(Icons.arrow_back_ios_new,
+                          color: Color(0xFF5074C3)),
                     ),
                     Text(
                       'Bookmeup',
-                      style: TextStyle(
-                        fontSize: 30,
+                      style: GoogleFonts.quicksand(
+                          textStyle: TextStyle(
+                        color: Color(0xFF5074C3),
+                        fontSize: 28,
+                        letterSpacing: -0.54,
                         fontWeight: FontWeight.bold,
-                        color: Colors.black,
-                      ),
+                      )),
                     ),
                     SizedBox(width: 40),
                   ],
@@ -60,20 +64,26 @@ class BookDetailsWidget extends StatelessWidget {
                         children: [
                           Text(
                             book.title,
-                            style: TextStyle(
+                            style: GoogleFonts.quicksand(
+                                textStyle: TextStyle(
                               fontSize: 24,
+                              letterSpacing: -0.54,
                               fontWeight: FontWeight.bold,
-                            ),
+                            )),
                           ),
                           SizedBox(height: 20),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text(
-                                'Author: ${book.author}',
-                                style: TextStyle(
+                                'Author:',
+                                style: GoogleFonts.quicksand(
+                                    textStyle: TextStyle(
                                   fontSize: 18,
-                                ),
+                                  color: Color(0xFF5074C3),
+                                  letterSpacing: -0.54,
+                                  fontWeight: FontWeight.bold,
+                                )),
                               ),
                               Row(
                                 children: List.generate(
@@ -88,21 +98,42 @@ class BookDetailsWidget extends StatelessWidget {
                             ],
                           ),
                           SizedBox(height: 20),
+                          Row(
+                            children: [
+                              Text(
+                                '${book.author}',
+                                style: GoogleFonts.quicksand(
+                                    textStyle: TextStyle(
+                                  fontSize: 18,
+                                  letterSpacing: -0.54,
+                                  fontWeight: FontWeight.bold,
+                                )),
+                              ),
+                            ],
+                          ),
+                          SizedBox(height: 20),
                           Text(
                             'Description:',
-                            style: TextStyle(
+                            style: GoogleFonts.quicksand(
+                                textStyle: TextStyle(
+                              color: Color(0xFF5074C3),
                               fontSize: 18,
+                              letterSpacing: -0.54,
                               fontWeight: FontWeight.bold,
-                            ),
+                            )),
                           ),
                           SizedBox(height: 8),
                           new SingleChildScrollView(
                               scrollDirection: Axis.vertical, //.horizontal
                               child: new Text(
                                 book.description,
-                                style: TextStyle(
+                                style: GoogleFonts.quicksand(
+                                    textStyle: TextStyle(
+                                  color: Colors.black,
                                   fontSize: 18,
-                                ),
+                                  letterSpacing: -0.54,
+                                  fontWeight: FontWeight.bold,
+                                )),
                               )),
                           Spacer(),
                           SizedBox(height: 20),
@@ -123,13 +154,15 @@ class BookDetailsWidget extends StatelessWidget {
                       },
                       child: Text(
                         'Add to list',
-                        style: TextStyle(
+                        style: GoogleFonts.quicksand(
+                            textStyle: TextStyle(
                           fontSize: 20,
+                          letterSpacing: -0.54,
                           fontWeight: FontWeight.bold,
-                        ),
+                        )),
                       ),
                       style: ElevatedButton.styleFrom(
-                        primary: Colors.black,
+                        primary: Color(0xFF5074C3),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(20),
                         ),

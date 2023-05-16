@@ -66,9 +66,8 @@ class _UserListState extends State<UserList> {
             Expanded(
               child: Container(
                 margin: EdgeInsets.symmetric(horizontal: 20, vertical: 40),
-                padding: EdgeInsets.all(15),
                 decoration: BoxDecoration(
-                  color: Colors.white,
+                  color: Colors.transparent,
                   borderRadius: BorderRadius.circular(15),
                 ),
                 child: StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
@@ -84,51 +83,77 @@ class _UserListState extends State<UserList> {
 
                     final users = snapshot.data!.docs;
 
-                    return ListView.builder(
-                      itemCount: users.length,
-                      itemBuilder: (context, index) {
-                        final user = users[index];
-                        final userData = user.data();
+                    return Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: ListView.separated(
+                        itemCount: users.length,
+                        separatorBuilder: (BuildContext context, int index) =>
+                            SizedBox(height: 0),
+                        itemBuilder: (context, index) {
+                          final user = users[index];
+                          final userData = user.data();
 
-                        // Get the user ID from the document reference
-                        final userId = user.reference.id;
-                        if (userData['id'] !=
-                            FirebaseAuth.instance.currentUser!.uid) {
-                          print(userId);
-                          print(FirebaseAuth.instance.currentUser!.uid);
-                          return ListTile(
-                            title: Text(
-                              userData['name'],
-                              style: GoogleFonts.quicksand(
-                                  textStyle: TextStyle(
-                                color: Colors.black,
-                                fontSize: 15,
-                                letterSpacing: -0.54,
-                                fontWeight: FontWeight.bold,
-                              )),
-                            ),
-                            subtitle: Text(
-                              userData['description'],
-                              style: GoogleFonts.quicksand(
-                                  textStyle: TextStyle(
-                                color: Colors.grey,
-                                fontSize: 15,
-                                letterSpacing: -0.54,
-                                fontWeight: FontWeight.bold,
-                              )),
-                            ),
-                            onTap: () {
-                              FriendModel friend = FriendModel(
-                                  id: FirebaseAuth.instance.currentUser!.uid,
-                                  friendid: userData['id']);
-                              generalController.insertFriend(friend);
-                              print(userId);
-                            },
-                          );
-                        } else {
-                          return Container();
-                        }
-                      },
+                          // Get the user ID from the document reference
+                          final userId = user.reference.id;
+                          if (userData['id'] !=
+                              FirebaseAuth.instance.currentUser!.uid) {
+                            print(userId);
+                            print(FirebaseAuth.instance.currentUser!.uid);
+                            return Card(
+                              elevation: 4,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(15),
+                              ),
+                              child: ListTile(
+                                title: Text(
+                                  userData['name'],
+                                  style: GoogleFonts.quicksand(
+                                      textStyle: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 15,
+                                    letterSpacing: -0.54,
+                                    fontWeight: FontWeight.bold,
+                                  )),
+                                ),
+                                subtitle: Text(
+                                  userData['description'],
+                                  style: GoogleFonts.quicksand(
+                                      textStyle: TextStyle(
+                                    color: Colors.grey,
+                                    fontSize: 15,
+                                    letterSpacing: -0.54,
+                                    fontWeight: FontWeight.bold,
+                                  )),
+                                ),
+                                onTap: () {
+                                  FriendModel friend = FriendModel(
+                                      id: FirebaseAuth
+                                          .instance.currentUser!.uid,
+                                      friendid: userData['id']);
+                                  generalController.insertFriend(friend);
+                                  print(userId);
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(
+                                      content:
+                                          Text('Friend added successfully!'),
+                                      duration: Duration(seconds: 2),
+                                    ),
+                                  );
+                                  setState(() {
+                                    users.removeAt(
+                                        index); // Elimina el usuario de la lista
+                                  });
+                                },
+                              ),
+                            );
+                          } else {
+                            //we will return a widget which does not occupy space
+                            return Container(
+                              height: 0,
+                            );
+                          }
+                        },
+                      ),
                     );
                   },
                 ),

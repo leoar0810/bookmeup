@@ -3,6 +3,7 @@ import 'package:bookmeup/db/models/BooksUsersModel.dart';
 import 'package:flutter/material.dart';
 import 'package:bookmeup/widgets/navigationbar.dart';
 import 'package:bookmeup/index.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class BookWidget extends StatefulWidget {
   const BookWidget({Key? key}) : super(key: key);
@@ -31,6 +32,7 @@ class _BookWidgetState extends State<BookWidget> {
     _descriptionController.text = data.description;
 
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       backgroundColor: Colors.white,
       body: SafeArea(
         child: Padding(
@@ -41,23 +43,36 @@ class _BookWidgetState extends State<BookWidget> {
               SizedBox(height: 30),
               Text(
                 data.title,
-                style: TextStyle(
-                  fontSize: 24,
+                style: GoogleFonts.quicksand(
+                    textStyle: TextStyle(
+                  color: Color(0xFF5074C3),
+                  fontSize: 28,
+                  letterSpacing: -0.54,
                   fontWeight: FontWeight.bold,
-                ),
+                )),
               ),
               SizedBox(height: 10),
               Text(
                 'by ${data.author}',
-                style: TextStyle(
+                style: GoogleFonts.quicksand(
+                    textStyle: TextStyle(
+                  color: Colors.black,
                   fontSize: 16,
-                ),
+                  letterSpacing: -0.54,
+                  fontWeight: FontWeight.bold,
+                )),
               ),
               SizedBox(height: 40),
               TextField(
                 controller: _ratingController,
                 decoration: InputDecoration(
                   hintText: 'Enter pages readed',
+                  hintStyle: GoogleFonts.quicksand(
+                      textStyle: TextStyle(
+                    fontSize: 16,
+                    letterSpacing: -0.54,
+                    fontWeight: FontWeight.bold,
+                  )),
                   border: OutlineInputBorder(),
                 ),
                 keyboardType: TextInputType.number,
@@ -67,6 +82,12 @@ class _BookWidgetState extends State<BookWidget> {
                 controller: _descriptionController,
                 decoration: InputDecoration(
                   hintText: 'Enter book description',
+                  hintStyle: GoogleFonts.quicksand(
+                      textStyle: TextStyle(
+                    fontSize: 16,
+                    letterSpacing: -0.54,
+                    fontWeight: FontWeight.bold,
+                  )),
                   border: OutlineInputBorder(),
                 ),
                 maxLines: 5,
@@ -84,13 +105,15 @@ class _BookWidgetState extends State<BookWidget> {
                 },
                 child: Text(
                   'Update Book',
-                  style: TextStyle(
+                  style: GoogleFonts.quicksand(
+                      textStyle: TextStyle(
                     fontSize: 20,
+                    letterSpacing: -0.54,
                     fontWeight: FontWeight.bold,
-                  ),
+                  )),
                 ),
                 style: ElevatedButton.styleFrom(
-                  primary: Colors.black,
+                  primary: Color(0xFF5074C3),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(20),
                   ),
@@ -109,10 +132,13 @@ class _BookWidgetState extends State<BookWidget> {
                 },
                 child: Text(
                   'Already read this book? Rank it!',
-                  style: TextStyle(
-                    color: Colors.grey[600],
+                  style: GoogleFonts.quicksand(
+                      textStyle: TextStyle(
                     fontSize: 16,
-                  ),
+                    color: Colors.grey[600],
+                    letterSpacing: -0.54,
+                    fontWeight: FontWeight.bold,
+                  )),
                 ),
               ),
             ],
