@@ -36,8 +36,58 @@ class _LoginPageState extends State<LoginPage> {
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
         print('No user found for that email.');
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(
+              'User d',
+              style: GoogleFonts.quicksand(
+                  textStyle: TextStyle(
+                color: Colors.white,
+                fontSize: 15,
+                letterSpacing: -0.54,
+                fontWeight: FontWeight.bold,
+              )),
+            ),
+            duration: Duration(seconds: 2),
+            backgroundColor: Color(0xFF5074C3),
+          ),
+        );
       } else if (e.code == 'wrong-password') {
         print('Wrong password provided for that user.');
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(
+              'wrong password provided for that user',
+              style: GoogleFonts.quicksand(
+                  textStyle: TextStyle(
+                color: Colors.white,
+                fontSize: 15,
+                letterSpacing: -0.54,
+                fontWeight: FontWeight.bold,
+              )),
+            ),
+            duration: Duration(seconds: 2),
+            backgroundColor: Color(0xFF5074C3),
+          ),
+        );
+      } else {
+        print(e.code);
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(
+              'Something went wrong',
+              style: GoogleFonts.quicksand(
+                  textStyle: TextStyle(
+                color: Colors.white,
+                fontSize: 15,
+                letterSpacing: -0.54,
+                fontWeight: FontWeight.bold,
+              )),
+            ),
+            duration: Duration(seconds: 2),
+            backgroundColor: Color(0xFF5074C3),
+          ),
+        );
       }
     }
   }

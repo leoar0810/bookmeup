@@ -134,9 +134,18 @@ class _UserListState extends State<UserList> {
                                   print(userId);
                                   ScaffoldMessenger.of(context).showSnackBar(
                                     SnackBar(
-                                      content:
-                                          Text('Friend added successfully!'),
+                                      content: Text(
+                                        'Friend added successfully!',
+                                        style: GoogleFonts.quicksand(
+                                            textStyle: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 15,
+                                          letterSpacing: -0.54,
+                                          fontWeight: FontWeight.bold,
+                                        )),
+                                      ),
                                       duration: Duration(seconds: 2),
+                                      backgroundColor: Color(0xFF5074C3),
                                     ),
                                   );
                                   setState(() {
