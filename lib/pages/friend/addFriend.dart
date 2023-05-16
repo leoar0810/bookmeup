@@ -3,6 +3,7 @@ import 'package:bookmeup/db/models/FriendModel.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get_connect/http/src/utils/utils.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../index.dart';
@@ -91,36 +92,42 @@ class _UserListState extends State<UserList> {
 
                         // Get the user ID from the document reference
                         final userId = user.reference.id;
-
-                        return ListTile(
-                          title: Text(
-                            userData['name'],
-                            style: GoogleFonts.quicksand(
-                                textStyle: TextStyle(
-                              color: Colors.black,
-                              fontSize: 15,
-                              letterSpacing: -0.54,
-                              fontWeight: FontWeight.bold,
-                            )),
-                          ),
-                          subtitle: Text(
-                            userData['description'],
-                            style: GoogleFonts.quicksand(
-                                textStyle: TextStyle(
-                              color: Colors.grey,
-                              fontSize: 15,
-                              letterSpacing: -0.54,
-                              fontWeight: FontWeight.bold,
-                            )),
-                          ),
-                          onTap: () {
-                            FriendModel friend = FriendModel(
-                                id: FirebaseAuth.instance.currentUser!.uid,
-                                friendid: userData['id']);
-                            generalController.insertFriend(friend);
-                            print(userId);
-                          },
-                        );
+                        if (userData['id'] !=
+                            FirebaseAuth.instance.currentUser!.uid) {
+                          print(userId);
+                          print(FirebaseAuth.instance.currentUser!.uid);
+                          return ListTile(
+                            title: Text(
+                              userData['name'],
+                              style: GoogleFonts.quicksand(
+                                  textStyle: TextStyle(
+                                color: Colors.black,
+                                fontSize: 15,
+                                letterSpacing: -0.54,
+                                fontWeight: FontWeight.bold,
+                              )),
+                            ),
+                            subtitle: Text(
+                              userData['description'],
+                              style: GoogleFonts.quicksand(
+                                  textStyle: TextStyle(
+                                color: Colors.grey,
+                                fontSize: 15,
+                                letterSpacing: -0.54,
+                                fontWeight: FontWeight.bold,
+                              )),
+                            ),
+                            onTap: () {
+                              FriendModel friend = FriendModel(
+                                  id: FirebaseAuth.instance.currentUser!.uid,
+                                  friendid: userData['id']);
+                              generalController.insertFriend(friend);
+                              print(userId);
+                            },
+                          );
+                        } else {
+                          return Container();
+                        }
                       },
                     );
                   },
